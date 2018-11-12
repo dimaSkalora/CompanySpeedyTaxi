@@ -430,5 +430,3 @@ COMMENT ON COLUMN cst.bank_card_salary.spending_money
 COMMENT ON COLUMN cst.bank_card_salary.money_balance
   IS 'Всего денег на банковськой карте';
 
-
-
