@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS cst.taxi_user_vehicle_info;
 DROP TABLE IF EXISTS cst.taxi_job_status;
 DROP TABLE IF EXISTS cst.departments_company;
 DROP TABLE IF EXISTS cst.payroll_accounting;
+DROP TABLE IF EXISTS cst.pay_sheet;
 
 DROP SEQUENCE cst.global_seq;
 
@@ -514,4 +515,67 @@ COMMENT ON COLUMN cst.payroll_accounting.payout
   IS ''Выплата'';
 COMMENT ON COLUMN cst.payroll_accounting.sum_payout_month
   IS ''Всего выплачено за месяц'';
+
+---------------pay_sheet---------------25
+CREATE TABLE cst.pay_sheet
+(
+  id                             INTEGER PRIMARY KEY,
+  id_user                        INTEGER NOT NULL,
+  id_bank_card                   INTEGER NOT NULL,
+  id_departmen_company           INTEGER NOT NULL,
+  month_year                     VARCHAR NOT NULL,
+  prepayment                     DECIMAL NOT NULL,
+  salary                         DECIMAL NOT NULL,
+  premium                        DECIMAL NOT NULL,
+  hospitals                      DECIMAL NOT NULL,
+  holiday                        DECIMAL NOT NULL,
+  amount_without_taxes           DECIMAL NOT NULL,
+  ndfl                           DECIMAL NOT NULL,
+  esv                            DECIMAL NOT NULL,
+  vs                             DECIMAL NOT NULL,
+  amount_with_texas              DECIMAL NOT NULL,
+  norm_hours_worked              INTEGER NOT NULL,
+  hours_worked                   INTEGER NOT NULL,
+  hours_holiday                  INTEGER,
+  FOREIGN KEY (id_departmen_company) REFERENCES cst.departments_company(id),
+  FOREIGN KEY (id_user) REFERENCES cst.users(id),
+  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id),
+);
+COMMENT ON TABLE cst.pay_sheet
+  IS 'Расчетный лист';
+COMMENT ON COLUMN cst.pay_sheet.id_departmens_company
+  IS 'Название отдела';
+COMMENT ON COLUMN cst.pay_sheet.id_user
+  IS 'Юзер';
+COMMENT ON COLUMN cst.pay_sheet.id_bank_card
+  IS 'Банковськая карта юзера';
+COMMENT ON COLUMN cst.pay_sheet.month_year
+  IS 'За какой год и месяц начисляется заробатная плата';
+COMMENT ON COLUMN cst.pay_sheet.prepayment
+  IS 'Аванс';
+COMMENT ON COLUMN cst.pay_sheet.salary
+  IS 'Зарплата';
+COMMENT ON COLUMN cst.pay_sheet.premium
+  IS 'Премия';
+COMMENT ON COLUMN cst.pay_sheet.hospitals
+  IS 'Больничные';
+COMMENT ON COLUMN cst.pay_sheet.holiday
+  IS 'Отпускные';
+COMMENT ON COLUMN cst.pay_sheet.amount_without_taxes
+  IS 'Начислена сумма без налогов';
+COMMENT ON COLUMN cst.pay_sheet.ndfl
+  IS 'Подоходный налог с зарплаты, или налог на доходы физических лиц (НДФЛ) установлен в размере 18-20%.';
+COMMENT ON COLUMN cst.pay_sheet.esv
+  IS 'Единый социальный взнос (ЕСВ). Ставка составляет от 22% до 41% в зависимости от категорий плательщиков и классов риска вида деятельности.';
+COMMENT ON COLUMN cst.pay_sheet.vs
+  IS 'Военный сбор – 1,5%.';
+COMMENT ON COLUMN cst.pay_sheet.amount_with_texas
+  IS 'Начислена сумма с налогами';
+COMMENT ON COLUMN cst.pay_sheet.norm_hours_worked
+  IS 'Норма отработаных часов';
+COMMENT ON COLUMN cst.pay_sheet.hours_worked
+  IS 'Отработаны часы';
+COMMENT ON COLUMN cst.pay_sheet.hours_holiday
+  IS 'Сколько часов был на больничном';
+
 
