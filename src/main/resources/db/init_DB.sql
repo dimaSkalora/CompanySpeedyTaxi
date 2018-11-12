@@ -10,6 +10,13 @@ DROP TABLE IF EXISTS cst.taxi_dispatcher_orders;
 DROP TABLE IF EXISTS cst.taxi_user_orders;
 DROP TABLE IF EXISTS cst.taxi_order_acceptance;
 DROP TABLE IF EXISTS cst.coming_consuption_fuel;
+DROP TABLE IF EXISTS cst.taxi_route_on_orders;
+DROP TABLE IF EXISTS cst.taxi_route;
+DROP TABLE IF EXISTS cst.refilling_car;
+DROP TABLE IF EXISTS cst.type_payment;
+DROP TABLE IF EXISTS cst.bank_card_refueling;
+DROP TABLE IF EXISTS cst.bank_card_driver;
+DROP TABLE IF EXISTS cst.bank_card_salary;
 
 DROP SEQUENCE cst.global_seq;
 
@@ -242,6 +249,186 @@ COMMENT ON COLUMN cst.coming_consuption_fuel.kilometer
   IS 'Сколько километров проехал юзер на ТС';
 COMMENT ON COLUMN cst.coming_consuption_fuel.total_kilometer
   IS 'Сколько всего километов проехал юзер на ТС';
+
+---------------taxi_route_on_orders---------------13
+CREATE TABLE cst.taxi_route_on_orders
+(
+  id                          INTEGER PRIMARY KEY,
+  id_user_vehicle             INTEGER NOT NULL,
+  id_taxi_order_acceptance    INTEGER NOT NULL,
+  landing                     INTEGER NOT NULL,
+  tariff_per_kilometer        INTEGER NOT NULL,
+  distance                    INTEGER NOT NULL,
+  fare_payment                INTEGER NOT NULL,
+  fuel_consuption             INTEGER NOT NULL,
+  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_taxi_order_acceptance) REFERENCES cst.taxi_order_acceptance(id) ON DELETE CASCADE
+);
+COMMENT ON TABLE cst.taxi_route_on_orders
+  IS 'Маршруты по заказам';
+COMMENT ON COLUMN cst.taxi_route_on_orders.landing
+  IS 'Цена за посадку';
+COMMENT ON COLUMN cst.taxi_route_on_orders.tariff_per_kilometer
+  IS 'Тариф за километр';
+COMMENT ON COLUMN cst.taxi_route_on_orders.distance
+  IS 'Растояние маршрута в километрах';
+COMMENT ON COLUMN cst.taxi_route_on_orders.fare_payment
+  IS 'Оплата за проезд';
+COMMENT ON COLUMN cst.taxi_route_on_orders.fuel_consuption
+  IS 'Расход топлива';
+
+---------------taxi_route---------------14
+CREATE TABLE cst.taxi_route
+(
+  id                          INTEGER PRIMARY KEY,
+  id_user_vehicle             INTEGER NOT NULL,
+  departure_point             VARCHAR NOT NULL,
+  arrival_point               VARCHAR NOT NULL,
+  start_date                  TIMESTAMP NOT NULL,
+  end_date                    TIMESTAMP NOT NULL,
+  landing                     INTEGER NOT NULL,
+  tariff_per_kilometer        INTEGER NOT NULL,
+  distance                    INTEGER NOT NULL,
+  fare_payment                INTEGER NOT NULL,
+  fuel_consuption             INTEGER NOT NULL,
+  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
+);
+COMMENT ON TABLE cst.taxi_route
+  IS 'Маршруты';
+COMMENT ON COLUMN cst.taxi_route.departure_point
+  IS 'Пунк отправление';
+COMMENT ON COLUMN cst.taxi_route.arrival_point
+  IS 'Пунк прибытие';
+COMMENT ON COLUMN cst.taxi_route.landing
+  IS 'Цена за посадку';
+COMMENT ON COLUMN cst.taxi_route.tariff_per_kilometer
+  IS 'Тариф за километр';
+COMMENT ON COLUMN cst.taxi_route.distance
+  IS 'Растояние маршрута в километрах';
+COMMENT ON COLUMN cst.taxi_route.fare_payment
+  IS 'Оплата за проезд';
+COMMENT ON COLUMN cst.taxi_route.fuel_consuption
+  IS 'Расход топлива';
+
+---------------refilling_car---------------15
+CREATE TABLE cst.refilling_car
+(
+  id                          INTEGER PRIMARY KEY,
+  id_user_vehicle             INTEGER NOT NULL,
+  date_time                   TIMESTAMP DEFAULT now() NOT NULL,
+  liter                       INTEGER NOT NULL,
+  price_per_liter             DECIMAL NOT NULL,
+  payment_of_refueling        DECIMAL NOT NULL,
+  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
+);
+COMMENT ON TABLE cst.refilling_car
+  IS 'Заправка ТС';
+COMMENT ON COLUMN cst.refilling_car.date_time
+  IS 'Дата и время заправки';
+COMMENT ON COLUMN cst.refilling_car.liter
+  IS 'Литров заправлено';
+COMMENT ON COLUMN cst.refilling_car.price_per_liter
+  IS 'Цена за литр';
+COMMENT ON COLUMN cst.refilling_car.payment_of_refueling
+  IS 'Оплата за дозапраку';
+
+---------------type_payment---------------16
+CREATE TABLE cst.type_payment
+(
+  id                          INTEGER PRIMARY KEY,
+  name_tp                     VARCHAR NOT NULL
+);
+COMMENT ON TABLE cst.type_payment
+  IS 'Тип выплаты';
+COMMENT ON COLUMN cst.refilling_car.date_time
+  IS 'Название выплаты (аванс, зарплата и т.д.)';
+
+---------------bank_card_refueling---------------17
+CREATE TABLE cst.bank_card_refueling
+(
+  id                          INTEGER PRIMARY KEY,
+  id_user 	                  INTEGER NOT NULL,
+  bank_card_number            INTEGER NOT NULL,
+  date_time_arrivel_money     TIMESTAMP NOT NULL,
+  arrival_money               DECIMAL NOT NULL,
+  date_time_spending_money    TIMESTAMP NOT NULL,
+  spending_money              DECIMAL NOT NULL,
+  money_balance               DECIMAL NOT NULL,
+  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
+);
+CREATE UNIQUE INDEX bkr_unique_bank_card_number_idx ON cst.bank_card_refueling (bank_card_number);
+COMMENT ON TABLE cst.bank_card_refueling
+  IS 'Банковськая карта для заправки';
+COMMENT ON COLUMN cst.bank_card_refueling.bank_card_number
+  IS 'Номер банковськой карты (Номер должен быть уникальным)';
+COMMENT ON COLUMN cst.bank_card_refueling.date_time_arrivel_money
+  IS 'Дата и время пригода денег';
+COMMENT ON COLUMN cst.bank_card_refueling.arrival_money
+  IS 'Приход денег';
+COMMENT ON COLUMN cst.bank_card_refueling.date_time_spending_money
+  IS 'Дата и время расхода денег';
+COMMENT ON COLUMN cst.bank_card_refueling.spending_money
+  IS 'Расход денег';
+COMMENT ON COLUMN cst.bank_card_refueling.money_balance
+  IS 'Всего денег на банковськой карте';
+
+---------------bank_card_driver---------------18
+CREATE TABLE cst.bank_card_driver
+(
+  id                          INTEGER PRIMARY KEY,
+  id_user 	                  INTEGER NOT NULL,
+  bank_card_number            INTEGER NOT NULL,
+  date_time_arrivel_money     TIMESTAMP NOT NULL,
+  arrival_money               DECIMAL NOT NULL,
+  date_time_spending_money    TIMESTAMP NOT NULL,
+  spending_money              DECIMAL NOT NULL,
+  money_balance               DECIMAL NOT NULL,
+  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
+);
+CREATE UNIQUE INDEX bkd_unique_bank_card_number_idx ON cst.bank_card_driver (bank_card_number);
+COMMENT ON TABLE cst.bank_card_driver
+  IS 'Банковськая карта для водителей';
+COMMENT ON COLUMN cst.bank_card_driver.bank_card_number
+  IS 'Номер банковськой карты (Номер должен быть уникальным)';
+COMMENT ON COLUMN cst.bank_card_driver.date_time_arrivel_money
+  IS 'Дата и время пригода денег';
+COMMENT ON COLUMN cst.bank_card_driver.arrival_money
+  IS 'Приход денег';
+COMMENT ON COLUMN cst.bank_card_driver.date_time_spending_money
+  IS 'Дата и время расхода денег';
+COMMENT ON COLUMN cst.bank_card_driver.spending_money
+  IS 'Расход денег';
+COMMENT ON COLUMN cst.bank_card_driver.money_balance
+  IS 'Всего денег на банковськой карте';
+
+---------------bank_card_salary---------------19
+CREATE TABLE cst.bank_card_salary
+(
+  id                          INTEGER PRIMARY KEY,
+  id_user 	                  INTEGER NOT NULL,
+  bank_card_number            INTEGER NOT NULL,
+  date_time_arrivel_money     TIMESTAMP NOT NULL,
+  arrival_money               DECIMAL NOT NULL,
+  date_time_spending_money    TIMESTAMP NOT NULL,
+  spending_money              DECIMAL NOT NULL,
+  money_balance               DECIMAL NOT NULL,
+  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
+);
+CREATE UNIQUE INDEX bkd_unique_bank_card_number_idx ON cst.bank_card_salary (bank_card_number);
+COMMENT ON TABLE cst.bank_card_salary
+  IS 'Банковськая карта для зарплаты';
+COMMENT ON COLUMN cst.bank_card_salary.bank_card_number
+  IS 'Номер банковськой карты (Номер должен быть уникальным)';
+COMMENT ON COLUMN cst.bank_card_salary.date_time_arrivel_money
+  IS 'Дата и время пригода денег';
+COMMENT ON COLUMN cst.bank_card_salary.arrival_money
+  IS 'Приход денег';
+COMMENT ON COLUMN cst.bank_card_salary.date_time_spending_money
+  IS 'Дата и время расхода денег';
+COMMENT ON COLUMN cst.bank_card_salary.spending_money
+  IS 'Расход денег';
+COMMENT ON COLUMN cst.bank_card_salary.money_balance
+  IS 'Всего денег на банковськой карте';
 
 
 
