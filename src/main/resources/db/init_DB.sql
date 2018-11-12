@@ -485,7 +485,7 @@ CREATE TABLE cst.payroll_accounting
   FOREIGN KEY (id_type_payment) REFERENCES cst.type_payment(id),
 );
 COMMENT ON TABLE cst.payroll_accounting
-  IS ''Отделы компании'';
+  IS ''Учет заработной платы'';
 COMMENT ON COLUMN cst.payroll_accounting.id_departmens_company
   IS ''Название отдела'';
 COMMENT ON COLUMN cst.payroll_accounting.id_user
