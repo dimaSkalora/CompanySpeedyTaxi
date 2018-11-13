@@ -6,21 +6,21 @@ DROP TABLE IF EXISTS cst.user_state CASCADE;
 DROP TABLE IF EXISTS cst.vehicle_state CASCADE;
 DROP TABLE IF EXISTS cst.access_to_route;
 DROP TABLE IF EXISTS cst.taxi_dispatchers CASCADE;
-DROP TABLE IF EXISTS cst.taxi_dispatcher_orders;
-DROP TABLE IF EXISTS cst.taxi_user_orders;
-DROP TABLE IF EXISTS cst.taxi_order_acceptance;
+DROP TABLE IF EXISTS cst.taxi_dispatcher_orders CASCADE;
+DROP TABLE IF EXISTS cst.taxi_user_orders CASCADE;
+DROP TABLE IF EXISTS cst.taxi_order_acceptance CASCADE;
 DROP TABLE IF EXISTS cst.coming_consuption_fuel;
 DROP TABLE IF EXISTS cst.taxi_route_on_orders;
 DROP TABLE IF EXISTS cst.taxi_route;
 DROP TABLE IF EXISTS cst.refilling_car;
-DROP TABLE IF EXISTS cst.type_payment;
-DROP TABLE IF EXISTS cst.type_bank_card;
-DROP TABLE IF EXISTS cst.bank_card;
+DROP TABLE IF EXISTS cst.type_payment CASCADE;
+DROP TABLE IF EXISTS cst.type_bank_card CASCADE;
+DROP TABLE IF EXISTS cst.bank_card CASCADE;
 DROP TABLE IF EXISTS cst.user_bank_card;
 DROP TABLE IF EXISTS cst.bank_card_operations;
 DROP TABLE IF EXISTS cst.taxi_user_vehicle_info;
 DROP TABLE IF EXISTS cst.taxi_job_status;
-DROP TABLE IF EXISTS cst.departments_company;
+DROP TABLE IF EXISTS cst.departments_company CASCADE;
 DROP TABLE IF EXISTS cst.payroll_accounting;
 DROP TABLE IF EXISTS cst.pay_sheet;
 
@@ -368,7 +368,7 @@ CREATE TABLE cst.bank_card
   id_type_bank_card           INTEGER NOT NULL,
   money_balance               DECIMAL NOT NULL,
   is_active                   INTEGER NOT NULL,
-  FOREIGN KEY (id_type_bank_card) REFERENCES cst.type_bank_card(id)
+  FOREIGN KEY (id_type_bank_card) REFERENCES cst.type_bank_card(id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX bk_unique_bank_card_number_idx ON cst.bank_card (bank_card_number);
 COMMENT ON TABLE cst.bank_card
@@ -388,8 +388,8 @@ CREATE TABLE cst.user_bank_card
   id                          INTEGER PRIMARY KEY,
   id_user                     INTEGER NOT NULL,
   id_bank_card                INTEGER NOT NULL,
-  FOREIGN KEY (id_user) REFERENCES cst.user(id),
-  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id)
+  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.user_bank_card
   IS 'Банковськая карта usera';
@@ -406,8 +406,8 @@ CREATE TABLE cst.bank_card_operations
   id_bank_card_spending       INTEGER NOT NULL,
   spending_money              DECIMAL NOT NULL,
   money_balance               DECIMAL NOT NULL,
-  FOREIGN KEY (id_bank_card_arrivel) REFERENCES cst.bank_card(id),
-  FOREIGN KEY (id_bank_card_spending) REFERENCES cst.bank_card(id)
+  FOREIGN KEY (id_bank_card_arrivel) REFERENCES cst.bank_card(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_bank_card_spending) REFERENCES cst.bank_card(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.bank_card_operations
   IS 'Банковськие операции';
@@ -432,7 +432,7 @@ COMMENT ON COLUMN cst.bank_card_operations.money_balance
 CREATE TABLE cst.taxi_job_status
 (
   id                          INTEGER PRIMARY KEY,
-  name_tjs                    VARCHAR NOT NULL,
+  name_tjs                    VARCHAR NOT NULL
 );
 COMMENT ON TABLE cst.taxi_job_status
   IS 'Роботчий статус такси';
@@ -445,8 +445,8 @@ CREATE TABLE cst.taxi_user_vehicle_info
   id                          INTEGER PRIMARY KEY,
   id_user_vehicle             INTEGER NOT NULL,
   id_taxi_job_status          INTEGER NOT NULL,
-  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id),
-  FOREIGN KEY (id_taxi_job_status) REFERENCES cst.taxi_job_status(id)
+  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_taxi_job_status) REFERENCES cst.taxi_job_status(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.taxi_user_vehicle_info
   IS 'Вся информация о юзаре, ТС, а также текущий рабочий статус';
@@ -455,7 +455,7 @@ COMMENT ON TABLE cst.taxi_user_vehicle_info
 CREATE TABLE cst.departments_company
 (
   id                          INTEGER PRIMARY KEY,
-  name_dc                     VARCHAR NOT NULL,
+  name_dc                     VARCHAR NOT NULL
 );
 COMMENT ON TABLE cst.departments_company
   IS 'Отделы компании';
@@ -466,7 +466,7 @@ COMMENT ON COLUMN cst.departments_company.name_dc
 CREATE TABLE cst.payroll_accounting
 (
   id                             INTEGER PRIMARY KEY,
-  id_departmens_company          INTEGER NOT NULL,
+  id_department_company          INTEGER NOT NULL,
   id_user                        INTEGER NOT NULL,
   id_bank_card                   INTEGER NOT NULL,
   month_year                     VARCHAR NOT NULL,
@@ -480,14 +480,14 @@ CREATE TABLE cst.payroll_accounting
   id_type_payment                INTEGER NOT NULL,
   payout                         DECIMAL NOT NULL,
   sum_payout_month               DECIMAL NOT NULL,
-  FOREIGN KEY (id_departmens_company) REFERENCES cst.departments_company(id),
-  FOREIGN KEY (id_user) REFERENCES cst.users(id),
-  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id),
-  FOREIGN KEY (id_type_payment) REFERENCES cst.type_payment(id),
+  FOREIGN KEY (id_department_company) REFERENCES cst.departments_company(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_type_payment) REFERENCES cst.type_payment(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.payroll_accounting
   IS 'Учет заработной платы';
-COMMENT ON COLUMN cst.payroll_accounting.id_departmens_company
+COMMENT ON COLUMN cst.payroll_accounting.id_department_company
   IS 'Название отдела';
 COMMENT ON COLUMN cst.payroll_accounting.id_user
   IS 'Юзер';
@@ -522,7 +522,7 @@ CREATE TABLE cst.pay_sheet
   id                             INTEGER PRIMARY KEY,
   id_user                        INTEGER NOT NULL,
   id_bank_card                   INTEGER NOT NULL,
-  id_departmen_company           INTEGER NOT NULL,
+  id_department_company          INTEGER NOT NULL,
   month_year                     VARCHAR NOT NULL,
   prepayment                     DECIMAL NOT NULL,
   salary                         DECIMAL NOT NULL,
@@ -537,13 +537,13 @@ CREATE TABLE cst.pay_sheet
   norm_hours_worked              INTEGER NOT NULL,
   hours_worked                   INTEGER NOT NULL,
   hours_holiday                  INTEGER,
-  FOREIGN KEY (id_departmen_company) REFERENCES cst.departments_company(id),
-  FOREIGN KEY (id_user) REFERENCES cst.users(id),
-  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id),
+  FOREIGN KEY (id_department_company) REFERENCES cst.departments_company(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.pay_sheet
   IS 'Расчетный лист';
-COMMENT ON COLUMN cst.pay_sheet.id_departmens_company
+COMMENT ON COLUMN cst.pay_sheet.id_department_company
   IS 'Название отдела';
 COMMENT ON COLUMN cst.pay_sheet.id_user
   IS 'Юзер';
@@ -577,5 +577,4 @@ COMMENT ON COLUMN cst.pay_sheet.hours_worked
   IS 'Отработаны часы';
 COMMENT ON COLUMN cst.pay_sheet.hours_holiday
   IS 'Сколько часов был на больничном';
-
 
