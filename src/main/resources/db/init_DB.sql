@@ -234,11 +234,11 @@ CREATE TABLE cst.coming_consuption_fuel
   id                          INTEGER PRIMARY KEY,
   date_time                   TIMESTAMP DEFAULT now() NOT NULL,
   id_user_vehicle             INTEGER NOT NULL,
-  consuption                  INTEGER NOT NULL,
-  coming                      INTEGER NOT NULL,
-  remainder                   INTEGER NOT NULL,
-  kilometer                   INTEGER NOT NULL,
-  total_kilometer             INTEGER NOT NULL,
+  consuption                  DECIMAL NOT NULL,
+  coming                      DECIMAL NOT NULL,
+  remainder                   DECIMAL NOT NULL,
+  kilometer                   DECIMAL NOT NULL,
+  total_kilometer             DECIMAL NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.coming_consuption_fuel
@@ -261,10 +261,10 @@ CREATE TABLE cst.taxi_route_on_orders
   id_user_vehicle             INTEGER NOT NULL,
   id_taxi_order_acceptance    INTEGER NOT NULL,
   landing                     INTEGER NOT NULL,
-  tariff_per_kilometer        INTEGER NOT NULL,
-  distance                    INTEGER NOT NULL,
-  fare_payment                INTEGER NOT NULL,
-  fuel_consuption             INTEGER NOT NULL,
+  tariff_per_kilometer        DECIMAL NOT NULL,
+  distance                    DECIMAL NOT NULL,
+  fare_payment                DECIMAL NOT NULL,
+  fuel_consuption             DECIMAL NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE,
   FOREIGN KEY (id_taxi_order_acceptance) REFERENCES cst.taxi_order_acceptance(id) ON DELETE CASCADE
 );
@@ -291,10 +291,10 @@ CREATE TABLE cst.taxi_route
   start_date                  TIMESTAMP NOT NULL,
   end_date                    TIMESTAMP NOT NULL,
   landing                     INTEGER NOT NULL,
-  tariff_per_kilometer        INTEGER NOT NULL,
-  distance                    INTEGER NOT NULL,
-  fare_payment                INTEGER NOT NULL,
-  fuel_consuption             INTEGER NOT NULL,
+  tariff_per_kilometer        DECIMAL NOT NULL,
+  distance                    DECIMAL NOT NULL,
+  fare_payment                DECIMAL NOT NULL,
+  fuel_consuption             DECIMAL NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.taxi_route
