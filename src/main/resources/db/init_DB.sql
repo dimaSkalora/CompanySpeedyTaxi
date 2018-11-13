@@ -215,16 +215,14 @@ CREATE TABLE cst.taxi_order_acceptance
 (
   id                          INTEGER PRIMARY KEY,
   id_user_vehicle             INTEGER NOT NULL,
-  id_taxi_dispatcher_order    INTEGER NOT NULL,
-  id_taxi_user_order          INTEGER NOT NULL,
+  id_taxi_dispatcher_order    INTEGER DEFAULT 0 NOT NULL,
+  id_taxi_user_order          INTEGER DEFAULT 0 NOT NULL,
   execution_status            INTEGER NOT NULL,
   adoption_status             INTEGER NOT NULL,
-  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE,
-  FOREIGN KEY (id_taxi_dispatcher_order) REFERENCES cst.taxi_dispatcher_orders(id) ON DELETE CASCADE,
-  FOREIGN KEY (id_taxi_user_order) REFERENCES cst.taxi_user_orders(id) ON DELETE CASCADE
+  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.taxi_order_acceptance
-  IS 'Прием заказов от юзера и диспечера';
+  IS 'Прием заказов от юзера или диспечера';
 COMMENT ON COLUMN cst.taxi_order_acceptance.execution_status
   IS 'Статус выполнение: 1-выполнено, 0- не выполнено';
 COMMENT ON COLUMN cst.taxi_order_acceptance.adoption_status
