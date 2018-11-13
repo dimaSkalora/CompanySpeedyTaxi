@@ -63,25 +63,25 @@ CREATE TABLE cst.vehicles
 (
   id                    INTEGER PRIMARY KEY,
   name_car              VARCHAR NOT NULL,
+  vehicle_number        VARCHAR NOT NULL,
   year_issue            VARCHAR(4) NOT NULL,
   category              VARCHAR NOT NULL,
   color                 VARCHAR NOT NULL,
-  fuel_consumption      INTEGER NOT NULL,
-  amount_vehicles       INTEGER NOT NULL
+  fuel_consumption      INTEGER NOT NULL
 );
-CREATE UNIQUE INDEX vehicle_unique_name_idx ON cst.vehicles(name_car); --Название должно быть уникальным
+CREATE UNIQUE INDEX vehicle_unique_name_idx ON cst.vehicles(name_car,vehicle_number); --Название должно быть уникальным
 COMMENT ON TABLE cst.vehicles
     IS 'Транспортное средство';
 COMMENT ON COLUMN cst.vehicles.name_car
     IS 'Название, модель ТС';
+COMMENT ON COLUMN cst.vehicles.vehicle_number
+    IS 'Номер ТС';
 COMMENT ON COLUMN cst.vehicles.year_issue
     IS 'Год выпуска ТС';
 COMMENT ON COLUMN cst.vehicles.category
     IS 'Легковая, грузовая, автобус и т.д.';
 COMMENT ON COLUMN cst.vehicles.fuel_consumption
     IS 'Расход топлива л/100км';
-COMMENT ON COLUMN cst.vehicles.amount_vehicles
-    IS 'Количество ТС';
 
 ---------------user_vehicles---------------4
 CREATE TABLE cst.user_vehicles
