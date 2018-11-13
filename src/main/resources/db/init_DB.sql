@@ -61,7 +61,7 @@ COMMENT ON COLUMN cst.user_roles.role
 ---------------vehicles---------------3
 CREATE TABLE cst.vehicles
 (
-  id                    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  id                    INTEGER PRIMARY KEY,
   name_car              VARCHAR NOT NULL,
   year_issue            VARCHAR(4) NOT NULL,
   category              VARCHAR NOT NULL,
