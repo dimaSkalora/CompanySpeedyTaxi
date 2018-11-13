@@ -163,7 +163,7 @@ CREATE TABLE cst.taxi_dispatcher_orders
   address_arrival     VARCHAR NOT NULL,
   start_date          TIMESTAMP NOT NULL,
   end_date            TIMESTAMP NOT NULL,
-  fulfilled           INTEGER NOT NULL,
+  fulfilled           INTEGER DEFAULT 0 NOT NULL,
   FOREIGN KEY (id_taxi_dispatcher) REFERENCES cst.taxi_dispatchers(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.taxi_dispatcher_orders
@@ -192,7 +192,7 @@ CREATE TABLE cst.taxi_user_orders
   address_arrival     VARCHAR NOT NULL,
   start_date          TIMESTAMP NOT NULL,
   end_date            TIMESTAMP NOT NULL,
-  fulfilled           INTEGER NOT NULL,
+  fulfilled           INTEGER DEFAULT 0 NOT NULL,
   FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.taxi_user_orders
