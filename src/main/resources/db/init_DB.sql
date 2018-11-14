@@ -9,14 +9,14 @@ DROP TABLE IF EXISTS cst.taxi_dispatchers CASCADE;
 DROP TABLE IF EXISTS cst.taxi_dispatcher_orders CASCADE;
 DROP TABLE IF EXISTS cst.taxi_user_orders CASCADE;
 DROP TABLE IF EXISTS cst.taxi_order_acceptance CASCADE;
-DROP TABLE IF EXISTS cst.refilling_car;
-DROP TABLE IF EXISTS cst.taxi_route_on_orders;
-DROP TABLE IF EXISTS cst.taxi_route;
-DROP TABLE IF EXISTS cst.coming_consuption_fuel;
 DROP TABLE IF EXISTS cst.type_payment CASCADE;
 DROP TABLE IF EXISTS cst.type_bank_card CASCADE;
 DROP TABLE IF EXISTS cst.bank_card CASCADE;
 DROP TABLE IF EXISTS cst.user_bank_card;
+DROP TABLE IF EXISTS cst.refilling_car;
+DROP TABLE IF EXISTS cst.taxi_route_on_orders;
+DROP TABLE IF EXISTS cst.taxi_route;
+DROP TABLE IF EXISTS cst.coming_consuption_fuel;
 DROP TABLE IF EXISTS cst.bank_card_operations;
 DROP TABLE IF EXISTS cst.taxi_user_vehicle_info;
 DROP TABLE IF EXISTS cst.taxi_job_status;
@@ -228,16 +228,75 @@ COMMENT ON COLUMN cst.taxi_order_acceptance.execution_status
 COMMENT ON COLUMN cst.taxi_order_acceptance.adoption_status
   IS 'Статус принятие: 1-принятый заказ, 0- не принятый заказ';
 
----------------refilling_car---------------12
+---------------type_payment---------------12
+CREATE TABLE cst.type_payment
+(
+  id                          INTEGER PRIMARY KEY,
+  name_tp                     VARCHAR NOT NULL
+);
+COMMENT ON TABLE cst.type_payment
+  IS 'Тип выплаты';
+COMMENT ON COLUMN cst.type_payment.name_tp
+  IS 'Название выплаты (аванс, зарплата и т.д.)';
+
+ ---------------type_bank_card---------------13
+CREATE TABLE cst.type_bank_card
+(
+  id                          INTEGER PRIMARY KEY,
+  type_name                   VARCHAR NOT NULL
+);
+COMMENT ON TABLE cst.type_bank_card
+  IS 'Тип банковськой карты';
+COMMENT ON COLUMN cst.type_bank_card.type_name
+  IS 'Название типа (зарплатная, водителькая, заправная и т.д.)';
+
+---------------bank_card---------------14
+CREATE TABLE cst.bank_card
+(
+  id                          INTEGER PRIMARY KEY,
+  bank_card_number            INTEGER NOT NULL,
+  id_type_bank_card           INTEGER NOT NULL,
+  money_balance               DECIMAL NOT NULL,
+  is_active                   INTEGER NOT NULL,
+  FOREIGN KEY (id_type_bank_card) REFERENCES cst.type_bank_card(id) ON DELETE CASCADE
+);
+CREATE UNIQUE INDEX bk_unique_bank_card_number_idx ON cst.bank_card (bank_card_number);
+COMMENT ON TABLE cst.bank_card
+  IS 'Банковськая карта для заправки';
+COMMENT ON COLUMN cst.bank_card.bank_card_number
+  IS 'Номер банковськой карты (Номер должен быть уникальным)';
+COMMENT ON COLUMN cst.bank_card.id_type_bank_card
+  IS 'Тип банковськой карты (refueling, driver, salary, company)';
+COMMENT ON COLUMN cst.bank_card.money_balance
+  IS 'Всего денег на банковськой карте';
+COMMENT ON COLUMN cst.bank_card.is_active
+  IS '1 - активная, 0 - не активная';
+
+---------------user_bank_card---------------15
+CREATE TABLE cst.user_bank_card
+(
+  id                          INTEGER PRIMARY KEY,
+  id_user                     INTEGER NOT NULL,
+  id_bank_card                INTEGER NOT NULL,
+  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id) ON DELETE CASCADE
+);
+CREATE UNIQUE INDEX ubc_unique_bk_idx ON cst.user_bank_card(id_bank_card);
+COMMENT ON TABLE cst.user_bank_card
+  IS 'Банковськая карта usera';
+
+---------------refilling_car---------------16
 CREATE TABLE cst.refilling_car
 (
   id                          INTEGER PRIMARY KEY,
   id_user_vehicle             INTEGER NOT NULL,
+  id_user_bank_card           INTEGER NOT NULL,
   date_time                   TIMESTAMP DEFAULT now() NOT NULL,
   liter                       DECIMAL NOT NULL,
   price_per_liter             DECIMAL NOT NULL,
   payment_of_refueling        DECIMAL NOT NULL,
-  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
+  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_user_bank_card) REFERENCES cst.user_bank_card(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.refilling_car
   IS 'Заправка ТС';
@@ -250,11 +309,12 @@ COMMENT ON COLUMN cst.refilling_car.price_per_liter
 COMMENT ON COLUMN cst.refilling_car.payment_of_refueling
   IS 'Оплата за дозапраку';
 
----------------taxi_route_on_orders---------------13
+---------------taxi_route_on_orders---------------17
 CREATE TABLE cst.taxi_route_on_orders
 (
   id                          INTEGER PRIMARY KEY,
   id_user_vehicle             INTEGER NOT NULL,
+  id_user_bank_card           INTEGER NOT NULL,
   id_taxi_order_acceptance    INTEGER NOT NULL,
   landing                     INTEGER NOT NULL,
   tariff_per_kilometer        DECIMAL NOT NULL,
@@ -262,6 +322,7 @@ CREATE TABLE cst.taxi_route_on_orders
   fare_payment                DECIMAL NOT NULL,
   fuel_consuption             DECIMAL NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_user_bank_card) REFERENCES cst.user_bank_card(id) ON DELETE CASCADE,
   FOREIGN KEY (id_taxi_order_acceptance) REFERENCES cst.taxi_order_acceptance(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.taxi_route_on_orders
@@ -277,11 +338,12 @@ COMMENT ON COLUMN cst.taxi_route_on_orders.fare_payment
 COMMENT ON COLUMN cst.taxi_route_on_orders.fuel_consuption
   IS 'Расход топлива';
 
----------------taxi_route---------------14
+---------------taxi_route---------------18
 CREATE TABLE cst.taxi_route
 (
   id                          INTEGER PRIMARY KEY,
   id_user_vehicle             INTEGER NOT NULL,
+  id_user_bank_card           INTEGER NOT NULL,
   departure_point             VARCHAR NOT NULL,
   arrival_point               VARCHAR NOT NULL,
   start_date                  TIMESTAMP NOT NULL,
@@ -291,7 +353,8 @@ CREATE TABLE cst.taxi_route
   distance                    DECIMAL NOT NULL,
   fare_payment                DECIMAL NOT NULL,
   fuel_consuption             DECIMAL NOT NULL,
-  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
+  FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_user_bank_card) REFERENCES cst.user_bank_card(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.taxi_route
   IS 'Маршруты';
@@ -310,7 +373,7 @@ COMMENT ON COLUMN cst.taxi_route.fare_payment
 COMMENT ON COLUMN cst.taxi_route.fuel_consuption
   IS 'Расход топлива';
 
----------------coming_consuption_fuel---------------15
+---------------coming_consuption_fuel---------------19
 CREATE TABLE cst.coming_consuption_fuel
 (
   id                          INTEGER PRIMARY KEY,
@@ -335,62 +398,6 @@ COMMENT ON COLUMN cst.coming_consuption_fuel.kilometer
   IS 'Сколько километров проехал юзер на ТС';
 COMMENT ON COLUMN cst.coming_consuption_fuel.total_kilometer
   IS 'Сколько всего километов проехал юзер на ТС';
-
----------------type_payment---------------16
-CREATE TABLE cst.type_payment
-(
-  id                          INTEGER PRIMARY KEY,
-  name_tp                     VARCHAR NOT NULL
-);
-COMMENT ON TABLE cst.type_payment
-  IS 'Тип выплаты';
-COMMENT ON COLUMN cst.type_payment.name_tp
-  IS 'Название выплаты (аванс, зарплата и т.д.)';
-
- ---------------type_bank_card---------------17
-CREATE TABLE cst.type_bank_card
-(
-  id                          INTEGER PRIMARY KEY,
-  type_name                   VARCHAR NOT NULL
-);
-COMMENT ON TABLE cst.type_bank_card
-  IS 'Тип банковськой карты';
-COMMENT ON COLUMN cst.type_bank_card.type_name
-  IS 'Название типа (зарплатная, водителькая, заправная и т.д.)';
-
----------------bank_card---------------18
-CREATE TABLE cst.bank_card
-(
-  id                          INTEGER PRIMARY KEY,
-  bank_card_number            INTEGER NOT NULL,
-  id_type_bank_card           INTEGER NOT NULL,
-  money_balance               DECIMAL NOT NULL,
-  is_active                   INTEGER NOT NULL,
-  FOREIGN KEY (id_type_bank_card) REFERENCES cst.type_bank_card(id) ON DELETE CASCADE
-);
-CREATE UNIQUE INDEX bk_unique_bank_card_number_idx ON cst.bank_card (bank_card_number);
-COMMENT ON TABLE cst.bank_card
-  IS 'Банковськая карта для заправки';
-COMMENT ON COLUMN cst.bank_card.bank_card_number
-  IS 'Номер банковськой карты (Номер должен быть уникальным)';
-COMMENT ON COLUMN cst.bank_card.id_type_bank_card
-  IS 'Тип банковськой карты (refueling, driver, salary, company)';
-COMMENT ON COLUMN cst.bank_card.money_balance
-  IS 'Всего денег на банковськой карте';
-COMMENT ON COLUMN cst.bank_card.is_active
-  IS '1 - активная, 0 - не активная';
-
----------------user_bank_card---------------19
-CREATE TABLE cst.user_bank_card
-(
-  id                          INTEGER PRIMARY KEY,
-  id_user                     INTEGER NOT NULL,
-  id_bank_card                INTEGER NOT NULL,
-  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
-  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id) ON DELETE CASCADE
-);
-COMMENT ON TABLE cst.user_bank_card
-  IS 'Банковськая карта usera';
 
 ---------------bank_card_operations---------------20
 CREATE TABLE cst.bank_card_operations
