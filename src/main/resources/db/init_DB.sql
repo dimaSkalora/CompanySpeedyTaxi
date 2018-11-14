@@ -9,10 +9,10 @@ DROP TABLE IF EXISTS cst.taxi_dispatchers CASCADE;
 DROP TABLE IF EXISTS cst.taxi_dispatcher_orders CASCADE;
 DROP TABLE IF EXISTS cst.taxi_user_orders CASCADE;
 DROP TABLE IF EXISTS cst.taxi_order_acceptance CASCADE;
-DROP TABLE IF EXISTS cst.coming_consuption_fuel;
+DROP TABLE IF EXISTS cst.refilling_car;
 DROP TABLE IF EXISTS cst.taxi_route_on_orders;
 DROP TABLE IF EXISTS cst.taxi_route;
-DROP TABLE IF EXISTS cst.refilling_car;
+DROP TABLE IF EXISTS cst.coming_consuption_fuel;
 DROP TABLE IF EXISTS cst.type_payment CASCADE;
 DROP TABLE IF EXISTS cst.type_bank_card CASCADE;
 DROP TABLE IF EXISTS cst.bank_card CASCADE;
@@ -228,31 +228,27 @@ COMMENT ON COLUMN cst.taxi_order_acceptance.execution_status
 COMMENT ON COLUMN cst.taxi_order_acceptance.adoption_status
   IS 'Статус принятие: 1-принятый заказ, 0- не принятый заказ';
 
----------------coming_consuption_fuel---------------12
-CREATE TABLE cst.coming_consuption_fuel
+---------------refilling_car---------------12
+CREATE TABLE cst.refilling_car
 (
   id                          INTEGER PRIMARY KEY,
-  date_time                   TIMESTAMP DEFAULT now() NOT NULL,
   id_user_vehicle             INTEGER NOT NULL,
-  consuption                  DECIMAL NOT NULL,
-  coming                      DECIMAL NOT NULL,
-  remainder                   DECIMAL NOT NULL,
-  kilometer                   DECIMAL NOT NULL,
-  total_kilometer             DECIMAL NOT NULL,
+  date_time                   TIMESTAMP DEFAULT now() NOT NULL,
+  liter                       DECIMAL NOT NULL,
+  price_per_liter             DECIMAL NOT NULL,
+  payment_of_refueling        DECIMAL NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
 );
-COMMENT ON TABLE cst.coming_consuption_fuel
-  IS 'Приход, расход топлива';
-COMMENT ON COLUMN cst.coming_consuption_fuel.consuption
-  IS 'Расход топливо литров';
-COMMENT ON COLUMN cst.coming_consuption_fuel.coming
-  IS 'Приход топлива литров';
-COMMENT ON COLUMN cst.coming_consuption_fuel.remainder
-  IS 'Остаток топливо литров';
-COMMENT ON COLUMN cst.coming_consuption_fuel.kilometer
-  IS 'Сколько километров проехал юзер на ТС';
-COMMENT ON COLUMN cst.coming_consuption_fuel.total_kilometer
-  IS 'Сколько всего километов проехал юзер на ТС';
+COMMENT ON TABLE cst.refilling_car
+  IS 'Заправка ТС';
+COMMENT ON COLUMN cst.refilling_car.date_time
+  IS 'Дата и время заправки';
+COMMENT ON COLUMN cst.refilling_car.liter
+  IS 'Литров заправлено';
+COMMENT ON COLUMN cst.refilling_car.price_per_liter
+  IS 'Цена за литр';
+COMMENT ON COLUMN cst.refilling_car.payment_of_refueling
+  IS 'Оплата за дозапраку';
 
 ---------------taxi_route_on_orders---------------13
 CREATE TABLE cst.taxi_route_on_orders
@@ -314,27 +310,31 @@ COMMENT ON COLUMN cst.taxi_route.fare_payment
 COMMENT ON COLUMN cst.taxi_route.fuel_consuption
   IS 'Расход топлива';
 
----------------refilling_car---------------15
-CREATE TABLE cst.refilling_car
+---------------coming_consuption_fuel---------------15
+CREATE TABLE cst.coming_consuption_fuel
 (
   id                          INTEGER PRIMARY KEY,
+  date_ccf                    VARCHAR NOT NULL,
   id_user_vehicle             INTEGER NOT NULL,
-  date_time                   TIMESTAMP DEFAULT now() NOT NULL,
-  liter                       DECIMAL NOT NULL,
-  price_per_liter             DECIMAL NOT NULL,
-  payment_of_refueling        DECIMAL NOT NULL,
+  consuption                  DECIMAL NOT NULL,
+  coming                      DECIMAL NOT NULL,
+  remainder                   DECIMAL NOT NULL,
+  kilometer                   DECIMAL NOT NULL,
+  total_kilometer             DECIMAL NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
 );
-COMMENT ON TABLE cst.refilling_car
-  IS 'Заправка ТС';
-COMMENT ON COLUMN cst.refilling_car.date_time
-  IS 'Дата и время заправки';
-COMMENT ON COLUMN cst.refilling_car.liter
-  IS 'Литров заправлено';
-COMMENT ON COLUMN cst.refilling_car.price_per_liter
-  IS 'Цена за литр';
-COMMENT ON COLUMN cst.refilling_car.payment_of_refueling
-  IS 'Оплата за дозапраку';
+COMMENT ON TABLE cst.coming_consuption_fuel
+  IS 'Приход, расход топлива';
+COMMENT ON COLUMN cst.coming_consuption_fuel.consuption
+  IS 'Расход топливо литров';
+COMMENT ON COLUMN cst.coming_consuption_fuel.coming
+  IS 'Приход топлива литров';
+COMMENT ON COLUMN cst.coming_consuption_fuel.remainder
+  IS 'Остаток топливо литров';
+COMMENT ON COLUMN cst.coming_consuption_fuel.kilometer
+  IS 'Сколько километров проехал юзер на ТС';
+COMMENT ON COLUMN cst.coming_consuption_fuel.total_kilometer
+  IS 'Сколько всего километов проехал юзер на ТС';
 
 ---------------type_payment---------------16
 CREATE TABLE cst.type_payment
