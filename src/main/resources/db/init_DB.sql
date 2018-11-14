@@ -378,7 +378,7 @@ COMMENT ON COLUMN cst.bank_card.id_type_bank_card
 COMMENT ON COLUMN cst.bank_card.money_balance
   IS 'Всего денег на банковськой карте';
 COMMENT ON COLUMN cst.bank_card.is_active
-  IS '1 - активная, 2 - не активная';
+  IS '1 - активная, 0 - не активная';
 
 ---------------user_bank_card---------------19
 CREATE TABLE cst.user_bank_card
