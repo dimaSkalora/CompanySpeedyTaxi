@@ -254,7 +254,7 @@ COMMENT ON COLUMN cst.type_bank_card.type_name
 CREATE TABLE cst.bank_card
 (
   id                          INTEGER PRIMARY KEY,
-  bank_card_number            INTEGER NOT NULL,
+  bank_card_number            VARCHAR NOT NULL,
   id_type_bank_card           INTEGER NOT NULL,
   money_balance               DECIMAL NOT NULL,
   is_active                   INTEGER NOT NULL,
