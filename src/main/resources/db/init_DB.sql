@@ -320,7 +320,7 @@ CREATE TABLE cst.refilling_car
   id                          INTEGER PRIMARY KEY,
   id_user_vehicle             INTEGER NOT NULL,
   date_time                   TIMESTAMP DEFAULT now() NOT NULL,
-  liter                       INTEGER NOT NULL,
+  liter                       DECIMAL NOT NULL,
   price_per_liter             DECIMAL NOT NULL,
   payment_of_refueling        DECIMAL NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES cst.user_vehicles(id) ON DELETE CASCADE
