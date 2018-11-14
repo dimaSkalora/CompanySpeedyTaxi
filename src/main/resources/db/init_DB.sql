@@ -404,12 +404,12 @@ CREATE TABLE cst.bank_card_operations
 (
   id                          INTEGER PRIMARY KEY,
   id_user_bank_card           INTEGER NOT NULL,
-  date_time_arrivel_money     TIMESTAMP NOT NULL,
-  id_bank_card_arrivel        INTEGER NOT NULL,
-  arrival_money               DECIMAL NOT NULL,
-  date_time_spending_money    TIMESTAMP NOT NULL,
-  id_bank_card_spending       INTEGER NOT NULL,
-  spending_money              DECIMAL NOT NULL,
+  date_time_arrivel_money     TIMESTAMP DEFAULT NULL,
+  id_bank_card_arrivel        INTEGER DEFAULT NULL,
+  arrival_money               DECIMAL DEFAULT NULL,
+  date_time_spending_money    TIMESTAMP DEFAULT NULL,
+  id_bank_card_spending       INTEGER DEFAULT NULL,
+  spending_money              DECIMAL DEFAULT NULL,
   money_balance               DECIMAL NOT NULL,
   FOREIGN KEY (id_bank_card_arrivel) REFERENCES cst.bank_card(id) ON DELETE CASCADE,
   FOREIGN KEY (id_bank_card_spending) REFERENCES cst.bank_card(id) ON DELETE CASCADE
