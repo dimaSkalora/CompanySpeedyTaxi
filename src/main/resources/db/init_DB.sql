@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS cst.taxi_order_acceptance CASCADE;
 DROP TABLE IF EXISTS cst.type_payment CASCADE;
 DROP TABLE IF EXISTS cst.type_bank_card CASCADE;
 DROP TABLE IF EXISTS cst.bank_card CASCADE;
-DROP TABLE IF EXISTS cst.user_bank_card;
+DROP TABLE IF EXISTS cst.user_bank_card CASCADE;
 DROP TABLE IF EXISTS cst.refilling_car;
 DROP TABLE IF EXISTS cst.taxi_route_on_orders;
 DROP TABLE IF EXISTS cst.taxi_route;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS cst.departments_company CASCADE;
 DROP TABLE IF EXISTS cst.payroll_accounting;
 DROP TABLE IF EXISTS cst.pay_sheet;
 
-DROP SEQUENCE cst.global_seq;
+DROP SEQUENCE IF EXISTS cst.global_seq;
 
 CREATE SEQUENCE cst.global_seq START 100000;
 
