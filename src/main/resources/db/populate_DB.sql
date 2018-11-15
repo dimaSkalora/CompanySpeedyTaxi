@@ -8,9 +8,9 @@ DELETE FROM cst.access_to_route;
 DELETE FROM cst.taxi_dispatchers;
 DELETE FROM cst.taxi_dispatcher_orders;
 DELETE FROM cst.taxi_user_orders;
-DELETE FROM cst.taxi_order_acceptance;
-DELETE FROM cst.taxi_route_on_orders;
-DELETE FROM cst.taxi_route;
+DELETE FROM cst.type_payment;
+DELETE FROM cst.type_bank_card;
+DELETE FROM cst.bank_card;
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
@@ -27,7 +27,8 @@ INSERT INTO cst.users (name, email, password,adress) VALUES
  ('Driver4', 'driver4@gmail.com', 'driver4', 'address9'),
  ('Accountant', 'accountant@gmail.com', 'accountant', 'address10'),
  ('Dispatcher1', 'dispatcher1@gmail.com', 'dispatcher1', 'address11'),
- ('Dispatcher2', 'dispatcher2@gmail.com', 'dispatcher2', 'address12');
+ ('Dispatcher2', 'dispatcher2@gmail.com', 'dispatcher2', 'address12'),
+ ('Refuelling_Mustang', 'refuelling_mustang@gmail.com', 'refuelling_mustang', 'address13');
 
 ---------------user_roles---------------2
 INSERT INTO cst.user_roles (user_id, role) VALUES
@@ -47,7 +48,8 @@ INSERT INTO cst.user_roles (user_id, role) VALUES
  (100008,'ROLE_DRIVER'),
  (100009,'ROLE_ACCOUNTANT'),
  (100010,'ROLE_DISPATCHER'),
- (100011,'ROLE_DISPATCHER');
+ (100011,'ROLE_DISPATCHER'),
+ (100012,'ROLE_REFUELLING_MUSTANG');
 
 ---------------vehicles---------------3
 INSERT INTO cst.vehicles (id,name_car, vehicle_number, year_issue, category, color, fuel_consumption) VALUES
@@ -95,44 +97,55 @@ INSERT INTO cst.taxi_dispatchers (id, id_user) VALUES
 
 ---------------taxi_dispatcher_orders---------------9
 INSERT INTO cst.taxi_dispatcher_orders (id, id_taxi_dispatcher, user_name, user_phone, address_departure, address_arrival, start_date, end_date, fulfilled) VALUES
- (1, 1, 'user1', '8011-11-11-111', 'City, address1', 'City, address2', '2018-11-22 13:00:00',    '2018-11-22 14:00:00', 1),
- (2, 2, 'user2', '8011-00-11-111', 'City, address3', 'City, address4', '2018-11-23 13:00:00',    '2018-11-23 14:00:00', 0),
- (3, 1, 'user3', '8011-22-11-111', 'City, address5', 'City, address6', '2018-11-24 13:00:00',    '2018-11-24 14:00:00', 0),
- (4, 2, 'user4', '8011-33-11-111', 'City, address7', 'City, address8', '2018-11-25 13:00:00',    '2018-11-25 14:00:00', 1);
+ (1, 1, 'user1', '8011-11-11-111', 'City, address1', 'City, address2', '2018-11-12 13:00:00',    '2018-11-12 14:00:00', 1),
+ (2, 2, 'user2', '8011-00-11-111', 'City, address3', 'City, address4', '2018-11-13 13:00:00',    '2018-11-13 14:00:00', 0),
+ (3, 1, 'user3', '8011-22-11-111', 'City, address5', 'City, address6', '2018-11-14 13:00:00',    '2018-11-14 14:00:00', 0),
+ (4, 2, 'user4', '8011-33-11-111', 'City, address7', 'City, address8', '2018-11-15 13:00:00',    '2018-11-15 14:00:00', 1);
 
 ---------------taxi_user_orders---------------10
 INSERT INTO cst.taxi_user_orders (id, id_user, address_departure, address_arrival, start_date, end_date, fulfilled) VALUES
- (1, 100002, 'City, address1', 'City, address2', '2018-11-22 13:00:00',    '2018-11-22 14:00:00', 1),
- (2, 100003, 'City, address3', 'City, address4', '2018-11-23 13:00:00',    '2018-11-23 14:00:00', 0),
- (3, 100004, 'City, address5', 'City, address6', '2018-11-24 13:00:00',    '2018-11-24 14:00:00', 0);
+ (1, 100002, 'City, address1', 'City, address2', '2018-11-12 13:00:00',    '2018-11-12 14:00:00', 1),
+ (2, 100003, 'City, address3', 'City, address4', '2018-11-13 13:00:00',    '2018-11-13 14:00:00', 0),
+ (3, 100004, 'City, address5', 'City, address6', '2018-11-14 13:00:00',    '2018-11-14 14:00:00', 0);
 
----------------taxi_order_acceptance---------------11
-INSERT INTO cst.taxi_order_acceptance (id, id_user_vehicle, id_taxi_dispatcher_order, id_taxi_user_order, execution_status, adoption_status) VALUES
- (1,1,1,0,0,1),
- (2,2,2,0,0,0),
- (3,3,0,1,0,1),
- (4,1,1,0,1,1),
- (5,2,0,2,1,1);
+---------------type_payment---------------11
+INSERT INTO cst.type_payment (id, name_tp) VALUES
+ (1, 'Зарплата'),
+ (2, 'Аванс'),
+ (3, 'Премия'),
+ (4, 'Больничные'),
+ (5, 'Отпускные');
 
----------------taxi_route_on_orders---------------12
-INSERT INTO cst.taxi_route_on_orders (id, id_user_vehicle, id_taxi_order_acceptance, landing, tariff_per_kilometer, distance, fare_payment, fuel_consuption) VALUES
- (1, 1, 4, 30, 10, 8, 110, 1),
- (2, 2, 5, 30, 10, 15,180, 2);
+ ---------------type_bank_card---------------12
+INSERT INTO cst.type_bank_card (id, type_name) VALUES
+ (1, 'Зарплатная'),
+ (2, 'Компания'),
+ (3, 'Водительская'),
+ (4, 'Авто заправная'),
+ (5, 'Разное');
 
----------------taxi_route---------------13
-INSERT INTO cst.taxi_route (id, id_user_vehicle, id_taxi_order_acceptance, landing, tariff_per_kilometer, distance, fare_payment, fuel_consuption) VALUES
- (1, 1, 4, 30, 10, 8, 110, 1),
- (2, 2, 5, 30, 10, 15,180, 2);
-
-
-
-
-
-
-
-
-
-
+---------------bank_card---------------13
+INSERT INTO cst.bank_card (id, bank_card_number, id_type_bank_card, money_balance, is_active) VALUES
+ (1, '0002000200020001', 2, 50000.0, 1),
+ (2, '0002000200020002', 2, 50000.0, 1),
+ (3, '0001000100010001', 1, 0.0, 1),
+ (4, '0001000100010002', 1, 0.0, 1),
+ (5, '0001000100010003', 1, 0.0, 1),
+ (6, '0001000100010004', 1, 0.0, 1),
+ (7, '0001000100010005', 1, 0.0, 1),
+ (8, '0001000100010006', 1, 0.0, 1),
+ (9, '0001000100010007', 1, 0.0, 1),
+ (10, '0001000100010008', 1, 0.0, 1),
+ (11, '0001000100010009', 1, 0.0, 1),
+ (12, '0003000300030001', 3, 0.0, 1),
+ (13, '0003000300030002', 3, 0.0, 1),
+ (14, '0003000300030003', 3, 0.0, 1),
+ (15, '0003000300030004', 3, 0.0, 1),
+ (16, '0004000400040001', 4, 500.0, 1),
+ (17, '0004000400040002', 4, 500.0, 1),
+ (18, '0004000400040003', 4, 500.0, 1),
+ (19, '0004000400040004', 4, 500.0, 1),
+ (20, '0005000500050001', 5, 0.0, 1);
 
 
 
