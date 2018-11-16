@@ -486,7 +486,7 @@ CREATE TABLE cst.payroll_accounting
   payment_date_time              TIMESTAMP NOT NULL,
   id_type_payment                INTEGER NOT NULL,
   payout                         DECIMAL NOT NULL,
-  sum_payout_month               DECIMAL NOT NULL,
+  sum_payout_month               DECIMAL DEFAULT NULL,
   FOREIGN KEY (id_department_company) REFERENCES cst.departments_company(id) ON DELETE CASCADE,
   FOREIGN KEY (id_user_bank_card) REFERENCES cst.user_bank_card(id) ON DELETE CASCADE,
   FOREIGN KEY (id_type_payment) REFERENCES cst.type_payment(id) ON DELETE CASCADE
@@ -495,10 +495,8 @@ COMMENT ON TABLE cst.payroll_accounting
   IS 'Учет заработной платы';
 COMMENT ON COLUMN cst.payroll_accounting.id_department_company
   IS 'Название отдела';
-COMMENT ON COLUMN cst.payroll_accounting.id_user
-  IS 'Юзер';
-COMMENT ON COLUMN cst.payroll_accounting.id_bank_card
-  IS 'Банковськая карта юзера';
+COMMENT ON COLUMN cst.bank_card_operations.id_user_bank_card
+  IS 'Юзер и его банковськая карта';
 COMMENT ON COLUMN cst.payroll_accounting.month_year
   IS 'За какой год и месяц начисляется заробатная плата';
 COMMENT ON COLUMN cst.payroll_accounting.norm_number_days_worked_month
