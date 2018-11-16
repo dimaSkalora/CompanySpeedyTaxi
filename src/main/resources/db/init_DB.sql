@@ -413,6 +413,7 @@ CREATE TABLE cst.bank_card_operations
   id_bank_card_spending       INTEGER DEFAULT NULL,
   spending_money              DECIMAL DEFAULT NULL,
   money_balance               DECIMAL NOT NULL,
+  FOREIGN KEY (id_user_bank_card) REFERENCES cst.user_bank_card(id) ON DELETE CASCADE,
   FOREIGN KEY (id_bank_card_arrivel) REFERENCES cst.bank_card(id) ON DELETE CASCADE,
   FOREIGN KEY (id_bank_card_spending) REFERENCES cst.bank_card(id) ON DELETE CASCADE
 );
@@ -474,8 +475,7 @@ CREATE TABLE cst.payroll_accounting
 (
   id                             INTEGER PRIMARY KEY,
   id_department_company          INTEGER NOT NULL,
-  id_user                        INTEGER NOT NULL,
-  id_bank_card                   INTEGER NOT NULL,
+  id_user_bank_card              INTEGER NOT NULL,
   month_year                     VARCHAR NOT NULL,
   norm_number_days_worked_month  INTEGER NOT NULL,
   number_days_worked_month       INTEGER NOT NULL,
@@ -488,8 +488,7 @@ CREATE TABLE cst.payroll_accounting
   payout                         DECIMAL NOT NULL,
   sum_payout_month               DECIMAL NOT NULL,
   FOREIGN KEY (id_department_company) REFERENCES cst.departments_company(id) ON DELETE CASCADE,
-  FOREIGN KEY (id_user) REFERENCES cst.users(id) ON DELETE CASCADE,
-  FOREIGN KEY (id_bank_card) REFERENCES cst.bank_card(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_user_bank_card) REFERENCES cst.user_bank_card(id) ON DELETE CASCADE,
   FOREIGN KEY (id_type_payment) REFERENCES cst.type_payment(id) ON DELETE CASCADE
 );
 COMMENT ON TABLE cst.payroll_accounting
