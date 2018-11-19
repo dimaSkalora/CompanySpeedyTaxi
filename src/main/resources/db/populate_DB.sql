@@ -27,20 +27,20 @@ DELETE FROM cst.pay_sheet;
 ALTER SEQUENCE cst.global_seq RESTART WITH 100000;
 
 ---------------users---------------1
-INSERT INTO cst.users (name, email, password,adress) VALUES
- ('Admin', 'admin@gmail.com', 'admin', 'address1'),
- ('Company', 'company@gmail.com', 'company', 'address2'),
- ('User1', 'user1@gmail.com', 'user1', 'address3'),
- ('User2', 'user2@gmail.com', 'user2', 'address4'),
- ('User3', 'user3@gmail.com', 'user3', 'address5'),
- ('Driver1', 'driver1@gmail.com', 'driver1', 'address6'),
- ('Driver2', 'driver2@gmail.com', 'driver2', 'address7'),
- ('Driver3', 'driver3@gmail.com', 'driver3', 'address8'),
- ('Driver4', 'driver4@gmail.com', 'driver4', 'address9'),
- ('Accountant', 'accountant@gmail.com', 'accountant', 'address10'),
- ('Dispatcher1', 'dispatcher1@gmail.com', 'dispatcher1', 'address11'),
- ('Dispatcher2', 'dispatcher2@gmail.com', 'dispatcher2', 'address12'),
- ('Refuelling_Mustang', 'refuelling_mustang@gmail.com', 'refuelling_mustang', 'address13');
+INSERT INTO cst.users (name, email, password, phone, adress) VALUES
+ ('Admin', 'admin@gmail.com', 'admin', '+380-00-11-00-111', 'address1'),
+ ('Company', 'company@gmail.com', 'company', '+380-00-11-00-122', 'address2'),
+ ('User1', 'user1@gmail.com', 'user1', '+380-00-11-00-123', 'address3'),
+ ('User2', 'user2@gmail.com', 'user2', '+380-00-11-00-124', 'address4'),
+ ('User3', 'user3@gmail.com', 'user3', '+380-00-11-00-125', 'address5'),
+ ('Driver1', 'driver1@gmail.com', 'driver1', '+380-00-11-00-126', 'address6'),
+ ('Driver2', 'driver2@gmail.com', 'driver2', '+380-00-11-00-127', 'address7'),
+ ('Driver3', 'driver3@gmail.com', 'driver3', '+380-00-11-00-128', 'address8'),
+ ('Driver4', 'driver4@gmail.com', 'driver4', '+380-00-11-00-129', 'address9'),
+ ('Accountant', 'accountant@gmail.com', 'accountant', '+380-00-11-00-130', 'address10'),
+ ('Dispatcher1', 'dispatcher1@gmail.com', 'dispatcher1', '+380-00-11-00-131', 'address11'),
+ ('Dispatcher2', 'dispatcher2@gmail.com', 'dispatcher2', '+380-00-11-00-132', 'address12'),
+ ('Refuelling_Mustang', 'refuelling_mustang@gmail.com', 'refuelling_mustang', '+380-00-11-00-133', 'address13');
 
 ---------------user_roles---------------2
 INSERT INTO cst.user_roles (user_id, role) VALUES
