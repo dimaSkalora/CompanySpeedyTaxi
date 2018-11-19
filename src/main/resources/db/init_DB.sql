@@ -35,11 +35,13 @@ CREATE TABLE cst.users
   name             VARCHAR                 NOT NULL,
   email            VARCHAR                 NOT NULL,
   password         VARCHAR                 NOT NULL,
+  phone            VARCHAR                 NOT NULL,
   adress           VARCHAR                 NOT NULL,
   registered       TIMESTAMP DEFAULT now() NOT NULL,
   enabled          BOOL DEFAULT TRUE       NOT NULL
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON cst.users (email); --email каждого пользователя должен быть уникальным
+CREATE UNIQUE INDEX users_unique_phone_idx ON cst.users (phone); --phone каждого пользователя должен быть уникальным
 COMMENT ON COLUMN cst.users.registered
     IS 'Дата регистраиции пользователя';
 COMMENT ON COLUMN cst.users.enabled
