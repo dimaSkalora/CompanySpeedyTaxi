@@ -18,6 +18,9 @@ DELETE FROM cst.taxi_route_on_orders;
 DELETE FROM cst.taxi_route;
 DELETE FROM cst.coming_consuption_fuel;
 DELETE FROM cst.bank_card_operations;
+DELETE FROM cst.taxi_user_vehicle_info;
+DELETE FROM cst.taxi_job_status;
+DELETE FROM cst.departments_company;
 
 ALTER SEQUENCE cst.global_seq RESTART WITH 100000;
 
@@ -222,3 +225,24 @@ INSERT INTO cst.bank_card_operations (id, id_user_bank_card, date_time_arrivel_m
  (6, 19, '2018-11-10 10:21:00', 18, 110.0, null, null, null, 302.5),
  (7, 15, null, null, null, '2018-11-10 10:30:00', 20, 99.0, 410.0),
  (8, 19, '2018-11-10 10:31:00', 19, 99.0, null, null, null, 401.5);
+
+---------------taxi_job_status---------------21
+INSERT INTO cst.taxi_job_status (id, name_tjs) VALUES
+ (1, 'Свободный'),
+ (2, 'Занятый'),
+ (3, 'Обед'),
+ (4, 'Не рабатаю');
+
+---------------taxi_user_vehicle_info---------------22
+INSERT INTO cst.taxi_user_vehicle_info (id, id_user_vehicle, id_taxi_job_status) VALUES
+ (1, 1, 2),
+ (2, 2, 3),
+ (3, 3, 1),
+ (4, 4, 4);
+
+---------------departments_company---------------23
+INSERT INTO cst.departments_company (id, name_dc) VALUES
+ (1, 'Бухгалтерия'),
+ (2, 'Финансы'),
+ (3, 'Администрация'),
+ (4, 'Автопарк');
