@@ -31,7 +31,7 @@ CREATE SEQUENCE cst.global_seq START 100000;
 ---------------users---------------1
 CREATE TABLE cst.users
 (
-  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  id               INTEGER PRIMARY KEY DEFAULT nextval('cst.global_seq'),
   name             VARCHAR                 NOT NULL,
   email            VARCHAR                 NOT NULL,
   password         VARCHAR                 NOT NULL,
