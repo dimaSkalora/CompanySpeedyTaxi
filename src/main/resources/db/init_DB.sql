@@ -49,7 +49,7 @@ COMMENT ON COLUMN cst.users.enabled
 CREATE TABLE cst.user_roles
 (
   user_id 	INTEGER NOT NULL,
-  role   	VARCHAR,
+  role    	VARCHAR,
   CONSTRAINT user_roles_idx UNIQUE (user_id, role),
   FOREIGN KEY (user_id) REFERENCES cst.users (id) ON DELETE CASCADE --если удаляется пользователь из таблицы users то автомачически удаляется и из user_roles
 );
