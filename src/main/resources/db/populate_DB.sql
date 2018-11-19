@@ -21,6 +21,8 @@ DELETE FROM cst.bank_card_operations;
 DELETE FROM cst.taxi_user_vehicle_info;
 DELETE FROM cst.taxi_job_status;
 DELETE FROM cst.departments_company;
+DELETE FROM cst.payroll_accounting;
+DELETE FROM cst.pay_sheet;
 
 ALTER SEQUENCE cst.global_seq RESTART WITH 100000;
 
@@ -246,3 +248,13 @@ INSERT INTO cst.departments_company (id, name_dc) VALUES
  (2, 'Финансы'),
  (3, 'Администрация'),
  (4, 'Автопарк');
+
+---------------payroll_accounting---------------24
+INSERT INTO cst.payroll_accounting (id, id_department_company, id_user_bank_card, month_year, norm_number_days_worked_month, number_days_worked_month, stake_days, norm_hours_worked_month, hours_worked_month, stake_hour, payment_date_time, id_type_payment, payout, sum_payout_month) VALUES
+ (1, 4, 4, '10.2018', 21, 21, 120.0, 168, 168, 15.0, '2018-11-07 10:00:00', 1, 2520.0, 2520.0),
+ (2, 4, 7, '10.2018', 21, 20, 120.0, 168, 160, 15.0, '2018-11-07 10:00:00', 1, 2400.0, 2400.0);
+
+---------------pay_sheet---------------25
+INSERT INTO cst.pay_sheet (id, id_user, id_bank_card, id_department_company, month_year, prepayment, salary, premium, hospitals, holiday, amount_without_taxes, ndfl, esv, vs, amount_with_texas, norm_hours_worked, hours_worked, hours_holiday) VALUES
+ (1, 100005, 4, 4, '10.2018', 800.0, 1720.0, 500.0, 0.0, 0.0, 2220.0, 18.0, 22.0, 1.5, 1787.1, 168, 168, 0),
+ (2, 100006, 5, 4, '10.2018', 800.0, 1600.0, 400.0, 0.0, 0.0, 2000.0, 18.0, 22.0, 1.5, 1610.0, 168, 160, 0);
