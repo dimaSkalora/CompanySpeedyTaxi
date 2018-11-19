@@ -12,7 +12,7 @@ DELETE FROM cst.type_payment;
 DELETE FROM cst.type_bank_card;
 DELETE FROM cst.bank_card;
 
-ALTER SEQUENCE global_seq RESTART WITH 100000;
+ALTER SEQUENCE cst.global_seq RESTART WITH 100000;
 
 ---------------users---------------1
 INSERT INTO cst.users (name, email, password,adress) VALUES
