@@ -11,6 +11,10 @@ DELETE FROM cst.taxi_user_orders;
 DELETE FROM cst.type_payment;
 DELETE FROM cst.type_bank_card;
 DELETE FROM cst.bank_card;
+DELETE FROM cst.user_bank_card;
+DELETE FROM cst.refilling_car;
+DELETE FROM cst.taxi_order_acceptance;
+DELETE FROM cst.taxi_route_on_orders;
 
 ALTER SEQUENCE cst.global_seq RESTART WITH 100000;
 
@@ -147,5 +151,45 @@ INSERT INTO cst.bank_card (id, bank_card_number, id_type_bank_card, money_balanc
  (19, '0004000400040004', 4, 500.0, 1),
  (20, '0005000500050001', 5, 0.0, 1);
 
+---------------user_bank_card---------------14
+INSERT INTO cst.user_bank_card (id, id_user, id_bank_card) VALUES
+ (1, 100000, 1),
+ (2, 100000, 3),
+ (3, 100001, 2),
+ (4, 100005, 4),
+ (5, 100005, 12),
+ (6, 100005, 16),
+ (7, 100006, 5),
+ (8, 100006, 13),
+ (9, 100006, 17),
+ (10, 100007, 6),
+ (11, 100007, 14),
+ (12, 100007, 18),
+ (13, 100008, 7),
+ (14, 100008, 15),
+ (15, 100008, 19),
+ (16, 100009, 8),
+ (17, 100010, 9),
+ (18, 100011, 10),
+ (19, 100012, 20);
 
+---------------refilling_car---------------15
+INSERT INTO cst.refilling_car (id, id_user_vehicle, id_user_bank_card, liter, price_per_liter, payment_of_refueling) VALUES
+ (1, 1, 6, 20.0, 5.5, 110.0),
+ (2, 2, 9, 15.0, 5.5, 82.5),
+ (3, 3, 12, 20.0, 5.5, 110.0),
+ (4, 4, 15, 18.0, 5.5, 99.0);
+
+---------------taxi_order_acceptance---------------16
+INSERT INTO cst.taxi_order_acceptance (id, id_user_vehicle, id_taxi_dispatcher_order, id_taxi_user_order, execution_status, adoption_status) VALUES
+ (1,1,1,null,0,1),
+ (2,2,2,null,0,0),
+ (3,3,null,1,0,1),
+ (4,1,1,null,1,1),
+ (5,2,null,2,1,1);
+
+---------------taxi_route_on_orders---------------17
+INSERT INTO cst.taxi_route_on_orders (id, id_user_vehicle, id_user_bank_card, id_taxi_order_acceptance, landing, tariff_per_kilometer, distance, fare_payment, fuel_consuption) VALUES
+ (1, 1, 5, 4, 30.5, 10.0, 8.3, 113.5, 1.3),
+ (2, 2, 8, 5, 30.5, 10.0, 15.4, 184.5, 2.2);
 
