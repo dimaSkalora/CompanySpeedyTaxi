@@ -15,6 +15,9 @@ DELETE FROM cst.user_bank_card;
 DELETE FROM cst.refilling_car;
 DELETE FROM cst.taxi_order_acceptance;
 DELETE FROM cst.taxi_route_on_orders;
+DELETE FROM cst.taxi_route;
+DELETE FROM cst.coming_consuption_fuel;
+DELETE FROM cst.bank_card_operations;
 
 ALTER SEQUENCE cst.global_seq RESTART WITH 100000;
 
@@ -193,3 +196,29 @@ INSERT INTO cst.taxi_route_on_orders (id, id_user_vehicle, id_user_bank_card, id
  (1, 1, 5, 4, 30.5, 10.0, 8.3, 113.5, 1.3),
  (2, 2, 8, 5, 30.5, 10.0, 15.4, 184.5, 2.2);
 
+---------------taxi_route---------------18
+INSERT INTO cst.taxi_route (id, id_user_vehicle, id_user_bank_card, departure_point, arrival_point, start_date, end_date, landing, tariff_per_kilometer, distance, fare_payment, fuel_consuption) VALUES
+ (1, 1, 5, 'City address1', 'City address2', '2018-11-12 13:00:00', '2018-11-12 14:00:00', 30.5, 10.0, 9.4, 124.5, 1.4),
+ (2, 2, 8, 'City address3', 'City address4', '2018-11-14 10:00:00', '2018-11-14 11:00:00', 30.5, 10.0, 13.7,167.5, 2.0);
+
+---------------coming_consuption_fuel---------------19
+INSERT INTO cst.coming_consuption_fuel (id, date_ccf, id_user_vehicle, consuption, coming, remainder, kilometer, total_kilometer) VALUES
+ (1, '2018-11-01 10:00:00', 1, 0.0, 20.0, 20.0, 0.0, 0.0),
+ (2, '2018-11-02 10:00:00', 2, 0.0, 15.0, 15.0, 0.0, 0.0),
+ (3, '2018-11-03 10:00:00', 3, 0.0, 20.0, 20.0, 0.0, 0.0),
+ (4, '2018-11-04 10:00:00', 4, 0.0, 18.0, 18.0, 0.0, 0.0),
+ (5, '2018-11-05 10:00:00', 1, 1.3, 0.0, 18.7, 8.3, 8.3),
+ (6, '2018-11-06 10:00:00', 2, 2.2, 0.0, 17.8, 15.4, 15.4),
+ (7, '2018-11-07 10:00:00', 1, 1.4, 0.0, 17.3, 9.4, 17.7),
+ (8, '2018-11-08 10:00:00', 2, 2.0, 0.0, 15.8, 13.7, 29.1);
+
+---------------bank_card_operations---------------20
+INSERT INTO cst.bank_card_operations (id, id_user_bank_card, date_time_arrivel_money, id_bank_card_arrivel, arrival_money, date_time_spending_money, id_bank_card_spending, spending_money, money_balance) VALUES
+ (1, 6, null, null, null, '2018-11-10 10:00:00', 20, 110.0, 390.0),
+ (2, 19, '2018-11-10 10:01:00', 16, 110.0, null, null, null, 110.0),
+ (3, 9, null, null, null, '2018-11-10 10:10:00', 20, 82.5, 417.5),
+ (4, 19, '2018-11-10 10:11:00', 17, 82.5, null, null, null, 192.5),
+ (5, 12, null, null, null, '2018-11-10 10:20:00', 20, 110.0, 390.0),
+ (6, 19, '2018-11-10 10:21:00', 18, 110.0, null, null, null, 302.5),
+ (7, 15, null, null, null, '2018-11-10 10:30:00', 20, 99.0, 410.0),
+ (8, 19, '2018-11-10 10:31:00', 19, 99.0, null, null, null, 401.5);
