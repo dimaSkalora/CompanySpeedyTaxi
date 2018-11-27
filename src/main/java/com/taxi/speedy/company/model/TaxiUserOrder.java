@@ -2,14 +2,15 @@ package com.taxi.speedy.company.model;
 
 import java.time.LocalDateTime;
 
+//Заказы заполняет user
 public class TaxiUserOrder extends AbstractBaseEntity {
-    private LocalDateTime dateTimeOrder;
+    private LocalDateTime dateTimeOrder;                //Дата и время заказа
     private User idUser;
-    private String addressDeparture;
-    private String addressArrival;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private Integer fulfilled;
+    private String addressDeparture;                    //Адрес отправление
+    private String addressArrival;                      //Адрес прибытие
+    private LocalDateTime startDate;                    //Время отправление
+    private LocalDateTime endDate;                      //Время прибытие
+    private Integer fulfilled;                          //Выполнен заказ: 1 - да, 0 - нет
 
     public TaxiUserOrder() {
     }

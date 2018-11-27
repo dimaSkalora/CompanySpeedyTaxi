@@ -2,12 +2,13 @@ package com.taxi.speedy.company.model;
 
 import java.time.LocalDateTime;
 
+//Допуск Юзера и ТС до маршрута
 public class AccessToRoute extends AbstractBaseEntity {
-    private LocalDateTime checksDateTime;
+    private LocalDateTime checksDateTime;               //Дата и время проверки Юзера и ТС к маршруту
     private UserVehicle idUserVehicle;
     private UserState idUserState;
     private VehicleState idVehicleState;
-    private Integer isAccess;
+    private Integer isAccess;                           //Допуск: 1 - yes, 0 - no
 
     public AccessToRoute() {
     }
