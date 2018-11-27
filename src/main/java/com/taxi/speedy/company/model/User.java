@@ -14,8 +14,8 @@ public class User implements HashId {
     private String phone;
     private String address;
     private Set<Role> roles;
-    private Date registered;
-    private boolean enabled;
+    private Date registered;        //Дата регистраиции пользователя
+    private boolean enabled;        //true - активный, false - не активный
 
     public User() {
     }

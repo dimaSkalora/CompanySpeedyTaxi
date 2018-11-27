@@ -1,14 +1,14 @@
 package com.taxi.speedy.company.model;
 
-
 import java.time.LocalDateTime;
 
+//Какое у юзера транспортное средство(какая у водителя машина)
 public class UserVehicle extends AbstractBaseEntity{
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDateTime startDate;                //Дата когда пользователь взял машину
+    private LocalDateTime endDate;                  //Дата когда пользователь вернул машину
     private User idUser;
     private Vehicle idVehicle;
-    private Integer isCurrentUserMachine;
+    private Integer isCurrentUserMachine;           //Машина текущего пользователя: 0 - есть машина; 1 - нету машины
 
     public UserVehicle() {
     }

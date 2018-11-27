@@ -1,13 +1,14 @@
 package com.taxi.speedy.company.model;
 
 
+//Транспортное средство
 public class Vehicle  extends AbstractBaseEntity{
-    private String name_car;
-    private String vehicle_number;
-    private Integer year_issue;
-    private String category;
-    private String color;
-    private Integer fuel_consumption;
+    private String name_car;                    //Название, модель ТС
+    private String vehicle_number;              //Номер ТС
+    private Integer year_issue;                 //Год выпуска ТС
+    private String category;                    //Легковая, грузовая, автобус и т.д.
+    private String color;                       //Цвет ТС
+    private Integer fuel_consumption;           //Расход топлива л/100км
 
     public Vehicle() {
     }
