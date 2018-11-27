@@ -1,7 +1,7 @@
 package com.taxi.speedy.company.model;
 
 public class VehicleState extends AbstractBaseEntity {
-    private String nameVS;
+    private String nameVS;                          //Название состояния (робочая, не рабочая, и т.д.)
 
     public VehicleState() {
     }

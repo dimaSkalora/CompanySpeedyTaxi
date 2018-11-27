@@ -1,7 +1,7 @@
 package com.taxi.speedy.company.model;
 
 public class UserState extends AbstractBaseEntity{
-    private String nameUS;
+    private String nameUS;                       //Название состояния (здоровый, больной, и т.д.)
 
     public UserState() {
     }
