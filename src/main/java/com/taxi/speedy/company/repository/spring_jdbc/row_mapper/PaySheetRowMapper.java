@@ -36,7 +36,7 @@ public class PaySheetRowMapper implements RowMapper<PaySheet> {
         paySheet.setAmountWithTexas(resultSet.getDouble(15));
         paySheet.setNormHoursWorked(resultSet.getInt(16));
         paySheet.setHoursWorked(resultSet.getInt(17));
-        paySheet.setHours_holiday(resultSet.getInt(18));
+        paySheet.setHoursHoliday(resultSet.getInt(18));
 
         return paySheet;
     }

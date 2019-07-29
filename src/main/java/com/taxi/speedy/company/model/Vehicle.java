@@ -3,52 +3,52 @@ package com.taxi.speedy.company.model;
 
 //Транспортное средство
 public class Vehicle  extends AbstractBaseEntity{
-    private String name_car;                    //Название, модель ТС
-    private String vehicle_number;              //Номер ТС
-    private Integer year_issue;                 //Год выпуска ТС
+    private String nameCar;                    //Название, модель ТС
+    private String vehicleNumber;              //Номер ТС
+    private Integer yearIssue;                 //Год выпуска ТС
     private String category;                    //Легковая, грузовая, автобус и т.д.
     private String color;                       //Цвет ТС
-    private Integer fuel_consumption;           //Расход топлива л/100км
+    private Integer fuelConsumption;           //Расход топлива л/100км
 
     public Vehicle() {
     }
 
-    public Vehicle(Integer id, String name_car, String vehicle_number, Integer year_issue, String category, String color, Integer fuel_consumption) {
+    public Vehicle(Integer id, String nameCar, String vehicleNumber, Integer yearIssue, String category, String color, Integer fuelConsumption) {
         super(id);
-        this.name_car = name_car;
-        this.vehicle_number = vehicle_number;
-        this.year_issue = year_issue;
+        this.nameCar = nameCar;
+        this.vehicleNumber = vehicleNumber;
+        this.yearIssue = yearIssue;
         this.category = category;
         this.color = color;
-        this.fuel_consumption = fuel_consumption;
+        this.fuelConsumption = fuelConsumption;
     }
 
-    public Vehicle(String name_car, String vehicle_number, Integer year_issue, String category, String color, Integer fuel_consumption) {
-        this(null, name_car, vehicle_number, year_issue, category, color, fuel_consumption);
+    public Vehicle(String nameCar, String vehicleNumber, Integer yearIssue, String category, String color, Integer fuelConsumption) {
+        this(null, nameCar, vehicleNumber, yearIssue, category, color, fuelConsumption);
     }
 
-    public String getName_car() {
-        return name_car;
+    public String getNameCar() {
+        return nameCar;
     }
 
-    public void setName_car(String name_car) {
-        this.name_car = name_car;
+    public void setNameCar(String nameCar) {
+        this.nameCar = nameCar;
     }
 
-    public String getVehicle_number() {
-        return vehicle_number;
+    public String getVehicleNumber() {
+        return vehicleNumber;
     }
 
-    public void setVehicle_number(String vehicle_number) {
-        this.vehicle_number = vehicle_number;
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
     }
 
-    public Integer getYear_issue() {
-        return year_issue;
+    public Integer getYearIssue() {
+        return yearIssue;
     }
 
-    public void setYear_issue(Integer year_issue) {
-        this.year_issue = year_issue;
+    public void setYearIssue(Integer yearIssue) {
+        this.yearIssue = yearIssue;
     }
 
     public String getCategory() {
@@ -67,23 +67,23 @@ public class Vehicle  extends AbstractBaseEntity{
         this.color = color;
     }
 
-    public Integer getFuel_consumption() {
-        return fuel_consumption;
+    public Integer getFuelConsumption() {
+        return fuelConsumption;
     }
 
-    public void setFuel_consumption(Integer fuel_consumption) {
-        this.fuel_consumption = fuel_consumption;
+    public void setFuelConsumption(Integer fuelConsumption) {
+        this.fuelConsumption = fuelConsumption;
     }
 
     @Override
     public String toString() {
         return "Vehicle{" +
-                "name_car='" + name_car + '\'' +
-                ", vehicle_number='" + vehicle_number + '\'' +
-                ", year_issue=" + year_issue +
+                "nameCar='" + nameCar + '\'' +
+                ", vehicleNumber='" + vehicleNumber + '\'' +
+                ", yearIssue=" + yearIssue +
                 ", category='" + category + '\'' +
                 ", color='" + color + '\'' +
-                ", fuel_consumption=" + fuel_consumption +
+                ", fuelConsumption=" + fuelConsumption +
                 ", id=" + id +
                 '}';
     }

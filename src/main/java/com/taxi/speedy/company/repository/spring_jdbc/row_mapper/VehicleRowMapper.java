@@ -17,12 +17,12 @@ public class VehicleRowMapper implements RowMapper<Vehicle> {
         // В пределах одной строки значения могут быть считаны в любом порядке
         Vehicle vehicle =  new Vehicle();
         vehicle.setId(resultSet.getInt("id"));                      //vehicle.setId(resultSet.getInt(1));
-        vehicle.setName_car(resultSet.getString("name_car"));       //vehicle.setName_car(resultSet.getString(2));
-        vehicle.setVehicle_number(resultSet.getString("vehicle"));  //vehicle.setVehicle_number(resultSet.getString(3));
-        vehicle.setYear_issue(resultSet.getInt("year_issue"));
+        vehicle.setNameCar(resultSet.getString("name_car"));       //vehicle.setNameCar(resultSet.getString(2));
+        vehicle.setVehicleNumber(resultSet.getString("vehicle"));  //vehicle.setVehicleNumber(resultSet.getString(3));
+        vehicle.setYearIssue(resultSet.getInt("year_issue"));
         vehicle.setCategory(resultSet.getString("category"));
         vehicle.setColor(resultSet.getString("color"));
-        vehicle.setFuel_consumption(resultSet.getInt("fuel_consumption"));
+        vehicle.setFuelConsumption(resultSet.getInt("fuel_consumption"));
 
         return vehicle;
     }

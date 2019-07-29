@@ -17,7 +17,7 @@ public class TaxiJobStatusRowMapper implements RowMapper<TaxiJobStatus> {
         // В пределах одной строки значения могут быть считаны в любом порядке
         TaxiJobStatus taxiJobStatus = new TaxiJobStatus();
         taxiJobStatus.setId(resultSet.getInt(1));                   //taxiJobStatus.setId(resultSet.getInt("id"));
-        taxiJobStatus.setName_tjs(resultSet.getString(2));
+        taxiJobStatus.setNameTJS(resultSet.getString(2));
 
         return taxiJobStatus;
     }

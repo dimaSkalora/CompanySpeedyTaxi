@@ -18,12 +18,12 @@ public class PaySheet extends AbstractBaseEntity {
     private Double amountWithTexas;                     //Начислена сумма с налогами
     private Integer normHoursWorked;                    //Норма отработаных часов
     private Integer hoursWorked;                        //Отработаны часы'
-    private Integer hours_holiday;                      //Сколько часов был на больничном
+    private Integer hoursHoliday;                      //Сколько часов был на больничном
 
     public PaySheet() {
     }
 
-    public PaySheet(User idUser, BankCard idBankCard, DepartmentCompany idDepartmentCompany, String monthYear, Double prepayment, Double salary, Double premium, Double hospitals, Double holiday, Double amountWithoutTaxes, Double ndfl, Double esv, Double vs, Double amountWithTexas, Integer normHoursWorked, Integer hoursWorked, Integer hours_holiday) {
+    public PaySheet(User idUser, BankCard idBankCard, DepartmentCompany idDepartmentCompany, String monthYear, Double prepayment, Double salary, Double premium, Double hospitals, Double holiday, Double amountWithoutTaxes, Double ndfl, Double esv, Double vs, Double amountWithTexas, Integer normHoursWorked, Integer hoursWorked, Integer hoursHoliday) {
         this.idUser = idUser;
         this.idBankCard = idBankCard;
         this.idDepartmentCompany = idDepartmentCompany;
@@ -40,10 +40,10 @@ public class PaySheet extends AbstractBaseEntity {
         this.amountWithTexas = amountWithTexas;
         this.normHoursWorked = normHoursWorked;
         this.hoursWorked = hoursWorked;
-        this.hours_holiday = hours_holiday;
+        this.hoursHoliday = hoursHoliday;
     }
 
-    public PaySheet(Integer id, User idUser, BankCard idBankCard, DepartmentCompany idDepartmentCompany, String monthYear, Double prepayment, Double salary, Double premium, Double hospitals, Double holiday, Double amountWithoutTaxes, Double ndfl, Double esv, Double vs, Double amountWithTexas, Integer normHoursWorked, Integer hoursWorked, Integer hours_holiday) {
+    public PaySheet(Integer id, User idUser, BankCard idBankCard, DepartmentCompany idDepartmentCompany, String monthYear, Double prepayment, Double salary, Double premium, Double hospitals, Double holiday, Double amountWithoutTaxes, Double ndfl, Double esv, Double vs, Double amountWithTexas, Integer normHoursWorked, Integer hoursWorked, Integer hoursHoliday) {
         super(id);
         this.idUser = idUser;
         this.idBankCard = idBankCard;
@@ -61,7 +61,7 @@ public class PaySheet extends AbstractBaseEntity {
         this.amountWithTexas = amountWithTexas;
         this.normHoursWorked = normHoursWorked;
         this.hoursWorked = hoursWorked;
-        this.hours_holiday = hours_holiday;
+        this.hoursHoliday = hoursHoliday;
     }
 
     public User getIdUser() {
@@ -192,12 +192,12 @@ public class PaySheet extends AbstractBaseEntity {
         this.hoursWorked = hoursWorked;
     }
 
-    public Integer getHours_holiday() {
-        return hours_holiday;
+    public Integer getHoursHoliday() {
+        return hoursHoliday;
     }
 
-    public void setHours_holiday(Integer hours_holiday) {
-        this.hours_holiday = hours_holiday;
+    public void setHoursHoliday(Integer hoursHoliday) {
+        this.hoursHoliday = hoursHoliday;
     }
 
     @Override
@@ -219,7 +219,7 @@ public class PaySheet extends AbstractBaseEntity {
                 ", amountWithTexas=" + amountWithTexas +
                 ", normHoursWorked=" + normHoursWorked +
                 ", hoursWorked=" + hoursWorked +
-                ", hours_holiday=" + hours_holiday +
+                ", hoursHoliday=" + hoursHoliday +
                 ", id=" + id +
                 '}';
     }
