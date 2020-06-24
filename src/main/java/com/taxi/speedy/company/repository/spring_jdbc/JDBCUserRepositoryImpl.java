@@ -5,7 +5,7 @@ import com.taxi.speedy.company.repository.UserRepository;
 
 import java.util.List;
 
-public class UserRepositoryImpl implements UserRepository {
+public class JDBCUserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         return null;
