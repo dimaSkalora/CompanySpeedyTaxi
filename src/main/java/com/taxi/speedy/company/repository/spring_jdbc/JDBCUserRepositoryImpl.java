@@ -107,7 +107,7 @@ public class JDBCUserRepositoryImpl implements UserRepository {
 
         //for (Map.Entry<Integer, Set<Role>> entry : mapUserRoles.entrySet())
         //    System.out.println(entry.getKey()+"  " +entry.getValue());
-        mapUserRoles.forEach((k,v) -> System.out.println(k.toString()+" "+v));
+        //mapUserRoles.forEach((k,v) -> System.out.println(k.toString()+" "+v));
 
         List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", new UserRowMapper(), id);
         users.forEach(u -> u.setRoles(mapUserRoles.get(u.getId()))); // Добавляем для юзера роли которые получили из таблицы USER_ROLES
@@ -120,7 +120,7 @@ public class JDBCUserRepositoryImpl implements UserRepository {
         Map<Integer, Set<Role>> mapUserRoles = getUserRoles();
         //for (Map.Entry<Integer, Set<Role>> entry : mapUserRoles.entrySet())
         //    System.out.println(entry.getKey()+"  " +entry.getValue());
-        mapUserRoles.forEach((k,v) -> System.out.println(k.toString()+" "+v));
+        //mapUserRoles.forEach((k,v) -> System.out.println(k.toString()+" "+v));
 
         List<User> users = jdbcTemplate.query("SELECT * FROM USERS ORDER BY NAME, EMAIL",ROW_MAPPER_USER);
         users.forEach(user -> user.setRoles(mapUserRoles.get(user.getId())));
