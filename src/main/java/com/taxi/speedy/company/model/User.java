@@ -1,11 +1,11 @@
 package com.taxi.speedy.company.model;
 
-import com.taxi.speedy.company.HashId;
+import com.taxi.speedy.company.HasId;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
-public class User implements HashId {
+public class User implements HasId {
     private Integer id;
     private String name;
     private String email;
