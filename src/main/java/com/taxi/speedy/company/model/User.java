@@ -1,12 +1,11 @@
 package com.taxi.speedy.company.model;
 
-import com.taxi.speedy.company.HashId;
+import com.taxi.speedy.company.HasId;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
-public class User implements HashId {
+public class User implements HasId {
     private Integer id;
     private String name;
     private String email;
@@ -90,8 +89,8 @@ public class User implements HashId {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public Date getRegistered() {

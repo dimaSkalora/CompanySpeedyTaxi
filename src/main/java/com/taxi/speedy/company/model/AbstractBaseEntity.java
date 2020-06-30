@@ -1,8 +1,8 @@
 package com.taxi.speedy.company.model;
 
-import com.taxi.speedy.company.HashId;
+import com.taxi.speedy.company.HasId;
 
-public abstract class AbstractBaseEntity implements HashId {
+public abstract class AbstractBaseEntity implements HasId {
 
     protected Integer id;
 
