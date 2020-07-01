@@ -38,7 +38,7 @@ public class JspUserController extends AbstractUserController {
         return "redirect:/users";
     }
 
-    @PostMapping()
+    @PostMapping("/createOrUpdate")
     public String createOrUpdate(User user){
         if(user.isNew())
             super.create(user);
