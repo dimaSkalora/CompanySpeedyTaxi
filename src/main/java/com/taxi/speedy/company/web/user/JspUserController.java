@@ -4,6 +4,7 @@ import com.taxi.speedy.company.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
@@ -39,13 +40,13 @@ public class JspUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(User user){
+    public String update(@ModelAttribute("user")User user){
         super.update(user, user.getId());
         return "redirect:/users";
     }
 
     @PostMapping("/createOrUpdate")
-    public String createOrUpdate(User user){
+    public String createOrUpdate(@ModelAttribute("user")User user){
         if(user.isNew())
             super.create(user);
         else
@@ -54,9 +55,9 @@ public class JspUserController extends AbstractUserController {
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public String get(User user){
-        User userGet = super.get(user.getId());
-        return "user";
+    public ModelAndView get(@ModelAttribute("user")User user){
+        //User userGet = super.get(user.getId());
+        return new ModelAndView("user", "user", user);
     }
 
 }
