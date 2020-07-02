@@ -38,6 +38,12 @@ public class JspUserController extends AbstractUserController {
         return "redirect:/users";
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(User user){
+        super.update(user, user.getId());
+        return "redirect:/users";
+    }
+
     @PostMapping("/createOrUpdate")
     public String createOrUpdate(User user){
         if(user.isNew())
@@ -45,6 +51,12 @@ public class JspUserController extends AbstractUserController {
         else
             super.update(user,user.getId());
         return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public String get(User user){
+        User userGet = super.get(user.getId());
+        return "user";
     }
 
 }
