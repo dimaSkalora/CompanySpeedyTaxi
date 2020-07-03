@@ -10,11 +10,17 @@
     <title>Title</title>
 </head>
 <body>
+<p>Hello ${user.name}
+</p>
+<br>
+<br>
+<br>
+<br>
 <form:form method="POST" modelAttribute="user" action="update">
         <form:label path="name">
            name
         </form:label>
-        <form:input path="name"/>
+        <form:input path="name"/><br>
         <form:label path="password">
             password
         </form:label>

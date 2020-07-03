@@ -41,7 +41,7 @@
                 <td><c:out value="${user.roles}"/></td>
                 <td><c:out value="${user.registered}"/></td>
                 <td><c:out value="${user.enabled}"/></td>
-                <td><a href="/CompanySpeedyTaxi/users/get"/>update</td>
+                <td><a href="/CompanySpeedyTaxi/users/get?=${user.id}"/>update</td>
                 <td><a href="/users/delete?id=${user.id}"/>delete</td>
             </tr>
         </c:forEach>
