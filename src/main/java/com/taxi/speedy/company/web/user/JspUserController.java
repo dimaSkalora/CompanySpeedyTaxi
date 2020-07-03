@@ -54,10 +54,10 @@ public class JspUserController extends AbstractUserController {
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ModelAndView get(@ModelAttribute("user")User user){
-        //User userGet = super.get(user.getId());
-        return new ModelAndView("user", "user", user);
+    @RequestMapping(value = "/get{id}", method = RequestMethod.GET)
+    public ModelAndView getUser(@PathVariable int id){
+        User userGet = super.get(id);
+        return new ModelAndView("user", "user", userGet);
     }
 
 }
