@@ -10,12 +10,22 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
 
-<!--    <context:annotation-config />-->
+    <context:annotation-config />
+
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.taxi.speedy.company.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
+                <bean class="com.taxi.speedy.company.web.converter.DateTimeFormatters.LocalDateFormatter"/>
+            </set>
+        </property>
+    </bean>
 
     <import resource="spring_web_db.xml"/>
     <import resource="spring_web_app.xml"/>
 
     <context:component-scan base-package="com.taxi.speedy.company.**.web"/>
+    <context:component-scan base-package="com.taxi.speedy.company.**.config"/>
 
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
