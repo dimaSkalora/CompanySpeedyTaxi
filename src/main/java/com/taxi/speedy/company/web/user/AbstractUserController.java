@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,9 @@ public abstract class AbstractUserController {
         //Добавляем роль для юзера по умолчанию
         Set<Role> roles = new HashSet<>();
         roles.add(Role.ROLE_USER);
+        user.setRoles(roles);
+        user.setRegistered(new Date());
+        user.setEnabled(true);
         return userService.create(user);
     }
 
@@ -32,8 +36,8 @@ public abstract class AbstractUserController {
         if(!user.isNew()){
             user.setId(id);
             if(user.getRoles() == null){
-                Set<Role> roles = new HashSet<>();
-                roles.add(Role.ROLE_USER);
+                User userRoles = userService.get(user.getId());
+                Set<Role> roles = userRoles.getRoles();
                 user.setRoles(roles);
             }
         }else if(user.getId() != id)

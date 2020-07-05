@@ -1,11 +1,17 @@
 package com.taxi.speedy.company.web.user;
 
 import com.taxi.speedy.company.model.User;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.beans.PropertyEditorSupport;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Controller
@@ -19,12 +25,20 @@ public class JspUserController extends AbstractUserController {
         return "users";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@RequestParam(value = "name", required = true) String name,
+    @GetMapping(value = "/user")
+    public String user(Model model){
+        model.addAttribute("user", new User());
+        return "user";
+    }
+
+    @RequestMapping(value = "/createRequestParam", method = RequestMethod.POST)
+    public String createRequestParam(@RequestParam(value = "name", required = true) String name,
                          @RequestParam(value = "email", required = true) String email,
                          @RequestParam(value = "password", required = true) String password,
                          @RequestParam(value = "phone") String phone,
                          @RequestParam(value = "address") String address){
+        //createRequestParam?name=testname?email=testemail?password=testpassword?phone=testphone?address=testaddress
+
         User userNew = new User();
         userNew.setName(name);
         userNew.setEmail(email);
@@ -39,10 +53,20 @@ public class JspUserController extends AbstractUserController {
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute("user")User user){
-        super.update(user, user.getId());
+    @RequestMapping(value = "/createModelUser", method = RequestMethod.POST)
+    public String createModelUser(@ModelAttribute("user")User user){
+        super.create(user);
         return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/update/{id}")
+    public ModelAndView update(@PathVariable int id){
+        User user = super.get(id);
+        ModelAndView model = new ModelAndView("user");
+        model.addObject(user);
+        return model;
+        //return "redirect:/users";
+        //return "redirect:/user";
     }
 
     @PostMapping("/createOrUpdate")
@@ -54,10 +78,23 @@ public class JspUserController extends AbstractUserController {
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "/get{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete")
+    public String deleteUser(@RequestParam int id){
+        super.delete(id);
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public ModelAndView getUser(@PathVariable int id){
         User userGet = super.get(id);
         return new ModelAndView("user", "user", userGet);
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
 }
