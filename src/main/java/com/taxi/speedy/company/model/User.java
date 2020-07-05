@@ -1,6 +1,7 @@
 package com.taxi.speedy.company.model;
 
 import com.taxi.speedy.company.HasId;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
@@ -13,6 +14,7 @@ public class User implements HasId {
     private String phone;
     private String address;
     private Set<Role> roles;
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registered;        //Дата регистраиции пользователя
     private boolean enabled;        //true - активный, false - не активный
 
