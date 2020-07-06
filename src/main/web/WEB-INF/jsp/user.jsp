@@ -14,6 +14,40 @@
 <p>Hello ${user.name}
 </p>
 <br>
+<p> ${pageContext.request.requestURI}</p>
+<p> ${pageContext.request.requestURL}</p>
+<p> ${pageContext.request.requestedSessionIdFromURL}</p>
+<p> ${pageContext.request.requestedSessionIdFromURI}</p>
+<p>${pageContext.request.requestURI}</p>
+<br>
+<p> ${param}</p>
+<p> ${paramValues}</p>
+<p> ${header}</p>
+<p> ${headerValues}</p>
+<p> ${cookie}</p>
+<p> ${initParam}</p>
+<br>
+<p> ${pageScope}</p>
+<p> ${requestScope}</p>
+<p> ${sessionScope}</p>
+<p> ${applicationScope}</p>
+
+<p>${requestScope('javax.servlet.forward.request_uri')}</p>
+<p>
+    <%= request.getContextPath() %>
+    <%= request.getRequestURI() %>
+    <%= request.getRequestURL() %>
+</p>
+
+<%--<c:set var="pageUrl" scope="request">
+    <c:out value="${pageContext.request.scheme}://${pageContext.request.serverName}"/>
+    <c:if test="${pageContext.request.serverPort != '80'}">
+        <c:out value=":${pageContext.request.serverPort}"/>
+    </c:if>
+    <c:out value="${requestScope['javax.servlet.forward.request_uri']}"/>
+</c:set>--%>
+
+<br>
 <c:url var="createOrUpdateUrl" value="/users/createOrUpdate" />
     <form:form method="POST" modelAttribute="user" action="${createOrUpdateUrl}"
                class="box login">
