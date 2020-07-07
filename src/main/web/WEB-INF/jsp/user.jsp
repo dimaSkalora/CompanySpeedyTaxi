@@ -71,6 +71,22 @@
     <c:out value="4545413511"/>
 
 </c:if>
+<c:set var="jsf_request_uri" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>
+<c:set var="jsf_request_uriStr" value="/CompanySpeedyTaxi/users/user"/>
+<c:out value="${jsf_request_uri}"/>
+<c:out value="${jsf_request_uriStr}"/>
+<c:out value="${jsf_request_uri.equals(jsf_request_uriStr)}"/>
+<c:if test="${jsf_request_uri.equals(jsf_request_uriStr)}">
+    <c:out value="4545413511"/>
+    <a href="/CompanySpeedyTaxi/users/" class="btnLogin" value="<spring:message text="OK"/>"/>
+
+</c:if>
+<br>
+<c:if test="${jsf_request_uri == jsf_request_uriStr}">
+    <c:out value="swwsd"/>
+    <a href="/" class="btnLogin" value="<spring:message text="OK"/>"/>
+
+</c:if>
 <br>
 
 <c:url var="createOrUpdateUrl" value="/users/createOrUpdate" />
@@ -158,26 +174,21 @@
         </fieldset>
 
         <footer>
-            <c:set var="jsf_request_uri1" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>
+           <%-- <c:set var="jsf_request_uri1" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>--%>
+            <c:set var="jsf_request_uri1" value="${requestScope.get(\"javax.servlet.forward.request_uri\")+requestScope.get(\"javax.servlet.forward.context_path\")}"/>
             <c:set var="jsf_request_uriStr" value="/CompanySpeedyTaxi/users/user"/>
+               <c:out value="${jsf_request_uri}"/>
+               <c:out value="${jsf_request_uri1.equals(jsf_request_uriStr)}"/>
             <c:if test="${jsf_request_uri1.equals(jsf_request_uriStr)}">
-                <c:out value="4545413511"/>
+                    <a href="/users" class="btnLogin" value="<spring:message text="OK"/>"/>
+                <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
             </c:if>
-            <c:out value="${jsf_request_uri1.equals(\"/CompanySpeedyTaxi/users/user\")} "/>
-            <c:out value="${requestScope.get(\"javax.servlet.forward.request_uri\")== \"/CompanySpeedyTaxi/users/user\"}"/>
-            <c:if test="${jsf_request_uri1.equals(jsf_request_uriStr)}">
-
-            <c:out value="4545413511"/>
-                    <input type="submit" class="btnLogin" value="<spring:message text="SAVE52"/>"/>
-
-                </c:if>
    <%--         <c:if test="${!empty user.id}">
                 <input type="submit" class="btnLogin" value="<spring:message text="UPDATE"/>"/>
             </c:if>
             <c:if test="${empty user.id}">
                 <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
             </c:if>--%>
-
         </footer>
 
 
