@@ -36,7 +36,7 @@ CREATE TABLE users
   email            VARCHAR                 NOT NULL,
   password         VARCHAR                 NOT NULL,
   phone            VARCHAR                 NOT NULL,
-  adress           VARCHAR                 NOT NULL,
+  address           VARCHAR                 NOT NULL,
   registered       TIMESTAMP DEFAULT now() NOT NULL,
   enabled          BOOL DEFAULT TRUE       NOT NULL
 );

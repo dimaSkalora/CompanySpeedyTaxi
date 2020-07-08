@@ -35,7 +35,7 @@ CREATE TABLE users
   email            VARCHAR(255)                  NOT NULL,
   password         VARCHAR(255)                  NOT NULL,
   phone            VARCHAR(255)                  NOT NULL,
-  adress           VARCHAR(255)                  NOT NULL,
+  address           VARCHAR(255)                  NOT NULL,
   registered       TIMESTAMP DEFAULT now() NOT NULL,
   enabled          BOOLEAN DEFAULT TRUE       NOT NULL
 );
