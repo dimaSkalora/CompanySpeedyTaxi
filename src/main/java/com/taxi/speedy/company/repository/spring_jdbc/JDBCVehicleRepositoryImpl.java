@@ -41,7 +41,7 @@ public class JDBCVehicleRepositoryImpl implements VehicleRepository {
     public JDBCVehicleRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
             //Укажите имя таблицы, которое будет использоваться для вставки.
-            .withTableName("vehicle")
+            .withTableName("vehicles")
             //Укажите имена любых столбцов, в которых есть автоматически сгенерированные ключи.
             .usingGeneratedKeyColumns("id");
         this.jdbcTemplate=jdbcTemplate;
@@ -70,8 +70,9 @@ public class JDBCVehicleRepositoryImpl implements VehicleRepository {
             Number newKey = jdbcInsert.executeAndReturnKey(parameterSource);
             vehicle.setId(newKey.intValue());
         }else {
-            if (namedParameterJdbcTemplate.update("UPDATE vehicles SET name_car=:name_car, vehicle_number=:vehicle_number," +
-                    "yearIssue=:yearIssue, category=:category, color=:color, fuel_consumption=:fuel_consumption",parameterSource)==0)
+            if (namedParameterJdbcTemplate.update("UPDATE vehicles SET name_car=:nameCar, vehicle_number=:vehicleNumber," +
+                    "year_issue=:yearIssue, category=:category, color=:color, fuel_consumption=:fuelConsumption WHERE id=:id"
+                    ,parameterSource)==0)
                 return null;
         }
         return vehicle;
