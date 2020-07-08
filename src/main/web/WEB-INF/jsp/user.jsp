@@ -13,81 +13,6 @@
 <body>
 <p>Hello ${user.name}
 </p>
-<br>
-<p> ${pageContext.request.requestURI}</p>
-<p> ${pageContext.request.requestURL}</p>
-<p> ${pageContext.request.requestedSessionIdFromURL}</p>
-<%--<p> ${pageContext.request.requestedSessionIdFromURI}</p>--%>
-<p>${pageContext.request.requestURI}</p>
-<br>
-<%--<p> ${param}</p>
-<p> ${paramValues}</p>
-<p> ${header}</p>
-<p> ${headerValues}</p>
-<p> ${cookie}</p>
-<p> ${initParam}</p>--%>
-<br>
-<p> ${pageScope}</p>
-<p> ${requestScope.get("javax.servlet.forward.request_uri")}</p>
-<p> ${sessionScope}</p>
-<p> ${applicationScope}</p>
-<%--
-<p>${requestScope('javax.servlet.forward.request_uri')}</p>--%>
-<%--
-<p>
-    <%= request.getContextPath() %>
-    <%= request.getRequestURI() %>
-    <%= request.getRequestURL() %>
-</p>
---%>
-
-<%--<c:set var="pageUrl" scope="request">
-    <c:out value="${pageContext.request.scheme}://${pageContext.request.serverName}"/>
-    <c:if test="${pageContext.request.serverPort != '80'}">
-        <c:out value=":${pageContext.request.serverPort}"/>
-    </c:if>
-    <c:out value="${requestScope['javax.servlet.forward.request_uri']}"/>
-</c:set>--%>
-<p> ${requestScope.get("javax.servlet.forward.request_uri")}</p>
-<br>
-<c:set var="jsf_request_uri" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>
-<br>
-<p> var jsf_request_uri  ${jsf_request_uri}</p>
-<br>
-<c:set var="jsf_context_path" value="${requestScope.get(\"javax.servlet.forward.context_path\")}"/>
-<br>
-<p> var jsf_context_path  ${jsf_context_path}</p>
-<br>
-<c:set var="jsf_servlet_path" value="${requestScope.get(\"javax.servlet.forward.servlet_path\")}"/>
-<br>
-<p> var jsf_servlet_path  ${jsf_servlet_path}</p>
-<br>
-
-<br>
-<br>
-<c:if test="${requestScope.get(\"javax.servlet.forward.request_uri\") == \"/CompanySpeedyTaxi/users/user\"} ">
-    <%--<c:if test="${12==12}">--%>
-
-    <c:out value="4545413511"/>
-
-</c:if>
-<c:set var="jsf_request_uri" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>
-<c:set var="jsf_request_uriStr" value="/CompanySpeedyTaxi/users/user"/>
-<c:out value="${jsf_request_uri}"/>
-<c:out value="${jsf_request_uriStr}"/>
-<c:out value="${jsf_request_uri.equals(jsf_request_uriStr)}"/>
-<c:if test="${jsf_request_uri.equals(jsf_request_uriStr)}">
-    <c:out value="4545413511"/>
-    <a href="/CompanySpeedyTaxi/users/" class="btnLogin" value="<spring:message text="OK"/>"/>
-
-</c:if>
-<br>
-<c:if test="${jsf_request_uri == jsf_request_uriStr}">
-    <c:out value="swwsd"/>
-    <a href="/" class="btnLogin" value="<spring:message text="OK"/>"/>
-
-</c:if>
-<br>
 
 <c:url var="createOrUpdateUrl" value="/users/createOrUpdate" />
     <form:form method="POST" modelAttribute="user" action="${createOrUpdateUrl}"
@@ -170,28 +95,35 @@
                         </td>
                     </tr>
                 </c:if>
+                <tr>
+                    <td>
+                        <form:label path="roles">
+                            <spring:message text="roles"/>
+                        </form:label>
+                    </td>
+                    <td>
+                        <form:input path="roles" readonly="true" size="8" disabled="true"/>
+                    </td>
+                </tr>
             </table>
         </fieldset>
 
         <footer>
-           <%-- <c:set var="jsf_request_uri1" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>--%>
-            <c:set var="jsf_request_uri1" value="${requestScope.get(\"javax.servlet.forward.request_uri\")+requestScope.get(\"javax.servlet.forward.context_path\")}"/>
-            <c:set var="jsf_request_uriStr" value="/CompanySpeedyTaxi/users/user"/>
-               <c:out value="${jsf_request_uri}"/>
-               <c:out value="${jsf_request_uri1.equals(jsf_request_uriStr)}"/>
-            <c:if test="${jsf_request_uri1.equals(jsf_request_uriStr)}">
-                    <a href="/users" class="btnLogin" value="<spring:message text="OK"/>"/>
-                <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
+            <c:set var="jsf_request_uri" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>
+            <c:set var="jsf_request_uriStr" value="/CompanySpeedyTaxi/users/get"/>
+            <c:if test="${jsf_request_uri.startsWith(jsf_request_uriStr)}">
+                <a href="/CompanySpeedyTaxi/users" class="btnLogin"><spring:message text="OK"/></a>
+                <%--<input class ="btnLogin" type="button" value="<spring:message text="OK2"/>" onclick="location.href = '/CompanySpeedyTaxi/users'"/>--%>
             </c:if>
-   <%--         <c:if test="${!empty user.id}">
-                <input type="submit" class="btnLogin" value="<spring:message text="UPDATE"/>"/>
+            <c:if test="${!jsf_request_uri.startsWith(jsf_request_uriStr)}">
+                <c:if test="${!empty user.id}">
+                    <input type="submit" class="btnLogin" value="<spring:message text="UPDATE"/>"/>
+                </c:if>
+                <c:if test="${empty user.id}">
+                    <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
+                </c:if>
             </c:if>
-            <c:if test="${empty user.id}">
-                <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
-            </c:if>--%>
         </footer>
-
-
     </form:form>
 </body>
 </html>

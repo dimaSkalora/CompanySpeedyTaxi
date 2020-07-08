@@ -37,7 +37,7 @@
         <c:forEach items="${users}" var="user">
             <jsp:useBean id="user" scope="page" type="com.taxi.speedy.company.model.User"/>
             <tr>
-                <td><c:out value="${user.name}"/></td>
+                <td><a href="users/get/${user.id}"/><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.password}"/></td>
                 <td><c:out value="${user.phone}"/></td>
