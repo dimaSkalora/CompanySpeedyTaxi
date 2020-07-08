@@ -355,11 +355,11 @@ body {
 }
 
 .box.login {
-	height: 300px;
+	height: 270px;
 	width: 700px;
 	position: absolute;
 	left: 40%;
-	top: 30%;
+	top: 40%;
 	margin: -130px 0 0 -166px;
 }
 
