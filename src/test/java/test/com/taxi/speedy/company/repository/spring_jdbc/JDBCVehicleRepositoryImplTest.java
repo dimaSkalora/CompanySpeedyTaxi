@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JDBCVehicleRepositoryImplTest {
@@ -29,7 +30,7 @@ public class JDBCVehicleRepositoryImplTest {
     @Test
     public void save(){
         Vehicle vehicleNew = new Vehicle();
-        vehicleNew.setNameCar("name test");
+        vehicleNew.setNameCar(LocalDateTime.now().toLocalTime().toString());
         vehicleNew.setVehicleNumber("bt 456 bt");
         vehicleNew.setYearIssue(2000);
         vehicleNew.setCategory("легковая");
@@ -45,7 +46,8 @@ public class JDBCVehicleRepositoryImplTest {
     public void update(){
         save();
         vehicle = jdbcVehicleRepositoryImpl.get(vehicleId);
-        vehicle.setNameCar("name test update");
+        log.info("vehicle update {}",vehicle);
+        vehicle.setNameCar(LocalDateTime.now().toLocalTime().toString());
         jdbcVehicleRepositoryImpl.save(vehicle);
         log.info("vehicle update {}",vehicle);
     }
