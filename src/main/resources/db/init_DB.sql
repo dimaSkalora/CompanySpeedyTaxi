@@ -63,7 +63,7 @@ COMMENT ON COLUMN user_roles.role
 ---------------vehicles---------------3
 CREATE TABLE vehicles
 (
-  id                    INTEGER PRIMARY KEY,
+  id                    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name_car              VARCHAR NOT NULL,
   vehicle_number        VARCHAR NOT NULL,
   year_issue            VARCHAR(4) NOT NULL,
@@ -88,7 +88,7 @@ COMMENT ON COLUMN vehicles.fuel_consumption
 ---------------user_vehicles---------------4
 CREATE TABLE user_vehicles
 (
-	id                      INTEGER PRIMARY KEY,
+	id                      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
 	start_date              TIMESTAMP DEFAULT now() NOT NULL,
 	end_date                TIMESTAMP,
  	id_user                 INTEGER NOT NULL,
@@ -109,7 +109,7 @@ COMMENT ON COLUMN user_vehicles.is_current_user_machine
 ---------------user_state---------------5
 CREATE TABLE user_state
 (
-	id               INTEGER PRIMARY KEY,
+	id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
 	name_us          VARCHAR NOT NULL
 );
 COMMENT ON COLUMN user_state.name_us
@@ -119,7 +119,7 @@ COMMENT ON COLUMN user_state.name_us
 ---------------vehicle_state---------------6
 CREATE TABLE vehicle_state
 (
-	id              INTEGER PRIMARY KEY,
+	id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
 	name_vs         VARCHAR NOT NULL
 );
 COMMENT ON COLUMN vehicle_state.name_vs
@@ -128,7 +128,7 @@ COMMENT ON COLUMN vehicle_state.name_vs
 ---------------access_to_route---------------7
 CREATE TABLE access_to_route
 (
-  id                 INTEGER PRIMARY KEY,
+  id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   date_time          TIMESTAMP DEFAULT now() NOT NULL,
   id_user_vehicles   INTEGER NOT NULL,
   id_user_state      INTEGER NOT NULL,
@@ -148,7 +148,7 @@ COMMENT ON COLUMN access_to_route.is_access
 ---------------taxi_dispatchers---------------8
 CREATE TABLE taxi_dispatchers
 (
-  id                  INTEGER PRIMARY KEY,
+  id                  INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user             INTEGER NOT NULL,
   FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE --если удаляется пользователь из таблицы users то автомачически удаляется и из taxi_dispatcher
 );
@@ -156,7 +156,7 @@ CREATE TABLE taxi_dispatchers
 ---------------taxi_dispatcher_orders---------------9
 CREATE TABLE taxi_dispatcher_orders
 (
-  id                  INTEGER PRIMARY KEY,
+  id                  INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   date_time_order     TIMESTAMP DEFAULT now() NOT NULL,
   id_taxi_dispatcher  INTEGER NOT NULL,
   user_name           VARCHAR NOT NULL,
@@ -187,7 +187,7 @@ COMMENT ON COLUMN taxi_dispatcher_orders.fulfilled
 ---------------taxi_user_orders---------------10
 CREATE TABLE taxi_user_orders
 (
-  id                  INTEGER PRIMARY KEY,
+  id                  INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   date_time_order     TIMESTAMP DEFAULT now() NOT NULL,
   id_user             INTEGER NOT NULL,
   address_departure   VARCHAR NOT NULL,
@@ -215,7 +215,7 @@ COMMENT ON COLUMN taxi_user_orders.fulfilled
 ---------------taxi_order_acceptance---------------11
 CREATE TABLE taxi_order_acceptance
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user_vehicle             INTEGER NOT NULL,
   id_taxi_dispatcher_order    INTEGER DEFAULT NULL,
   id_taxi_user_order          INTEGER DEFAULT NULL,
@@ -235,7 +235,7 @@ COMMENT ON COLUMN taxi_order_acceptance.adoption_status
 ---------------type_payment---------------12
 CREATE TABLE type_payment
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name_tp                     VARCHAR NOT NULL
 );
 COMMENT ON TABLE type_payment
@@ -246,7 +246,7 @@ COMMENT ON COLUMN type_payment.name_tp
  ---------------type_bank_card---------------13
 CREATE TABLE type_bank_card
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   type_name                   VARCHAR NOT NULL
 );
 COMMENT ON TABLE type_bank_card
@@ -257,7 +257,7 @@ COMMENT ON COLUMN type_bank_card.type_name
 ---------------bank_card---------------14
 CREATE TABLE bank_card
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   bank_card_number            VARCHAR NOT NULL,
   id_type_bank_card           INTEGER NOT NULL,
   money_balance               DECIMAL NOT NULL,
@@ -279,7 +279,7 @@ COMMENT ON COLUMN bank_card.is_active
 ---------------user_bank_card---------------15
 CREATE TABLE user_bank_card
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user                     INTEGER NOT NULL,
   id_bank_card                INTEGER NOT NULL,
   FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE,
@@ -292,7 +292,7 @@ COMMENT ON TABLE user_bank_card
 ---------------refilling_car---------------16
 CREATE TABLE refilling_car
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user_vehicle             INTEGER NOT NULL,
   id_user_bank_card           INTEGER NOT NULL,
   date_time                   TIMESTAMP DEFAULT now() NOT NULL,
@@ -316,7 +316,7 @@ COMMENT ON COLUMN refilling_car.payment_of_refueling
 ---------------taxi_route_on_orders---------------17
 CREATE TABLE taxi_route_on_orders
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user_vehicle             INTEGER NOT NULL,
   id_user_bank_card           INTEGER NOT NULL,
   id_taxi_order_acceptance    INTEGER NOT NULL,
@@ -345,7 +345,7 @@ COMMENT ON COLUMN taxi_route_on_orders.fuel_consuption
 ---------------taxi_route---------------18
 CREATE TABLE taxi_route
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user_vehicle             INTEGER NOT NULL,
   id_user_bank_card           INTEGER NOT NULL,
   departure_point             VARCHAR NOT NULL,
@@ -380,7 +380,7 @@ COMMENT ON COLUMN taxi_route.fuel_consuption
 ---------------coming_consuption_fuel---------------19
 CREATE TABLE coming_consuption_fuel
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   date_ccf                    VARCHAR NOT NULL,
   id_user_vehicle             INTEGER NOT NULL,
   consuption                  DECIMAL NOT NULL,
@@ -406,7 +406,7 @@ COMMENT ON COLUMN coming_consuption_fuel.total_kilometer
 ---------------bank_card_operations---------------20
 CREATE TABLE bank_card_operations
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user_bank_card           INTEGER NOT NULL,
   date_time_arrivel_money     TIMESTAMP DEFAULT NULL,
   id_bank_card_arrivel        INTEGER DEFAULT NULL,
@@ -441,7 +441,7 @@ COMMENT ON COLUMN bank_card_operations.money_balance
 ---------------taxi_job_status---------------21
 CREATE TABLE taxi_job_status
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name_tjs                    VARCHAR NOT NULL
 );
 COMMENT ON TABLE taxi_job_status
@@ -452,7 +452,7 @@ COMMENT ON COLUMN taxi_job_status.name_tjs
 ---------------taxi_user_vehicle_info---------------22
 CREATE TABLE taxi_user_vehicle_info
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user_vehicle             INTEGER NOT NULL,
   id_taxi_job_status          INTEGER NOT NULL,
   FOREIGN KEY (id_user_vehicle) REFERENCES user_vehicles(id) ON DELETE CASCADE,
@@ -464,7 +464,7 @@ COMMENT ON TABLE taxi_user_vehicle_info
 ---------------departments_company---------------23
 CREATE TABLE departments_company
 (
-  id                          INTEGER PRIMARY KEY,
+  id                          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name_dc                     VARCHAR NOT NULL
 );
 COMMENT ON TABLE departments_company
@@ -475,7 +475,7 @@ COMMENT ON COLUMN departments_company.name_dc
 ---------------payroll_accounting---------------24
 CREATE TABLE payroll_accounting
 (
-  id                             INTEGER PRIMARY KEY,
+  id                             INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_department_company          INTEGER NOT NULL,
   id_user_bank_card              INTEGER NOT NULL,
   month_year                     VARCHAR NOT NULL,
@@ -525,7 +525,7 @@ COMMENT ON COLUMN payroll_accounting.sum_payout_month
 ---------------pay_sheet---------------25
 CREATE TABLE pay_sheet
 (
-  id                             INTEGER PRIMARY KEY,
+  id                             INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   id_user                        INTEGER NOT NULL,
   id_bank_card                   INTEGER NOT NULL,
   id_department_company          INTEGER NOT NULL,
