@@ -60,6 +60,15 @@ public class JDBCVehicleRepositoryImplTest {
     }
 
     @Test
+    public void delete(){
+        save();
+        vehicle = jdbcVehicleRepositoryImpl.get(vehicleId);
+        log.info("vehicle delete {}", vehicle);
+        boolean isDelete = jdbcVehicleRepositoryImpl.delete(vehicle.getId());
+        log.info("isDelete {}",isDelete);
+    }
+
+    @Test
     public void getAll(){
         List<Vehicle> vehicles = jdbcVehicleRepositoryImpl.getAll();
         log.info("vehicle getAll {}", vehicles);
@@ -67,13 +76,13 @@ public class JDBCVehicleRepositoryImplTest {
 
     @Test
     public void getByNameCar(){
-        List<Vehicle> vehicles = jdbcVehicleRepositoryImpl.getByNameCar("name test");
+        List<Vehicle> vehicles = jdbcVehicleRepositoryImpl.getByNameCar("Toyota Colora");
         log.info("vehicle getByNameCar {}",vehicles);
     }
 
     @Test
     public void getByVehicleNumber(){
-        List<Vehicle> vehicles = jdbcVehicleRepositoryImpl.getByVehicleNumber("bt 456 bt");
+        List<Vehicle> vehicles = jdbcVehicleRepositoryImpl.getByVehicleNumber("AA3334BQ");
         log.info("vehicle getByVehicleNumber {}", vehicles);
     }
 }
