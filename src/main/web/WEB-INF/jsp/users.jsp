@@ -6,17 +6,9 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Users</title>
 </head>
 <body>
-
-
-<br>
-<br>
-
-<p>Hello ${user.name}!</p>
-
-<br>
 <h1><a href="users/user">add user</a></h1>
 <br>
     <table border="1" cellpadding="8" cellspacing="0">
