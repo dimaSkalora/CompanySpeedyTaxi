@@ -80,7 +80,7 @@ public class JDBCVehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public boolean delete(int id) {
-        return jdbcTemplate.update("UPDATE vehicles SET id=?",id) != 0;
+        return jdbcTemplate.update("DELETE FROM vehicles WHERE id=?",id) != 0;
     }
 
     @Override
