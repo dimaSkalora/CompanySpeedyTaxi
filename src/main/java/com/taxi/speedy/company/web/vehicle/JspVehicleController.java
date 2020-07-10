@@ -4,6 +4,9 @@ import com.taxi.speedy.company.model.Vehicle;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("vehicles")
@@ -11,7 +14,7 @@ public class JspVehicleController extends AbstractVehicleController{
     @RequestMapping
     public String vehicles(Model model){
         model.addAttribute("vehicle", new Vehicle());
-        model.addAttribute("users",super.getAll());
+        model.addAttribute("vehicles",super.getAll());
         return "vehicles";
     }
 
@@ -43,6 +46,14 @@ public class JspVehicleController extends AbstractVehicleController{
         return "redirect:vehicles";
     }
 
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public ModelAndView update(@PathVariable int id){
+        Vehicle vehicle = super.get(id);
+        ModelAndView modelAndView = new ModelAndView("vehicle");
+        modelAndView.addObject(vehicle);
+        return modelAndView;
+    }
+
     @PostMapping(value = "/createOrUpdate")
     public String createOrUpdate(@ModelAttribute("vehicle") Vehicle vehicle){
         if(vehicle.isNew())
@@ -50,5 +61,28 @@ public class JspVehicleController extends AbstractVehicleController{
         else if(!vehicle.isNew())
             super.update(vehicle);
         return "redirect:vehicles";
+    }
+
+    @GetMapping(value = "/delete")
+    public String deleteVehicle(@RequestParam int id){
+        super.delete(id);
+        return "redirect:vehicles";
+    }
+
+    @GetMapping(value = "/get/{id}")
+    public ModelAndView getVehicle(@PathVariable int id){
+        Vehicle vehicle = super.get(id);
+        return new ModelAndView("vehicle","vehicle",vehicle);
+    }
+
+    @GetMapping(value = "/searchByNameCar/{nameCar}")
+    public ModelAndView searchByNameCar(@PathVariable String nameCar){
+        List<Vehicle> vehicles = super.getByNameCar(nameCar);
+        return new ModelAndView("vehicles", "vehicles", vehicles);
+    }
+
+    @GetMapping(value = "/searchByVehicleNumber/{vehicleNumber}")
+    public ModelAndView searchByVehicleNumber(String vehicleNumber){
+        return new ModelAndView("vehicles","vehicles", super.getByVehicleNumber(vehicleNumber));
     }
 }
