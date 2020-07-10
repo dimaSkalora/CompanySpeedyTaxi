@@ -90,6 +90,17 @@ public class JspUserController extends AbstractUserController {
         return new ModelAndView("user", "user", userGet);
     }
 
+    @GetMapping("/searchByEmail/{email}")
+    public ModelAndView searchByEmail(String email){
+        User user = super.getByEmail(email);
+        return new ModelAndView("users","users",user);
+    }
+
+    @GetMapping("/searchByPhone/{phone}")
+    public ModelAndView searchByPhone(String phone){
+        return new ModelAndView("users","users",super.getByPhone(phone));
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
