@@ -26,12 +26,12 @@
     <c:forEach items="${vehicles}" var="vehicle">
         <jsp:useBean id="vehicle" scope="page" type="com.taxi.speedy.company.model.Vehicle"/>
         <tr>
-            <td><a href="vehicles/get/${vehicle.id}"/>${vehicle.nameCar}</td>
-            <td>${vehicle.vehicleNumber}</td>
-            <td>${vehicle.yearIssue}</td>
-            <td>${vehicle.category}</td>
-            <td>${vehicle.color}</td>
-            <td>${vehicle.fuelConsumption}</td>
+            <td><a href="vehicles/get/${vehicle.id}"/><c:out value="${vehicle.nameCar}"/></td>
+            <td><c:out value="${vehicle.vehicleNumber}"/></td>
+            <td><c:out value="${vehicle.yearIssue}"/></td>
+            <td><c:out value="${vehicle.category}"/></td>
+            <td><c:out value="${vehicle.color}"/></td>
+            <td><c:out value="${vehicle.fuelConsumption}"/></td>
             <td><a href="vehicles/update/${vehicle.id}"/>update</td>
             <td><a href="vehicles/delete?id=${vehicle.id}"/>delete</td>
         </tr>

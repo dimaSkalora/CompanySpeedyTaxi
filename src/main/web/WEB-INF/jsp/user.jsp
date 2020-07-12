@@ -8,7 +8,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet">
-    <title>Title</title>
+    <title>User</title>
 </head>
 <body>
 <p>Hello ${user.name}
