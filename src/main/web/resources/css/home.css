@@ -355,10 +355,19 @@ body {
 }
 
 .box.login {
-	height: 270px;
+	height: 310px;
 	width: 700px;
 	position: absolute;
 	left: 40%;
+	top: 40%;
+	margin: -130px 0 0 -166px;
+}
+
+.box.vehicle {
+	height: 270px;
+	width: 750px;
+	position: absolute;
+	left: 35%;
 	top: 40%;
 	margin: -130px 0 0 -166px;
 }
