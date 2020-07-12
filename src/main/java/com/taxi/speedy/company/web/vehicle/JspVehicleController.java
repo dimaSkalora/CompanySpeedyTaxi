@@ -18,6 +18,12 @@ public class JspVehicleController extends AbstractVehicleController{
         return "vehicles";
     }
 
+    @GetMapping("/vehicle")
+    public String vehicle(Model model){
+        model.addAttribute("vehicle", new Vehicle());
+        return "vehicle";
+    }
+
     @RequestMapping(value = "/createRequestParam", method = RequestMethod.POST)
     public String createRequestParam(@RequestParam(value = "nameCar", required = true) String nameCar,
                                      @RequestParam(value = "vehicleNumber", required = true)String vehicleNumber,
@@ -46,7 +52,7 @@ public class JspVehicleController extends AbstractVehicleController{
         return "redirect:vehicles";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}")
     public ModelAndView update(@PathVariable int id){
         Vehicle vehicle = super.get(id);
         ModelAndView modelAndView = new ModelAndView("vehicle");
@@ -58,7 +64,7 @@ public class JspVehicleController extends AbstractVehicleController{
     public String createOrUpdate(@ModelAttribute("vehicle") Vehicle vehicle){
         if(vehicle.isNew())
             super.create(vehicle);
-        else if(!vehicle.isNew())
+        else
             super.update(vehicle);
         return "redirect:vehicles";
     }
