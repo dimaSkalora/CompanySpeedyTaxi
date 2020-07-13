@@ -14,5 +14,6 @@ public interface UserVehicleRepository {
     List<UserVehicle> getAllByVehicle(int idVehicle);
     List<UserVehicle> getByIsCurrentUserMachine(int isCurrentUserMachine);
     // ORDERED date desc
-    List<UserVehicle> getBetween(LocalDate startDate, LocalDate endDate);
+    List<UserVehicle> getStartDateBetween(LocalDate startDate, LocalDate endDate);
+    List<UserVehicle> getEndDateBetween(LocalDate startDate, LocalDate endDate);
 }
