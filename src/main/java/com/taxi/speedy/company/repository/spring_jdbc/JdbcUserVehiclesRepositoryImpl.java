@@ -55,8 +55,8 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
                 .addValue("id", userVehicle.getId()) //Добавьте параметр к этому источнику параметра.
                 .addValue("startDate", userVehicle.getStartDate())
                 .addValue("endDate", userVehicle.getEndDate())
-                .addValue("idUser", userVehicle.getIdUser())
-                .addValue("idVehicle", userVehicle.getIdVehicle())
+                .addValue("idUser", userVehicle.getIdUser().getId())
+                .addValue("idVehicle", userVehicle.getIdVehicle().getId())
                 .addValue("isCurrentUserMachine", userVehicle.getIsCurrentUserMachine());
 
         /*  BeanPropertySqlParameterSource - анализирует переданный ему объект и для каждого свойства
