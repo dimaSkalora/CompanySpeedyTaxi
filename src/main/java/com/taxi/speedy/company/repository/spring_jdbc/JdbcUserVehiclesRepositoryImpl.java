@@ -107,9 +107,20 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
     public List<UserVehicle> getAllByUser(int idUser) {
         //List<UserVehicle> userVehicles = jdbcTemplate.query("SELECT * FROM user_vehicles WHERE id_user=?",new UserVehicleRowMapper(),idUser);
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
+        String sqlQuery = "select uv.id as uv_id, uv.start_date as uv_start_date, uv.end_date as uv_end_date,\n" +
+                "       uv.id_user as uv_id_user, uv.id_vehicle as uv_id_vehicle, uv.is_current_user_machine,\n" +
+                "       u.id as u_id, u.name as u_name, u.email as u_email,\n" +
+                "       u.password as u_password, u.phone as u_phone, u.address as u_address,\n" +
+                "       u.registered as u_registered, u.enabled as u_enabled, v.id, v.name_car,\n" +
+                "       v.vehicle_number, v.year_issue, v.category, v.color, v.fuel_consumption\n" +
+                "from user_vehicles uv, users u, vehicles v\n" +
+                "where\n" +
+                "uv.id_user = u.id\n" +
+                "and uv.id_vehicle = v.id" +
+                "and id_user=:idUser";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
                             .addValue("idUser",idUser);
-        List<UserVehicle> userVehicles = namedParameterJdbcTemplate.query("select * from user_vehicles where id_user=:idUser",parameterSource,ROW_MAPPER_USER_VEHICLE);
+        List<UserVehicle> userVehicles = namedParameterJdbcTemplate.query(sqlQuery,parameterSource,ROW_MAPPER_USER_VEHICLE);
 
         return userVehicles;
     }
