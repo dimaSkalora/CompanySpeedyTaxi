@@ -8,6 +8,7 @@ public class ValidationUtil {
     public ValidationUtil() {
     }
 
+    //Проверка - не найден с идентификатором
     public static void checkNotFoundWithId(boolean found, int id) {
         checkNotFound(found, "id=" + id);
     }
@@ -16,6 +17,7 @@ public class ValidationUtil {
         return checkNotFound(object, "id=" + id);
     }
 
+    //Проверка - не найден
     public static <T> T checkNotFound(T object, String msg) {
         checkNotFound(object != null, msg);
         return object;
