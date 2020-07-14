@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -62,16 +63,78 @@ public class JdbcUserVehiclesRepositoryImplTest {
 
     @Test
     public void update(){
-        //create();
-/*        userVehicle = userVehicleRepository.get(100033);
-        logger.info("get userVehicle {}",userVehicle);*/
-        List<UserVehicle> userVehicles = userVehicleRepository.getAllByUser(100012);
-        logger.info("get userVehicles {}",userVehicles);
-/*        userVehicle.setEndDate(LocalDateTime.now());
+        create();
+        userVehicle = userVehicleRepository.get(idUserVehicle);
+        logger.info("get userVehicle {}",userVehicle);
+        userVehicle.setEndDate(LocalDateTime.now().plusDays(5));
         userVehicle.setIsCurrentUserMachine(1);
 
         userVehicleRepository.save(userVehicle);
-        logger.info("update {}",userVehicle);*/
+        logger.info("update {}",userVehicle);
+    }
+
+    @Test
+    public void get(){
+        create();
+        userVehicle = userVehicleRepository.get(idUserVehicle);
+        logger.info("get userVehicle {}",userVehicle);
+    }
+
+    @Test
+    public void delete(){
+        create();
+        userVehicle = userVehicleRepository.get(idUserVehicle);
+        logger.info("get userVehicle {}",userVehicle);
+        boolean isDelete = userVehicleRepository.delete(userVehicle.getId());
+        logger.info("delete userVehicle {}",isDelete);
+    }
+
+    @Test
+    public void getAll(){
+        List<UserVehicle> userVehicles = userVehicleRepository.getAll();
+        logger.info("userVehicles {}",userVehicles);
+        //userVehicles.forEach(uv -> logger.info("userVehicle {}",uv));
+    }
+
+    @Test
+    public void getAllByUser(){
+        User user = userRepository.get(100012);
+        List<UserVehicle> userVehicles = userVehicleRepository.getAllByUser(user.getId());
+        //logger.info("getAllByUser {}", userVehicles);
+        userVehicles.forEach(uv -> logger.info("getAllByUser userVehicle {}",uv));
+    }
+
+    @Test
+    public void getAllByVehicle(){
+        Vehicle vehicle = vehicleRepository.get(4);
+        List<UserVehicle> userVehicles = userVehicleRepository.getAllByVehicle(vehicle.getId());
+        //logger.info("getAllByVehicle {}", userVehicles);
+        userVehicles.forEach(uv -> logger.info(" getAllByVehicle userVehicle {}",uv));
+    }
+
+    @Test
+    public void getByIsCurrentUserMachine(){
+        List<UserVehicle> userVehicles = userVehicleRepository.getByIsCurrentUserMachine(1);
+        //logger.info("getByIsCurrentUserMachine {}",userVehicles);
+        userVehicles.forEach(uv -> logger.info("getByIsCurrentUserMachine uv {}",uv));
+    }
+
+    @Test
+    public void getStartDateBetween(){
+        LocalDate start = LocalDate.of(2020,06,01);
+        LocalDate end = LocalDate.of(2020,07,13);
+        List<UserVehicle> userVehicles = userVehicleRepository.getStartDateBetween(start,end);
+        //logger.info("getStartDateBetween {}",userVehicles);
+        userVehicles.forEach(uv -> logger.info("getStartDateBetween uv {}",uv));
+    }
+
+    @Test
+    public void getEndDateBetween(){
+        LocalDate start = LocalDate.of(2020,06,01);
+        LocalDate end = LocalDate.of(2020,07,20);
+        List<UserVehicle> userVehicles = userVehicleRepository.getEndDateBetween(start,end);
+        //logger.info("getEndDateBetween {}",userVehicles);
+        userVehicles.forEach(uv->logger.info("getEndDateBetween uv {}",uv));
     }
 
 }
