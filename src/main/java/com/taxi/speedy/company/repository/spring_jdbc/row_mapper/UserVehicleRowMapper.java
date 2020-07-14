@@ -45,7 +45,7 @@ public class UserVehicleRowMapper implements RowMapper<UserVehicle> {
             userVehicle.setEndDate(resultSet.getTimestamp("uv_end_date").toLocalDateTime());
         userVehicle.setIdUser(user);                       //userVehicle.setIdUser((User) resultSet.getObject("id_user"));
         userVehicle.setIdVehicle(vehicle);
-        userVehicle.setIsCurrentUserMachine(resultSet.getInt("v_fuel_consumption"));
+        userVehicle.setIsCurrentUserMachine(resultSet.getInt("uv_is_current_user_machine"));
 
         return userVehicle;
     }
