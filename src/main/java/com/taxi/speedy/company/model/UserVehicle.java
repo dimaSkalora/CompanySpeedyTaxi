@@ -8,7 +8,7 @@ public class UserVehicle extends AbstractBaseEntity{
     private LocalDateTime endDate;                  //Дата когда пользователь вернул машину
     private User idUser;
     private Vehicle idVehicle;
-    private Integer isCurrentUserMachine;           //Машина текущего пользователя: 0 - есть машина; 1 - нету машины
+    private Integer isCurrentUserMachine;           //Машина текущего пользователя: 0 - нету машины; 1 - есть машина
 
     public UserVehicle() {
     }
