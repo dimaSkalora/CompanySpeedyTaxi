@@ -104,7 +104,7 @@ COMMENT ON COLUMN user_vehicles.start_date
 COMMENT ON COLUMN user_vehicles.end_date
     IS 'Дата когда пользователь вернул машину';
 COMMENT ON COLUMN user_vehicles.is_current_user_machine
-    IS 'Машина текущего пользователя: 0 - есть машина; 1 - нету машины';
+    IS 'Машина текущего пользователя: 0 - нету машины; 1 - есть машина';
 
 ---------------user_state---------------5
 CREATE TABLE user_state
