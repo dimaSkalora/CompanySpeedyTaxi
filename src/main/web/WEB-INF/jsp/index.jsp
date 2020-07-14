@@ -8,6 +8,7 @@
     <ul>
         <li><a href="users">users</a></li>
         <li><a href="vehicles">vehicles</a></li>
+        <li><a href="userVehicles">userVehicles</a></li>
     </ul>
 </div>
 </body>
