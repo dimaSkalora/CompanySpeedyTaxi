@@ -21,13 +21,25 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
     @GetMapping("/userVehicle")
     public String userVehicle(Model model){
         model.addAttribute("userVehicle", new UserVehicle());
-        return "userVehicles";
+        model.addAttribute("uvAllUsers", super.getAllUsers());
+        model.addAttribute("uvAllVehicles", super.getAllVehicles());
+        return "userVehicle";
     }
 
     @PostMapping("/createModelUserVehicle")
     public String createModelUserVehicle(@ModelAttribute UserVehicle userVehicle){
 
 
+
+        return "redirect:userVehicles";
+    }
+
+    @PostMapping("/createOrUpdate")
+    public String createOrUpdate(@ModelAttribute UserVehicle userVehicle){
+        if (userVehicle.isNew())
+            super.create(userVehicle);
+        else
+            super.update(userVehicle);
 
         return "redirect:userVehicles";
     }

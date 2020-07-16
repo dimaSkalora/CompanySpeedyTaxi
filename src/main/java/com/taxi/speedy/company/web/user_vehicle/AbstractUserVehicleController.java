@@ -1,7 +1,11 @@
 package com.taxi.speedy.company.web.user_vehicle;
 
+import com.taxi.speedy.company.model.User;
 import com.taxi.speedy.company.model.UserVehicle;
+import com.taxi.speedy.company.model.Vehicle;
+import com.taxi.speedy.company.service.UserService;
 import com.taxi.speedy.company.service.UserVehicleService;
+import com.taxi.speedy.company.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,10 @@ public abstract class AbstractUserVehicleController {
 
     @Autowired
     private UserVehicleService userVehicleService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private VehicleService vehicleService;
 
     public UserVehicle create(UserVehicle userVehicle){
         log.info("create {}",userVehicle);
@@ -67,6 +75,16 @@ public abstract class AbstractUserVehicleController {
     public List<UserVehicle> getEndDateBetween(LocalDate startDate, LocalDate endDate){
         log.info("getEndDateBetween startDate {}, endDate {}",startDate, endDate);
         return userVehicleService.getEndDateBetween(startDate, endDate);
+    }
+
+    public List<User> getAllUsers(){
+        log.info("getAllUsers");
+        return userService.getAll();
+    }
+
+    public List<Vehicle> getAllVehicles(){
+        log.info("getAllVehicles");
+        return vehicleService.getAll();
     }
 
 }
