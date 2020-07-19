@@ -372,6 +372,15 @@ body {
 	margin: -130px 0 0 -166px;
 }
 
+.box.userVehicle {
+    height: 320px;
+    width: 500px;
+    position: absolute;
+    left: 35%;
+    top: 40%;
+    margin: -130px 0 0 -166px;
+}
+
 .boxBody {
 	background: #fefefe;
 	border-top: 1px solid #dde0e8;
