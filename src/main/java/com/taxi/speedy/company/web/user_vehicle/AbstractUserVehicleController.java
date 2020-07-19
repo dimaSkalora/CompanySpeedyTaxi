@@ -77,6 +77,16 @@ public abstract class AbstractUserVehicleController {
         return userVehicleService.getEndDateBetween(startDate, endDate);
     }
 
+    public User getUser(int idUser){
+        log.info("getUser {}",idUser);
+        return userService.get(idUser);
+    }
+
+    public Vehicle getVehicle(int idVehicle){
+        log.info("getVehicle {}",idVehicle);
+        return vehicleService.get(idVehicle);
+    }
+
     public List<User> getAllUsers(){
         log.info("getAllUsers");
         return userService.getAll();
