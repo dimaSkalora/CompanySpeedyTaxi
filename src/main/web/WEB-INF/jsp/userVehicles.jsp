@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <html>
 <head>
     <title>UserVehicles</title>
@@ -25,8 +26,8 @@
     <c:forEach items="${userVehicles}" var="userVehicle">
         <jsp:useBean id="userVehicle" scope="page" type="com.taxi.speedy.company.model.UserVehicle"/>
         <tr>
-            <td><c:out value="${userVehicle.startDate}"/></td>
-            <td><c:out value="${userVehicle.endDate}"/></td>
+            <td><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>
+            <td><c:out value="${userVehicle.endDate.toLocalDate()} ${userVehicle.endDate.toLocalTime()}"/></td>
             <td><c:out value="${userVehicle.idUser.name}"/></td>
             <td><c:out value="${userVehicle.idVehicle.nameCar} [${userVehicle.idVehicle.vehicleNumber}]"/></td>
             <td><c:out value="${userVehicle.isCurrentUserMachine}"/></td>
