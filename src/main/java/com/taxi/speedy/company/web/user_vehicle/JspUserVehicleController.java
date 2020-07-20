@@ -70,7 +70,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return "redirect:/userVehicles";
     }
 
-    @PostMapping("/createOrUpdate")
+    @PostMapping("/createOrUpdateUSFull")
     public String createOrUpdateUSFull(@ModelAttribute UserVehicleFull userVehicleFull){
         if (userVehicleFull.isNew())
             super.createUVFull(userVehicleFull);
