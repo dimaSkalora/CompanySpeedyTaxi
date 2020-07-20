@@ -1,11 +1,13 @@
 package com.taxi.speedy.company.web.user_vehicle;
 
+import com.taxi.speedy.company.dto.UserVehicleFull;
 import com.taxi.speedy.company.model.User;
 import com.taxi.speedy.company.model.UserVehicle;
 import com.taxi.speedy.company.model.Vehicle;
 import com.taxi.speedy.company.service.UserService;
 import com.taxi.speedy.company.service.UserVehicleService;
 import com.taxi.speedy.company.service.VehicleService;
+import com.taxi.speedy.company.util.UserVehiclesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,45 @@ public abstract class AbstractUserVehicleController {
         return userVehicleService.create(userVehicle);
     }
 
+    public UserVehicleFull createUVFull(UserVehicleFull userVehicleFull){
+        log.info("createUVFull {}", userVehicleFull);
+        if (!userVehicleFull.isNew())
+            throw new IllegalArgumentException(userVehicleFull+" должен быть новым (id == null)");
+        UserVehicle userVehicle = new UserVehicle();
+        if (userVehicleFull.getStartDate() != null)
+            userVehicle.setStartDate(userVehicleFull.getStartDate());
+        if (userVehicleFull.getEndDate() != null)
+            userVehicle.setEndDate(userVehicleFull.getEndDate());
+        userVehicle.setIdUser(userService.get(userVehicleFull.getIdUser()));
+        userVehicle.setIdVehicle(vehicleService.get(userVehicleFull.getIdVehicle()));
+        userVehicle.setIsCurrentUserMachine(userVehicleFull.getIsCurrentUserMachine());
+
+        userVehicleService.create(userVehicle);
+
+        userVehicleFull.setId(userVehicle.getId());
+
+        return userVehicleFull;
+    }
+
+    public UserVehicleFull updateUVFull(UserVehicleFull userVehicleFull){
+        log.info("updateUVFull {}", userVehicleFull);
+        if (userVehicleFull.isNew())
+            throw new IllegalArgumentException(userVehicleFull+" должен быть не новым (id != null)");
+        UserVehicle userVehicle = new UserVehicle();
+        userVehicle.setId(userVehicle.getId());
+        if (userVehicleFull.getStartDate() != null)
+            userVehicle.setStartDate(userVehicleFull.getStartDate());
+        if (userVehicleFull.getEndDate() != null)
+            userVehicle.setEndDate(userVehicleFull.getEndDate());
+        userVehicle.setIdUser(userService.get(userVehicleFull.getIdUser()));
+        userVehicle.setIdVehicle(vehicleService.get(userVehicleFull.getIdVehicle()));
+        userVehicle.setIsCurrentUserMachine(userVehicleFull.getIsCurrentUserMachine());
+
+        userVehicleService.update(userVehicle);
+
+        return userVehicleFull;
+    }
+
     public void update(UserVehicle userVehicle){
         log.info("update {}",userVehicle);
         if (userVehicle.isNew())
@@ -40,6 +81,17 @@ public abstract class AbstractUserVehicleController {
     public boolean delete(int id){
         log.info("delete {}",id);
         return userVehicleService.delete(id);
+    }
+
+    public UserVehicleFull getUSFull(int id){
+        log.info("get {}",id);
+
+        UserVehicle userVehicle = userVehicleService.get(id);
+        User user = userService.get(userVehicle.getIdUser().getId());
+        Vehicle vehicle = vehicleService.get(userVehicle.getIdVehicle().getId());
+        UserVehicleFull userVehicleFull = UserVehiclesUtil.createUserVehicle(userVehicle,user,vehicle);
+
+        return userVehicleFull;
     }
 
     public UserVehicle get(int id){

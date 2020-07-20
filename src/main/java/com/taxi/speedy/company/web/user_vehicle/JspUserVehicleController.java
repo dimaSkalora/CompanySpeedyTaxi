@@ -1,14 +1,13 @@
 package com.taxi.speedy.company.web.user_vehicle;
 
+import com.taxi.speedy.company.dto.UserVehicleFull;
 import com.taxi.speedy.company.model.User;
 import com.taxi.speedy.company.model.UserVehicle;
 import com.taxi.speedy.company.model.Vehicle;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -71,4 +70,19 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return "redirect:/userVehicles";
     }
 
+    @PostMapping("/createOrUpdate")
+    public String createOrUpdateUSFull(@ModelAttribute UserVehicleFull userVehicleFull){
+        if (userVehicleFull.isNew())
+            super.createUVFull(userVehicleFull);
+        else
+            super.updateUVFull(userVehicleFull);
+
+        return "redirect:userVehicles";
+    }
+
+    @GetMapping("/userVehicleFull/{id}")
+    public ModelAndView userVehicleFull(@PathVariable int id){
+        UserVehicleFull userVehicleFullGet = super.getUSFull(id);
+        return new ModelAndView("userVehicle", "userVehicleFull", userVehicleFullGet);
+    }
 }
