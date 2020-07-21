@@ -376,9 +376,18 @@ body {
     height: 320px;
     width: 500px;
     position: absolute;
-    left: 35%;
+    left: 40%;
     top: 40%;
     margin: -130px 0 0 -166px;
+}
+
+.box.userVehicleFull {
+	height: 350px;
+	width: 400px;
+	position: absolute;
+	left: 40%;
+	top: 40%;
+	margin: -130px 0 0 -166px;
 }
 
 .boxBody {
