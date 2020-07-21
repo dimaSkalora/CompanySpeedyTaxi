@@ -31,6 +31,18 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return "userVehicle";
     }
 
+    @GetMapping("/userVehicleFull")
+    public String userVehicleFull(Model model){
+        model.addAttribute("userVehicleFull", new UserVehicleFull());
+        model.addAttribute("uvAllUsers", super.getAllUsers());
+        model.addAttribute("uvAllVehicles", super.getAllVehicles());
+        super.getAllUsers().forEach(System.out::println);
+        System.out.println();
+        super.getAllVehicles().forEach(System.out::println);
+
+        return "userVehicleFull";
+    }
+
 
     @PostMapping("/createOrUpdate")
     public String createOrUpdate(@ModelAttribute UserVehicle userVehicle){
@@ -70,8 +82,8 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return "redirect:/userVehicles";
     }
 
-    @PostMapping("/createOrUpdateUSFull")
-    public String createOrUpdateUSFull(@ModelAttribute UserVehicleFull userVehicleFull){
+    @PostMapping("/createOrUpdateUVFull")
+    public String createOrUpdateUVFull(@ModelAttribute UserVehicleFull userVehicleFull){
         if (userVehicleFull.isNew())
             super.createUVFull(userVehicleFull);
         else
@@ -81,7 +93,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
     }
 
     @GetMapping("/userVehicleFull/{id}")
-    public ModelAndView userVehicleFull(@PathVariable int id){
+    public ModelAndView getUVFull(@PathVariable int id){
         UserVehicleFull userVehicleFullGet = super.getUSFull(id);
         return new ModelAndView("userVehicle", "userVehicleFull", userVehicleFullGet);
     }
