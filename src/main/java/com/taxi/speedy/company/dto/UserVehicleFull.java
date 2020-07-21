@@ -30,6 +30,9 @@ public class UserVehicleFull extends BaseTo{
     private String colorVehicle;                       //Цвет ТС
     private Integer fuelConsumptionVehicle;           //Расход топлива л/100км
 
+    public UserVehicleFull() {
+    }
+
     public UserVehicleFull(Integer id, LocalDateTime startDate, LocalDateTime endDate, Integer isCurrentUserMachine, Integer idUser, String nameUser, String emailUser, String passwordUser, String phoneUser, String addressUser, Set<Role> rolesUser, Date registeredUser, boolean enabledUser, int idVehicle, String nameCarVehicle, String vehicleNumberVehicle, Integer yearIssueVehicle, String categoryVehicle, String colorVehicle, Integer fuelConsumptionVehicle) {
         super(id);
         this.startDate = startDate;
