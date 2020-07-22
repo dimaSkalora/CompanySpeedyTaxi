@@ -22,7 +22,7 @@ public class UserVehicleFull extends BaseTo{
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registeredUser;        //Дата регистраиции пользователя
     private boolean enabledUser;        //true - активный, false - не активный
-    private int idVehicle;
+    private Integer idVehicle;
     private String nameCarVehicle;                    //Название, модель ТС
     private String vehicleNumberVehicle;              //Номер ТС
     private Integer yearIssueVehicle;                 //Год выпуска ТС
@@ -33,7 +33,7 @@ public class UserVehicleFull extends BaseTo{
     public UserVehicleFull() {
     }
 
-    public UserVehicleFull(Integer id, LocalDateTime startDate, LocalDateTime endDate, Integer isCurrentUserMachine, Integer idUser, String nameUser, String emailUser, String passwordUser, String phoneUser, String addressUser, Set<Role> rolesUser, Date registeredUser, boolean enabledUser, int idVehicle, String nameCarVehicle, String vehicleNumberVehicle, Integer yearIssueVehicle, String categoryVehicle, String colorVehicle, Integer fuelConsumptionVehicle) {
+    public UserVehicleFull(Integer id, LocalDateTime startDate, LocalDateTime endDate, Integer isCurrentUserMachine, Integer idUser, String nameUser, String emailUser, String passwordUser, String phoneUser, String addressUser, Set<Role> rolesUser, Date registeredUser, boolean enabledUser, Integer idVehicle, String nameCarVehicle, String vehicleNumberVehicle, Integer yearIssueVehicle, String categoryVehicle, String colorVehicle, Integer fuelConsumptionVehicle) {
         super(id);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -152,7 +152,7 @@ public class UserVehicleFull extends BaseTo{
         this.enabledUser = enabledUser;
     }
 
-    public int getIdVehicle() {
+    public Integer getIdVehicle() {
         return idVehicle;
     }
 
