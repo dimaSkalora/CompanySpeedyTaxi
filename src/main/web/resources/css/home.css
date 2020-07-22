@@ -382,8 +382,8 @@ body {
 }
 
 .box.userVehicleFull {
-	height: 350px;
-	width: 400px;
+	height: 320px;
+	width: 500px;
 	position: absolute;
 	left: 40%;
 	top: 40%;

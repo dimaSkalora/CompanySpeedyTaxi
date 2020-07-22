@@ -88,29 +88,16 @@
                     <form:input path="isCurrentUserMachine" />
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <form:label path="idUser">
-                        <spring:message text="idUser"/>
-                    </form:label>
-                </td>
-                <td>
-                    <form:label path="idUser">
-                        <spring:message text="idUser"/>
-                    </form:label>
-                </td>
-            </tr>
         </table>
     </fieldset>
 
     <footer>
-        <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
-         <%--   <c:if test="${!empty userVehicleFull.id}">
+            <c:if test="${!empty userVehicleFull.id}">
                 <input type="submit" class="btnLogin" value="<spring:message text="UPDATE"/>"/>
             </c:if>
             <c:if test="${empty userVehicleFull.id}">
                 <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
-            </c:if>--%>
+            </c:if>
     </footer>
 </form:form>
 </body>
