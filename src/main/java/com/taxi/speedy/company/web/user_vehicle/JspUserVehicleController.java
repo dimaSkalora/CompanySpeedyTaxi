@@ -4,13 +4,20 @@ import com.taxi.speedy.company.dto.UserVehicleFull;
 import com.taxi.speedy.company.model.User;
 import com.taxi.speedy.company.model.UserVehicle;
 import com.taxi.speedy.company.model.Vehicle;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Controller
 @RequestMapping("userVehicles")
@@ -89,7 +96,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         else
             super.updateUVFull(userVehicleFull);
 
-        return "redirect:userVehicles";
+        return "redirect:/userVehicles";
     }
 
     @GetMapping("/userVehicleFull/{id}")
@@ -97,4 +104,35 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         UserVehicleFull userVehicleFullGet = super.getUSFull(id);
         return new ModelAndView("userVehicle", "userVehicleFull", userVehicleFullGet);
     }
+
+/*
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+*/
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+
+        PropertyEditor editor = new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                if (!text.trim().isEmpty())
+                    super.setValue(LocalDateTime.parse(text.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            }
+            @Override
+            public String getAsText() {
+                if (super.getValue() == null)
+                    return null;
+                LocalDateTime value = (LocalDateTime) super.getValue();
+                return value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            }
+        };
+        binder.registerCustomEditor(LocalDateTime.class, editor);
+    }
+
+
 }
