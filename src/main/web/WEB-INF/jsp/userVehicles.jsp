@@ -10,6 +10,7 @@
 </head>
 <body>
 <h1><a href="userVehicles/userVehicle">add User Vehicle</a> </h1>
+<h1><a href="userVehicles/userVehicleHSR">add User VehicleHSR</a> </h1>
 <h1><a href="userVehicles/userVehicleFull">add User VehicleFull</a> </h1>
 <br>
 <table border="1" cellpadding="8" cellspacing="0">
