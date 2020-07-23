@@ -8,7 +8,7 @@
     <title>UserVehicle</title>
 </head>
 <body>
-
+<%--
 <c:url var="createOrUpdateUrl" value="/userVehicles/createOrUpdateHSR" />
 <form method="POST" action="${createOrUpdateUrl}"
            class="box userVehicle">
@@ -83,8 +83,7 @@
     <footer>
                 <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
     </footer>
-</form>
-<%--
+</form>--%>
 <c:url var="createOrUpdateUrl" value="/userVehicles/createOrUpdate" />
 <form:form method="POST" modelAttribute="userVehicle" action="${createOrUpdateUrl}"
            class="box userVehicle">
@@ -129,14 +128,13 @@
                     </form:label>
                 </td>
                 <td>
-              &lt;%&ndash;      <form:select path="idUser">
+                    <form:select path="idUser">
                         <form:option  value="" label=""/>
                         <c:forEach items="${uvAllUsers}" var="user">
                             <jsp:useBean id="user" scope="page" type="com.taxi.speedy.company.model.User"/>
                             <form:option  value="${user.id}" label="${user.name}; ${user.email}"/>
                         </c:forEach>
-                    </form:select>&ndash;%&gt;
-                &lt;%&ndash;  <form:hidden path="idUser" />&ndash;%&gt;
+                    </form:select>
                 </td>
             </tr>
             <tr>
@@ -146,16 +144,14 @@
                     </form:label>
                 </td>
                 <td>
-      &lt;%&ndash;              <form:select path="idVehicle">
+                    <form:select path="idVehicle">
                         <form:option  value="" label=""/>
                         <c:forEach items="${uvAllVehicles}" var="vehicle">
                             <jsp:useBean id="vehicle" scope="page" type="com.taxi.speedy.company.model.Vehicle"/>
                             <form:option  value="${vehicle.id}" label="${vehicle.nameCar}; ${vehicle.vehicleNumber}"/>
                         </c:forEach>
-                    </form:select>&ndash;%&gt;
-         &lt;%&ndash;         <form:hidden path="idVehicle" />&ndash;%&gt;
+                    </form:select>
                 </td>
-                <form:input path="endDatesss" />
             </tr>
             <tr>
                 <td>
@@ -171,13 +167,13 @@
     </fieldset>
 
     <footer>
-            &lt;%&ndash;        <p>${requestScope.get("javax.servlet.forward.context_path")}</p>
-                    <p>${requestScope.get("javax.servlet.forward.servlet_path")}</p>&ndash;%&gt;
+            <%--        <p>${requestScope.get("javax.servlet.forward.context_path")}</p>
+                    <p>${requestScope.get("javax.servlet.forward.servlet_path")}</p>--%>
         <c:set var="jsf_request_uri" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>
         <c:set var="jsf_request_uriStr" value="/CompanySpeedyTaxi/userVehicles/get"/>
         <c:if test="${jsf_request_uri.startsWith(jsf_request_uriStr)}">
             <a href="/CompanySpeedyTaxi/userVehicles" class="btnLogin"><spring:message text="OK"/></a>
-            &lt;%&ndash;<input class ="btnLogin" type="button" value="<spring:message text="OK2"/>" onclick="location.href = '/CompanySpeedyTaxi/userVehicles'"/>&ndash;%&gt;
+            <%--<input class ="btnLogin" type="button" value="<spring:message text="OK2"/>" onclick="location.href = '/CompanySpeedyTaxi/userVehicles'"/>--%>
         </c:if>
         <c:if test="${!jsf_request_uri.startsWith(jsf_request_uriStr)}">
             <c:if test="${!empty userVehicle.id}">
@@ -188,6 +184,6 @@
             </c:if>
         </c:if>
     </footer>
-</form:form>--%>
+</form:form>
 </body>
 </html>
