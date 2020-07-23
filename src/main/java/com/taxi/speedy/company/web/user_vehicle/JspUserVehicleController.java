@@ -37,6 +37,15 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return "userVehicle";
     }
 
+    @GetMapping("/userVehicleHSR")
+    public String userVehicleHSR(Model model){
+        model.addAttribute("userVehicle", new UserVehicle());
+        model.addAttribute("uvAllUsers", super.getAllUsers());
+        model.addAttribute("uvAllVehicles", super.getAllVehicles());
+
+        return "userVehicleHSR";
+    }
+
     @GetMapping("/userVehicleFull")
     public String userVehicleFull(Model model){
         model.addAttribute("userVehicleFull", new UserVehicleFull());
