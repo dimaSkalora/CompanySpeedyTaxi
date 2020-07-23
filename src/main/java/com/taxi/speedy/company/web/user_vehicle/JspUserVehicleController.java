@@ -4,7 +4,8 @@ import com.taxi.speedy.company.dto.UserVehicleFull;
 import com.taxi.speedy.company.model.User;
 import com.taxi.speedy.company.model.UserVehicle;
 import com.taxi.speedy.company.model.Vehicle;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import com.taxi.speedy.company.model.propertyeditor.UserPropertyEditor;
+import com.taxi.speedy.company.model.propertyeditor.VehiclePropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -14,10 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Controller
 @RequestMapping("userVehicles")
@@ -58,7 +57,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         else
             super.update(userVehicle);
 
-        return "redirect:userVehicles";
+        return "redirect:/userVehicles";
     }
 
     @PostMapping("/createOrUpdateHSR")
@@ -132,6 +131,8 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
             }
         };
         binder.registerCustomEditor(LocalDateTime.class, editor);
+        binder.registerCustomEditor(User.class, new UserPropertyEditor());
+        binder.registerCustomEditor(Vehicle.class, new VehiclePropertyEditor());
     }
 
 
