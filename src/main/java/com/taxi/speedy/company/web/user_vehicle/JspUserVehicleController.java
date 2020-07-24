@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequestMapping("userVehicles")
@@ -112,6 +114,45 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         UserVehicleFull userVehicleFullGet = super.getUSFull(id);
         return new ModelAndView("userVehicle", "userVehicleFull", userVehicleFullGet);
     }
+
+    @GetMapping("/update/{id}")
+    public ModelAndView update(@PathVariable int id){
+        UserVehicle userVehicle = super.get(id);
+        ModelAndView modelAndView = new ModelAndView("userBehicle");
+        modelAndView.addObject(userVehicle);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/delete")
+    public String deleteUserVehicle(@RequestParam int id){
+        super.delete(id);
+        return "redirect:/userVehicles";
+    }
+
+    @GetMapping(value = "/get/{id}")
+    public ModelAndView getUserVehicle(@PathVariable int id){
+        UserVehicle userVehicle = super.get(id);
+        return new ModelAndView("userVehicle", "userVehicle", userVehicle);
+    }
+
+    @GetMapping("/getByStartDate/{startDate}/{endDate}")
+    public ModelAndView getByStartDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate){
+        List<UserVehicle> userVehicles = super.getStartDateBetween(startDate,endDate);
+
+        return new ModelAndView("userVehicles", "userVehicles",userVehicles);
+    }
+
+    @GetMapping("/getByEndDate/{startDate}/{endDate}")
+    public ModelAndView getByEndDate(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate){
+        List<UserVehicle> userVehicles = super.getEndDateBetween(startDate,endDate);
+
+        return new ModelAndView("userVehicles", "userVehicles",userVehicles);
+    }
+
+
+
+
 
     //Обявил глобально (GlobalBindingInitializer)
 /*    @InitBinder
