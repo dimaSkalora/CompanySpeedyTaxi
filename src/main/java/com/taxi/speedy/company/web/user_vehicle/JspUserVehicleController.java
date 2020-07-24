@@ -113,16 +113,8 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return new ModelAndView("userVehicle", "userVehicleFull", userVehicleFullGet);
     }
 
-/*
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-*/
-
-    @InitBinder
+    //Обявил глобально (GlobalBindingInitializer)
+/*    @InitBinder
     private void initBinder(WebDataBinder binder) {
 
         PropertyEditor editor = new PropertyEditorSupport() {
@@ -142,7 +134,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         binder.registerCustomEditor(LocalDateTime.class, editor);
         binder.registerCustomEditor(User.class, new UserPropertyEditor());
         binder.registerCustomEditor(Vehicle.class, new VehiclePropertyEditor());
-    }
+    }*/
 
 
 }

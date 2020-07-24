@@ -101,11 +101,11 @@ public class JspUserController extends AbstractUserController {
         return new ModelAndView("users","users",super.getByPhone(phone));
     }
 
-    @InitBinder
+  /*  @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
+    }*/
 
 }
