@@ -7,23 +7,25 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- Enables the Spring MVC @Controller programming model -->
+    <!-- Enables the Spring MVC @Controller programming model (@RequestMapping, @Controller, @RequestBody, @ResponseBody)-->
     <mvc:annotation-driven/>
 
+    <!--объявляет поддержку общих аннотаций , таких как @Resource, @Required, @Autowired, @PostConstruct и так далее.-->
     <context:annotation-config />
 
-    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+ <!--   <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
                 <bean class="com.taxi.speedy.company.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
                 <bean class="com.taxi.speedy.company.web.converter.DateTimeFormatters.LocalDateFormatter"/>
             </set>
         </property>
-    </bean>
+    </bean>-->
 
     <import resource="spring_web_db.xml"/>
     <import resource="spring_web_app.xml"/>
-
+    <!--сообщает spring, что он должен искать путь к классам для всех классов в com.mycompany.maventestweapp
+    и просматривать каждый класс, чтобы увидеть, имеет ли он @Controller или @Repository, или @Service, или @Component-->
     <context:component-scan base-package="com.taxi.speedy.company.**.web"/>
    <!-- <context:component-scan base-package="com.taxi.speedy.company.**.config"/>-->
 
