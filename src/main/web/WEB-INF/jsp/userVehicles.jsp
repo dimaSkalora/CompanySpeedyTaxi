@@ -33,8 +33,8 @@
             <td><c:out value="${userVehicle.idUser.name}"/></td>
             <td><c:out value="${userVehicle.idVehicle.nameCar} [${userVehicle.idVehicle.vehicleNumber}]"/></td>
             <td><c:out value="${userVehicle.isCurrentUserMachine}"/></td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td><a href="userVehicle/update/${vehicle.id}"/>update</td>
+            <td><a href="userVehicle/delete?id=${vehicle.id}"/>delete</td>
         </tr>
     </c:forEach>
 </table>
