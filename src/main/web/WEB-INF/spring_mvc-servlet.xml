@@ -25,7 +25,7 @@
     <import resource="spring_web_app.xml"/>
 
     <context:component-scan base-package="com.taxi.speedy.company.**.web"/>
-    <context:component-scan base-package="com.taxi.speedy.company.**.config"/>
+   <!-- <context:component-scan base-package="com.taxi.speedy.company.**.config"/>-->
 
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
