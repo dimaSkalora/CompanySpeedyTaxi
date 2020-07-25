@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+//Глобальный клас который преабразовывает обьэкты в строки и наобород (при передачи параметров)
 @ControllerAdvice
 public class GlobalBindingInitializer {
     @InitBinder
