@@ -37,7 +37,7 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
     */
     private SimpleJdbcInsert simpleJdbcInsert;
 
-    private String sqlQuery = "select uv.id as uv_id, uv.start_date as uv_start_date, uv.end_date as uv_end_date, \n" +
+    private final String sqlQuery = "select uv.id as uv_id, uv.start_date as uv_start_date, uv.end_date as uv_end_date, \n" +
             "       uv.id_user as uv_id_user, uv.id_vehicle as uv_id_vehicle, uv.is_current_user_machine as uv_is_current_user_machine, \n" +
             "       u.id as u_id, u.name as u_name, u.email as u_email, \n" +
             "       u.password as u_password, u.phone as u_phone, u.address as u_address, \n" +
@@ -104,10 +104,9 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
         params.addValue("id", id);
         return namedParameterJdbcTemplate.queryForObject(sql, params, new UserVehicleRowMapper());*/
 
-        sqlQuery += "and uv.id=? \n" +
-                "order by uv_start_date";
+       String sqlQueryGet = sqlQuery + " and uv.id=? \n";
 
-       List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQuery, new UserVehicleRowMapper(),id);
+       List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQueryGet, new UserVehicleRowMapper(),id);
 
         return DataAccessUtils.singleResult(userVehicles);//Возвращает один объект результата из данной коллекции.
     }
@@ -122,11 +121,11 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
     public List<UserVehicle> getAllByUser(int idUser) {
         //List<UserVehicle> userVehicles = jdbcTemplate.query("SELECT * FROM user_vehicles WHERE id_user=?",new UserVehicleRowMapper(),idUser);
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
-        sqlQuery += "and id_user=:idUser \n" +
+        String sqlQueryGetAllByUser = sqlQuery + " and id_user=:idUser \n" +
                     "order by uv_start_date";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
                             .addValue("idUser",idUser);
-        List<UserVehicle> userVehicles = namedParameterJdbcTemplate.query(sqlQuery,parameterSource,new UserVehicleRowMapper());
+        List<UserVehicle> userVehicles = namedParameterJdbcTemplate.query(sqlQueryGetAllByUser,parameterSource,new UserVehicleRowMapper());
 
         return userVehicles;
     }
@@ -138,10 +137,10 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
                 .addValue("idVehicle",idVehicle);
         List<UserVehicle> userVehicles = namedParameterJdbcTemplate.query("select * from user_vehicles where id_vehicle=:idVehicle",parameterSource,ROW_MAPPER_USER_VEHICLE);
         */
-        sqlQuery += "and id_vehicle=? \n" +
+        String sqlQueryGetAllByVehicle = sqlQuery + " and id_vehicle=? \n" +
                 "order by uv_start_date";
 
-        List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQuery,new UserVehicleRowMapper(), idVehicle);
+        List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQueryGetAllByVehicle,new UserVehicleRowMapper(), idVehicle);
 
         return userVehicles;
     }
@@ -150,23 +149,23 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
     public List<UserVehicle> getByIsCurrentUserMachine(int isCurrentUserMachine) {
         //List<UserVehicle> userVehicles = jdbcTemplate.query("select * from user_vehicles where is_current_user_machine=?;",ROW_MAPPER_USER_VEHICLE, isCurrentUserMachine);
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
-        sqlQuery += "and uv.is_current_user_machine=:isCurrentUserMachine \n" +
+        String sqlQueryGetByIsCUM = sqlQuery +  " and uv.is_current_user_machine=:isCurrentUserMachine \n" +
                 "order by uv_start_date";
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
                 .addValue("isCurrentUserMachine",isCurrentUserMachine);
 
-        List<UserVehicle> userVehicles = namedParameterJdbcTemplate.query(sqlQuery,mapSqlParameterSource,new UserVehicleRowMapper());
+        List<UserVehicle> userVehicles = namedParameterJdbcTemplate.query(sqlQueryGetByIsCUM,mapSqlParameterSource,new UserVehicleRowMapper());
 
         return userVehicles;
     }
 
     @Override
     public List<UserVehicle> getStartDateBetween(LocalDate startDate, LocalDate endDate) {
-        sqlQuery += " and uv.start_date " +
+        String sqlQueryGetStartDateBetween = sqlQuery +  " and uv.start_date " +
                     " BETWEEN ? AND ? " +
                     "ORDER BY uv.start_date DESC"; /*DESC - сортируем по убыванию*/
 
-        List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQuery,
+        List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQueryGetStartDateBetween,
                 new UserVehicleRowMapper(),startDate,endDate);
 
         return userVehicles;
@@ -174,11 +173,11 @@ public class JdbcUserVehiclesRepositoryImpl implements UserVehicleRepository {
 
     @Override
     public List<UserVehicle> getEndDateBetween(LocalDate startDate, LocalDate endDate) {
-        sqlQuery += " and uv.end_date " +
+        String sqlQueryGetEndDateBetween = sqlQuery +  " and uv.end_date " +
                     " BETWEEN ? AND ? " +
                     "ORDER BY uv.end_date DESC"; /*DESC - сортируем по убыванию*/
 
-        List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQuery, /*DESC - сортируем по убыванию*/
+        List<UserVehicle> userVehicles = jdbcTemplate.query(sqlQueryGetEndDateBetween, /*DESC - сортируем по убыванию*/
                 new UserVehicleRowMapper(),startDate,endDate);
 
         return userVehicles;
