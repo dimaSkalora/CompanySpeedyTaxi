@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<c:url var="createOrUpdateUrl" value="/userVehicles/createOrUpdate" />
+<c:url var="createOrUpdateUrl" value="/vehicles/createOrUpdate" />
 <form:form method="POST" modelAttribute="vehicle" action="${createOrUpdateUrl}"
            class="box vehicle">
 

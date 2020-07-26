@@ -28,13 +28,15 @@
     <c:forEach items="${userVehicles}" var="userVehicle">
         <jsp:useBean id="userVehicle" scope="page" type="com.taxi.speedy.company.model.UserVehicle"/>
         <tr>
-            <td><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>
+            <td><a href="userVehicles/get/${userVehicle.id}"/><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>
             <td><c:out value="${userVehicle.endDate.toLocalDate()} ${userVehicle.endDate.toLocalTime()}"/></td>
             <td><c:out value="${userVehicle.idUser.name}"/></td>
             <td><c:out value="${userVehicle.idVehicle.nameCar} [${userVehicle.idVehicle.vehicleNumber}]"/></td>
-            <td><c:out value="${userVehicle.isCurrentUserMachine}"/></td>
-            <td><a href="userVehicle/update/${vehicle.id}"/>update</td>
-            <td><a href="userVehicle/delete?id=${vehicle.id}"/>delete</td>
+            <td>
+                <c:out value="${userVehicle.isCurrentUserMachine  == 1 ? 'Yes' : 'No'}"/>
+            </td>
+            <td><a href="userVehicles/update/${userVehicle.id}"/>update</td>
+            <td><a href="userVehicles/delete?id=${userVehicle.id}"/>delete</td>
         </tr>
     </c:forEach>
 </table>
