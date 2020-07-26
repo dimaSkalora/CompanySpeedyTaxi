@@ -43,13 +43,13 @@ public class JspVehicleController extends AbstractVehicleController{
 
         super.create(vehicle);
 
-        return "redirect:vehicles";
+        return "redirect:/vehicles";
     }
 
     @RequestMapping(value = "/createModelVehicle", method = RequestMethod.POST)
     public String createModelVehicle(@ModelAttribute Vehicle vehicle){
         super.create(vehicle);
-        return "redirect:vehicles";
+        return "redirect:/vehicles";
     }
 
     @RequestMapping(value = "/update/{id}")
@@ -66,13 +66,13 @@ public class JspVehicleController extends AbstractVehicleController{
             super.create(vehicle);
         else
             super.update(vehicle);
-        return "redirect:vehicles";
+        return "redirect:/vehicles";
     }
 
     @GetMapping(value = "/delete")
     public String deleteVehicle(@RequestParam int id){
         super.delete(id);
-        return "redirect:vehicles";
+        return "redirect:/vehicles";
     }
 
     @GetMapping(value = "/get/{id}")

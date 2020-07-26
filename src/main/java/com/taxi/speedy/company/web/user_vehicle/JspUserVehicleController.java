@@ -116,10 +116,13 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
     }
 
     @GetMapping("/update/{id}")
-    public ModelAndView update(@PathVariable int id){
+    public ModelAndView update(@PathVariable int id, Model model){
         UserVehicle userVehicle = super.get(id);
-        ModelAndView modelAndView = new ModelAndView("userBehicle");
+        System.out.println(userVehicle.toString());
+        ModelAndView modelAndView = new ModelAndView("userVehicle");
         modelAndView.addObject(userVehicle);
+        model.addAttribute("uvAllUsers", super.getAllUsers());
+        model.addAttribute("uvAllVehicles", super.getAllVehicles());
 
         return modelAndView;
     }
@@ -133,6 +136,8 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
     @GetMapping(value = "/get/{id}")
     public ModelAndView getUserVehicle(@PathVariable int id){
         UserVehicle userVehicle = super.get(id);
+        System.out.println(userVehicle.toString());
+
         return new ModelAndView("userVehicle", "userVehicle", userVehicle);
     }
 
@@ -150,9 +155,19 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return new ModelAndView("userVehicles", "userVehicles",userVehicles);
     }
 
+    @GetMapping("/getByUser/{id}")
+    public ModelAndView getByUser(@PathVariable int id){
+        List<UserVehicle> userVehicles = super.getAllByUser(id);
 
+        return new ModelAndView("userVehicles","userVehicles",userVehicles);
+    }
 
+    @GetMapping("/getByVehicle")
+    public ModelAndView getByVehicle(@RequestParam int id){
+        List<UserVehicle> userVehicles = super.getAllByVehicle(id);
 
+        return new ModelAndView("userVehicles","userVehicles", userVehicles);
+    }
 
     //Обявил глобально (GlobalBindingInitializer)
 /*    @InitBinder
@@ -165,7 +180,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
                     super.setValue(LocalDateTime.parse(text.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             }
             @Override
-            public String getAsText() {
+            public String getAsTex  t() {
                 if (super.getValue() == null)
                     return null;
                 LocalDateTime value = (LocalDateTime) super.getValue();
