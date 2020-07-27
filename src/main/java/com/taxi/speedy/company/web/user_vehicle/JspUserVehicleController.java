@@ -115,7 +115,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         return new ModelAndView("userVehicle", "userVehicleFull", userVehicleFullGet);
     }
 
-    @GetMapping("/update/{id}")
+    @RequestMapping(value ="/update/{id}")
     public ModelAndView update(@PathVariable int id, Model model){
         UserVehicle userVehicle = super.get(id);
         System.out.println(userVehicle.toString());
