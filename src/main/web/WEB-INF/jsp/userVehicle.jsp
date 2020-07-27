@@ -110,7 +110,7 @@
             <c:if test="${!empty userVehicle.id}">
                 <input type="submit" class="btnLogin" value="<spring:message text="UPDATE"/>"/>
             </c:if>
-            <c:if test="${empty userVehicles.id}">
+            <c:if test="${empty userVehicle.id}">
                 <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
             </c:if>
         </c:if>
