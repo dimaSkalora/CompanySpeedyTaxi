@@ -4,10 +4,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
+<jsp:include page="fragments/headTag.jsp"/>
 <head>
     <title>Vehicles</title>
 </head>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
 <h1><a href="vehicles/vehicle"/>add vehicle </h1>
 <br>
 <table border="1" cellpadding="8" cellspacing="0">

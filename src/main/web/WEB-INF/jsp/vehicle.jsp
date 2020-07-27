@@ -6,11 +6,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
+<jsp:include page="fragments/headTag.jsp"/>
 <head>
     <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet">
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 
 <c:url var="createOrUpdateUrl" value="/vehicles/createOrUpdate" />
 <form:form method="POST" modelAttribute="vehicle" action="${createOrUpdateUrl}"

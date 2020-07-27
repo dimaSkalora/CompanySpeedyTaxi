@@ -5,10 +5,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
+<jsp:include page="fragments/headTag.jsp"/>
 <head>
     <title>UserVehicles</title>
 </head>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
 <h1><a href="userVehicles/userVehicle">add User Vehicle</a> </h1>
 <h1><a href="userVehicles/userVehicleHSR">add User VehicleHSR</a> </h1>
 <h1><a href="userVehicles/userVehicleFull">add User VehicleFull</a> </h1>

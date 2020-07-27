@@ -3,11 +3,14 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<jsp:include page="fragments/headTag.jsp"/>
 <head>
     <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet">
     <title>UserVehicle</title>
 </head>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
 <c:url var="createOrUpdateUrl" value="/userVehicles/createOrUpdateHSR" />
 <form method="POST" action="${createOrUpdateUrl}"
            class="box userVehicle">
