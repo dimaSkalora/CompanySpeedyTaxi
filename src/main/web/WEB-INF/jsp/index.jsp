@@ -6,12 +6,20 @@
 </head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
-<div>
-    <ul>
-        <li><a href="users">users</a></li>
-        <li><a href="vehicles">vehicles</a></li>
-        <li><a href="userVehicles">userVehicles</a></li>
-    </ul>
+
+<div class="jumbotron">
+    <div class="container">
+        <ul>
+            <li><a href="users">users</a></li>
+            <li><a href="vehicles">vehicles</a></li>
+            <li><a href="userVehicles">userVehicles</a></li>
+        </ul>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="container">
+
+    </div>
 </div>
 </body>
 </html>
