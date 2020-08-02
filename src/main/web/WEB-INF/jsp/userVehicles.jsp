@@ -36,7 +36,8 @@
             <c:forEach items="${userVehicles}" var="userVehicle">
                 <jsp:useBean id="userVehicle" scope="page" type="com.taxi.speedy.company.model.UserVehicle"/>
                 <tr>
-                    <td><a href="userVehicles/get/${userVehicle.id}"/><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>
+                  <%--  <td><a href="userVehicles/get/${userVehicle.id}"/><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>--%>
+                    <td><a href="userVehicles/getUserVehicleData/${userVehicle.id}"/><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>
                     <td><c:out value="${userVehicle.endDate.toLocalDate()} ${userVehicle.endDate.toLocalTime()}"/></td>
                     <td><c:out value="${userVehicle.idUser.name}"/></td>
                     <td><c:out value="${userVehicle.idVehicle.nameCar} [${userVehicle.idVehicle.vehicleNumber}]"/></td>
