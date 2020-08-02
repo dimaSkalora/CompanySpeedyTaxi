@@ -26,6 +26,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
 
     @RequestMapping
     public String userVehicles(Model model){
+        model.addAttribute("uvModal", new UserVehicle());
         model.addAttribute("userVehicles",super.getAll());
         return "userVehicles";
     }
@@ -167,6 +168,20 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
         List<UserVehicle> userVehicles = super.getAllByVehicle(id);
 
         return new ModelAndView("userVehicles","userVehicles", userVehicles);
+    }
+
+    @GetMapping(value = "/getUserVehicleData/{id}")
+    public ModelAndView getUserVehicleData(@PathVariable int id){
+        UserVehicle userVehicle = super.get(id);
+
+        User user = super.getUser(userVehicle.getIdUser().getId());
+        Vehicle vehicle = super.getVehicle(userVehicle.getIdVehicle().getId());
+        ModelAndView modelAndView = new ModelAndView("userVehicleData");
+        modelAndView.addObject("uvData", userVehicle);
+        modelAndView.addObject("uvUser", user);
+        modelAndView.addObject("uvVehicle", vehicle);
+
+        return modelAndView;
     }
 
     //Обявил глобально (GlobalBindingInitializer)
