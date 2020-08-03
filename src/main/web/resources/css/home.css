@@ -449,6 +449,13 @@ body {
 	color: #333;
 }
 
+.box.userVehicle_nav_tabs{
+	width: 820px;
+	position: absolute;
+	left: 20%;
+}
+
+
 .cjComboBox {
 	width: 294px;
 }
