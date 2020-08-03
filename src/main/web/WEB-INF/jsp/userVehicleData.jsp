@@ -13,7 +13,7 @@
 <div class="jumbotron">
     <div class="container">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs box userVehicle_nav_tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#userVehicle">UserVehicle</a>
             </li>
