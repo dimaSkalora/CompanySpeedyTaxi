@@ -41,9 +41,31 @@ public class JdbcUserStateRepositoryImplTest {
         log.info("get {}",userState);
     }
 
+    @Test
+    public void update(){
+        create();
+        userState = jdbcUserStateRepositoryImpl.get(idUserState);
+        log.info("get {}",userState);
 
+        userState.setNameUS("Test update");
+        jdbcUserStateRepositoryImpl.save(userState);
+        log.info("update {}",userState);
+    }
 
+    @Test
+    public void delete(){
+        create();
+        userState = jdbcUserStateRepositoryImpl.get(idUserState);
+        log.info("get {}",userState);
 
+        boolean isDelete = jdbcUserStateRepositoryImpl.delete(userState.getId());
+        log.info("delete {}",isDelete);
+    }
 
+    @Test
+    public void getByNameUS(){
+        userState = jdbcUserStateRepositoryImpl.getByNameUS("Здоровый");
+        log.info("getByNameUS {}",userState);
+    }
 
 }
