@@ -56,7 +56,7 @@ public class JdbcUserStateRepositoryImpl implements UserStateRepository {
     public UserState save(UserState userState) {
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
-              //  .addValue("id",userState.getId())    //Добавьте параметр к этому источнику параметра.
+                .addValue("id",userState.getId())    //Добавьте параметр к этому источнику параметра.
                 .addValue("nameUS",userState.getNameUS());
 
           /*BeanPropertySqlParameterSource - анализирует переданный ему объект и для каждого свойства
@@ -88,7 +88,7 @@ public class JdbcUserStateRepositoryImpl implements UserStateRepository {
 
             userState.setId(atomicInteger.intValue());
         }else {
-            if(namedParameterJdbcTemplate.update("UPDATE user_state SET name_us=:nameUS",
+            if(namedParameterJdbcTemplate.update("UPDATE user_state SET name_us=:nameUS where id=:id",
                     mapSqlParameterSource)==0)
                 return null;
         }
