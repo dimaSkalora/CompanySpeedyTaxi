@@ -11,10 +11,14 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository//("jdbcUserStateRepositoryImpl")
 public class JdbcUserStateRepositoryImpl implements UserStateRepository {
@@ -52,24 +56,42 @@ public class JdbcUserStateRepositoryImpl implements UserStateRepository {
     public UserState save(UserState userState) {
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
-                .addValue("id",userState.getId())    //Добавьте параметр к этому источнику параметра.
+              //  .addValue("id",userState.getId())    //Добавьте параметр к этому источнику параметра.
                 .addValue("nameUS",userState.getNameUS());
 
           /*BeanPropertySqlParameterSource - анализирует переданный ему объект и для каждого свойства
          объекта создаёт параметр с именем свойства и его значением.*/
         BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(userState);
 
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
         if(userState.isNew()){
             //Выполните вставку, используя значения, переданные и возвращающие сгенерированный ключ.
             //Number newKey = jdbcInsert.executeAndReturnKey(mapSqlParameterSource);
-            Number newKey = jdbcInsert.executeAndReturnKey(beanPropertySqlParameterSource);
-            userState.setId(newKey.intValue());
+            //Number newKey = jdbcInsert.executeAndReturnKey(beanPropertySqlParameterSource);
+            namedParameterJdbcTemplate.update("INSERT INTO user_state (name_us) VALUES (:nameUS)",mapSqlParameterSource,keyHolder);
+            //AtomicInteger предоставляет операции с базовым значением int, которые могут быть прочитаны и записаны атомарно,
+            // а также содержит расширенные атомарные операции.
+            AtomicInteger atomicInteger = new AtomicInteger();
+            keyHolder.getKeys().forEach((k,y)-> {
+                            if(k.equals("id"))
+                                atomicInteger.addAndGet((Integer)y);
+                    }
+            );
+
+       /*   int count=0;
+            for (Map.Entry<String, Object> entry : keyHolder.getKeys().entrySet()){
+                if(count==0)
+                    System.out.println(entry.getValue());
+                count++;
+            }*/
+
+            userState.setId(atomicInteger.intValue());
         }else {
             if(namedParameterJdbcTemplate.update("UPDATE user_state SET name_us=:nameUS",
                     mapSqlParameterSource)==0)
                 return null;
         }
-
 
         return userState;
     }
@@ -103,8 +125,8 @@ public class JdbcUserStateRepositoryImpl implements UserStateRepository {
 
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("name_us",nameUS);
-        UserState userState = namedParameterJdbcTemplate.queryForObject("",mapSqlParameterSource, new UserStateRowMapper());
+        mapSqlParameterSource.addValue("nameUS",nameUS);
+        UserState userState = namedParameterJdbcTemplate.queryForObject("SELECT * from user_state where name_us=:nameUS",mapSqlParameterSource, new UserStateRowMapper());
 
         return userState;
     }
