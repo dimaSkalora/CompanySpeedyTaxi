@@ -80,4 +80,11 @@ public class JspUserStateController extends AbstractUserStateController{
             return new ModelAndView("userStates","userStates",super.getByNameUS(nameUS));
     }
 
+    @GetMapping("/get/{id}")
+    public String getUserState(@PathVariable int id, Model model){
+        UserState userState = super.get(id);
+        model.addAttribute("userState", userState);
+        return "userState";
+    }
+
 }
