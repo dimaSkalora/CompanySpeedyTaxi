@@ -13,6 +13,7 @@
             <li><a href="users">users</a></li>
             <li><a href="vehicles">vehicles</a></li>
             <li><a href="userVehicles">userVehicles</a></li>
+            <li><a href="userStates">userStates</a></li>
         </ul>
     </div>
 </div>
