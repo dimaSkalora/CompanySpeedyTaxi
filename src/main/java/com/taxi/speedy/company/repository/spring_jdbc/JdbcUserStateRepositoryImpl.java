@@ -25,7 +25,7 @@ public class JdbcUserStateRepositoryImpl implements UserStateRepository {
 
     //Статический метод фабрики для создания нового BeanPropertyRowMapper (с отображенным классом,
     // указанным только один раз).
-    //private static final RowMapper<Vehicle> ROW_MAPPER_USER_STATE = BeanPropertyRowMapper.newInstance(Vehicle.class);
+    //private static final RowMapper<UserState> ROW_MAPPER_USER_STATE = BeanPropertyRowMapper.newInstance(UserState.class);
     private static BeanPropertyRowMapper<UserState> ROW_MAPPER_USER_STATE = BeanPropertyRowMapper.newInstance(UserState.class);
 
     /*
@@ -116,7 +116,7 @@ public class JdbcUserStateRepositoryImpl implements UserStateRepository {
 
     @Override
     public List<UserState> getAll() {
-        return jdbcTemplate.query("SELECT * from user_state",ROW_MAPPER_USER_STATE);
+        return jdbcTemplate.query("SELECT * from user_state",new UserStateRowMapper());
     }
 
     @Override
