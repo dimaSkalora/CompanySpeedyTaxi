@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.List;
+
 public class UserStateServiceImplTest {
     private Logger logger = LoggerFactory.getLogger(UserStateServiceImplTest.class);
 
@@ -95,5 +97,11 @@ public class UserStateServiceImplTest {
     public void getByNameUSNot(){
         userState = userStateService.getByNameUS("not");
         logger.info("getByNameUS {}",userState);
+    }
+
+    @Test
+    public void getAll(){
+        List<UserState> userStates = userStateService.getAll();
+        logger.info("getAll {}",userStates);
     }
 }

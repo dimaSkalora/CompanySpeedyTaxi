@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.List;
+
 public class JdbcUserStateRepositoryImplTest {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -66,6 +68,12 @@ public class JdbcUserStateRepositoryImplTest {
     public void getByNameUS(){
         userState = jdbcUserStateRepositoryImpl.getByNameUS("Здоровый");
         log.info("getByNameUS {}",userState);
+    }
+
+    @Test
+    public void getAll(){
+        List<UserState> userStates = jdbcUserStateRepositoryImpl.getAll();
+        log.info("getAll {}",userStates);
     }
 
 }
