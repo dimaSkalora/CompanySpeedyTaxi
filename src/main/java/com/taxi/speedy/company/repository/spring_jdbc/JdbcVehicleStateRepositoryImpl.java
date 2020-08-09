@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository//("jdbcVehicleStateRepositoryImpl")
 public class JdbcVehicleStateRepositoryImpl implements VehicleStateRepository {
@@ -65,10 +66,21 @@ public class JdbcVehicleStateRepositoryImpl implements VehicleStateRepository {
 
         if(vehicleState.isNew()){
             //Выполните вставку, используя значения, переданные и возвращающие сгенерированный ключ.
-            Number newKey = jdbcInsert.executeAndReturnKey(mapSqlParameterSource);
+            //Number newKey = jdbcInsert.executeAndReturnKey(mapSqlParameterSource);
             //Number newKey = jdbcInsert.executeAndReturnKey(beanPropertySqlParameterSource);
+            //vehicleState.setId(newKey.intValue());
 
-            vehicleState.setId(newKey.intValue());
+            namedParameterJdbcTemplate.update("INSERT INTO vehicle_state (name_vs) VALUES (:nameVS)",mapSqlParameterSource,keyHolder);
+            //AtomicInteger предоставляет операции с базовым значением int, которые могут быть прочитаны и записаны атомарно,
+            // а также содержит расширенные атомарные операции.
+            AtomicInteger atomicInteger = new AtomicInteger();
+            keyHolder.getKeys().forEach((k,v)-> {
+                        if(k.equals("id"))
+                            atomicInteger.addAndGet((Integer)v);
+                    }
+            );
+
+            vehicleState.setId(atomicInteger.intValue());
         }else{
             if(namedParameterJdbcTemplate.update("UPDATE vehicle_state SET name_vs=:nameVS where id=:id"
                     ,beanPropertySqlParameterSource)==0)
@@ -90,9 +102,9 @@ public class JdbcVehicleStateRepositoryImpl implements VehicleStateRepository {
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
-        return namedParameterJdbcTemplate.queryForObject(sql, params, new VehicleStateRowMapper());*/
+        return namedParameterJdbcTemplate.queryForObject(sql, params, ROW_MAPPER_VEHICLE_STATE());*/
 
-        List<VehicleState> vehicleStates = jdbcTemplate.query("SELECT * FROM vehicle_state WHERE id=?",ROW_MAPPER_VEHICLE_STATE,id);
+        List<VehicleState> vehicleStates = jdbcTemplate.query("SELECT * FROM vehicle_state WHERE id=?",new VehicleStateRowMapper(),id);
 
         return DataAccessUtils.singleResult(vehicleStates);//Возвращает один объект результата из данной коллекции.
     }
