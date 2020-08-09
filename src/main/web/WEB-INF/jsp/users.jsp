@@ -21,14 +21,14 @@
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>
             <tr>
-                <th>name</th>
-                <th>email</th>
-                <th>password</th>
-                <th>phone</th>
-                <th>address</th>
-                <th>roles</th>
-                <th>registered</th>
-                <th>enabled</th>
+                <th><spring:message code="user.name"/></th>
+                <th><spring:message code="user.email"/></th>
+                <th><spring:message code="user.password"/></th>
+                <th><spring:message code="user.phone"/></th>
+                <th><spring:message code="user.address"/></th>
+                <th><spring:message code="user.roles"/></th>
+                <th><spring:message code="user.registered"/></th>
+                <th><spring:message code="user.enabled"/></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -44,8 +44,8 @@
                     <td><c:out value="${user.roles}"/></td>
                     <td><c:out value="${user.registered}"/></td>
                     <td><c:out value="${user.enabled}"/></td>
-                    <td><a href="users/update/${user.id}"/>update</td>
-                    <td><a href="users/delete?id=${user.id}"/>delete</td>
+                    <td><a href="users/update/${user.id}"/><spring:message code="user.update"/></td>
+                    <td><a href="users/delete?id=${user.id}"/><spring:message code="user.delete"/></td>
                 </tr>
             </c:forEach>
         </table>

@@ -3,18 +3,34 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="">Company Speedy Taxi</a>
+    <a class="navbar-brand" href=""><spring:message code="app.home"/></a>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">List</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="users">users</a>
-                    <a class="dropdown-item" href="vehicles">vehicles</a>
-                    <a class="dropdown-item" href="userVehicles">userVehicles</a>
-                    <a class="dropdown-item" href="userStates">userStates</a>
+                    <a class="dropdown-item" href="users"><spring:message code="app.users"/></a>
+                    <a class="dropdown-item" href="vehicles"><spring:message code="app.vehicles"/></a>
+                    <a class="dropdown-item" href="userVehicles"><spring:message code="app.userVehicles"/></a>
+                    <a class="dropdown-item" href="userStates"><spring:message code="app.userStates"/></a>
+                    <a class="dropdown-item" href="vehicleStates"><spring:message code="app.vehicleStates"/></a>
                 </div>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${pageContext.response.locale}<b
+                        class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="${requestScope['javax.servlet.forward.request_uri']}?lang=en">English</a></li>
+                    <li><a href="${requestScope['javax.servlet.forward.request_uri']}?lang=ru">Русский</a></li>
+<%--                    <li><a href="?lang=en">English</a></li>
+                    <li><a href="?lang=ru">Русский</a></li>--%>
+                </ul>
+                <ul>
+
+                </ul>
             </li>
         </ul>
     </div>

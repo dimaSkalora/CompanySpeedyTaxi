@@ -25,7 +25,7 @@
                     <tr>
                         <td>
                             <form:label path="id">
-                                <spring:message text="id"/>
+                                <spring:message code="user.id"/>
                             </form:label>
                         </td>
                         <td>
@@ -34,7 +34,7 @@
                         </td>
                         <td>
                             <form:label path="name">
-                                <spring:message text="name"/>
+                                <spring:message code="user.name"/>
                             </form:label>
                         </td>
                         <td>
@@ -44,7 +44,7 @@
                     <tr>
                         <td>
                             <form:label path="password">
-                                <spring:message text="password"/>
+                                <spring:message code="user.password"/>
                             </form:label>
                         </td>
                         <td>
@@ -52,7 +52,7 @@
                         </td>
                         <td>
                             <form:label path="email">
-                                <spring:message text="email"/>
+                                <spring:message code="user.email"/>
                             </form:label>
                         </td>
                         <td>
@@ -62,7 +62,7 @@
                     <tr>
                         <td>
                             <form:label path="phone">
-                                <spring:message text="phone"/>
+                                <spring:message code="user.phone"/>
                             </form:label>
                         </td>
                         <td>
@@ -70,7 +70,7 @@
                         </td>
                         <td>
                             <form:label path="address">
-                                <spring:message text="address"/>
+                                <spring:message code="user.address"/>
                             </form:label>
                         </td>
                         <td>
@@ -81,7 +81,7 @@
                         <tr>
                             <td>
                                 <form:label path="registered">
-                                    <spring:message text="registered"/>
+                                    <spring:message code="user.registered"/>
                                 </form:label>
                             </td>
                             <td>
@@ -89,7 +89,7 @@
                             </td>
                             <td>
                                 <form:label path="enabled">
-                                    <spring:message text="enabled"/>
+                                    <spring:message code="user.enabled"/>
                                 </form:label>
                             </td>
                             <td>
@@ -100,7 +100,7 @@
                     <tr>
                         <td>
                             <form:label path="roles">
-                                <spring:message text="roles"/>
+                                <spring:message code="user.roles"/>
                             </form:label>
                         </td>
                         <td>
@@ -114,15 +114,15 @@
                 <c:set var="jsf_request_uri" value="${requestScope.get(\"javax.servlet.forward.request_uri\")}"/>
                 <c:set var="jsf_request_uriStr" value="/CompanySpeedyTaxi/users/get"/>
                 <c:if test="${jsf_request_uri.startsWith(jsf_request_uriStr)}">
-                    <a href="/CompanySpeedyTaxi/users" class="btnLogin"><spring:message text="OK"/></a>
+                    <a href="/CompanySpeedyTaxi/users" class="btnLogin"><spring:message code="user.ok"/></a>
                     <%--<input class ="btnLogin" type="button" value="<spring:message text="OK2"/>" onclick="location.href = '/CompanySpeedyTaxi/users'"/>--%>
                 </c:if>
                 <c:if test="${!jsf_request_uri.startsWith(jsf_request_uriStr)}">
                     <c:if test="${!empty user.id}">
-                        <input type="submit" class="btnLogin" value="<spring:message text="UPDATE"/>"/>
+                        <input type="submit" class="btnLogin" value="<spring:message code="user.update"/>"/>
                     </c:if>
                     <c:if test="${empty user.id}">
-                        <input type="submit" class="btnLogin" value="<spring:message text="SAVE"/>"/>
+                        <input type="submit" class="btnLogin" value="<spring:message code="user.save"/>"/>
                     </c:if>
                 </c:if>
             </footer>

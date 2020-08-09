@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <head>
@@ -10,10 +11,11 @@
 <div class="jumbotron">
     <div class="container">
         <ul>
-            <li><a href="users">users</a></li>
-            <li><a href="vehicles">vehicles</a></li>
-            <li><a href="userVehicles">userVehicles</a></li>
-            <li><a href="userStates">userStates</a></li>
+            <li><a href="users"><spring:message code="app.users"/></a></li>
+            <li><a href="vehicles"><spring:message code="app.vehicles"/></a></li>
+            <li><a href="userVehicles"><spring:message code="app.userVehicles"/></a></li>
+            <li><a href="userStates"><spring:message code="app.userStates"/></a></li>
+            <li><a href="vehicleStates"><spring:message code="app.vehicleStates"/></a></li>
         </ul>
     </div>
 </div>
