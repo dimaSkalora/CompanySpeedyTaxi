@@ -90,11 +90,14 @@ public class JdbcVehicleStateRepositoryImplTest {
     }
 
     @Test
-    public void getByNameUS(){
-
+    public void getByNameVS(){
+        vehicleState = vehicleStateRepository.getByNameVS("Сломан");
+        log.info("getByNameVS {}",vehicleState);
     }
 
-
-
-
+    @Test
+    public void getByNameVSNot(){
+        vehicleState = vehicleStateRepository.getByNameVS("Сломан2");
+        log.info("getByNameVSNot {}",vehicleState);
+    }
 }
