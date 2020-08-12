@@ -129,18 +129,18 @@ COMMENT ON COLUMN vehicle_state.name_vs
 CREATE TABLE access_to_route
 (
   id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  date_time          TIMESTAMP DEFAULT now() NOT NULL,
-  id_user_vehicles   INTEGER NOT NULL,
+  checks_date_time          TIMESTAMP DEFAULT now() NOT NULL,
+  id_user_vehicle   INTEGER NOT NULL,
   id_user_state      INTEGER NOT NULL,
   id_vehicle_state   INTEGER NOT NULL,
   is_access          INTEGER NOT NULL,
-  FOREIGN KEY(id_user_vehicles) REFERENCES user_vehicles (id) ON DELETE CASCADE,
+  FOREIGN KEY(id_user_vehicle) REFERENCES user_vehicle (id) ON DELETE CASCADE,
   FOREIGN KEY(id_user_state) REFERENCES user_state (id),
   FOREIGN KEY(id_vehicle_state) REFERENCES vehicle_state (id)
 );
 COMMENT ON TABLE access_to_route
   IS 'Допуск Юзера и ТС до маршрута';
-COMMENT ON COLUMN access_to_route.date_time
+COMMENT ON COLUMN access_to_route.checks_date_time
   IS 'Дата и время проверки Юзера и ТС к маршруту';
 COMMENT ON COLUMN access_to_route.is_access
   IS 'Допуск: 1 - yes, 0 - no';

@@ -27,7 +27,7 @@ DELETE FROM pay_sheet;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 ---------------users---------------1
-INSERT INTO users (name, email, password, phone, adress) VALUES
+INSERT INTO users (name, email, password, phone, address) VALUES
  ('Admin', 'admin@gmail.com', 'admin', '+380-00-11-00-111', 'address1'),
  ('Company', 'company@gmail.com', 'company', '+380-00-11-00-122', 'address2'),
  ('User1', 'user1@gmail.com', 'user1', '+380-00-11-00-123', 'address3'),
@@ -104,7 +104,7 @@ INSERT INTO vehicle_state (id, name_vs) VALUES
  (3,'В ремонте');
 
 ---------------access_to_route---------------7
-INSERT INTO access_to_route (id, id_user_vehicles, id_user_state, id_vehicle_state, is_access) VALUES
+INSERT INTO access_to_route (id, id_user_vehicle, id_user_state, id_vehicle_state, is_access) VALUES
  (1,1,1,1,1),
  (2,2,1,1,1),
  (3,3,1,1,1),
