@@ -2,6 +2,7 @@ package com.taxi.speedy.company.repository;
 
 import com.taxi.speedy.company.model.AccessToRoute;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AccessToRouteRepository {
@@ -9,6 +10,7 @@ public interface AccessToRouteRepository {
     boolean delete(int id);
     AccessToRoute get (int id);
     List<AccessToRoute> getAll();
+    List<AccessToRoute> getByChecksDateTime(LocalDate startDate, LocalDate endDate);
     List<AccessToRoute> getByUserVehicle(int idUserVehicle);
     List<AccessToRoute> getByUserState(int idUserState);
     List<AccessToRoute> getByVehicleState(int idVehicleState);

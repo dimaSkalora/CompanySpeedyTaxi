@@ -6,12 +6,11 @@ import com.taxi.speedy.company.model.UserVehicle;
 import com.taxi.speedy.company.model.VehicleState;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Controller
@@ -25,7 +24,7 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
         return "accessToRoutes";
     }
 
-    @RequestMapping(value = "accessToRoute", method = RequestMethod.GET)
+    @RequestMapping(value = "/accessToRoute", method = RequestMethod.GET)
     public String accessToRoute(Model model){
         model.addAttribute("accessToRoute", new AccessToRoute());
         model.addAttribute("atrAllUserVehicles",super.getAllUserVehicles());
@@ -81,6 +80,62 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
 
         return "redirect:accessToRoutes";
     }
+
+    @PostMapping("/createOrUpdate")
+    public String createOrUpdate(@ModelAttribute AccessToRoute accessToRoute){
+        if(accessToRoute.isNew())
+            super.create(accessToRoute);
+        else
+            super.update(accessToRoute);
+
+        return "redirect:accessToRoutes";
+    }
+
+    @GetMapping("/update/{id}")
+    public ModelAndView update(@PathVariable int id){
+        AccessToRoute accessToRoute = super.get(id);
+        ModelAndView modelAndView = new ModelAndView("accessToRoute");
+        modelAndView.addObject("accessToRoute",accessToRoute);
+        modelAndView.addObject("allUserVehicles",super.getAllUserVehicles());
+        modelAndView.addObject("allUserStates",super.getAllUserStates());
+        modelAndView.addObject("allVehicleStates",super.getAllVehicleStates());
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteAccessToRoute(@RequestParam int id){
+        //delete?id=
+        super.delete(id);
+
+        return "redirect:accessToRoutes";
+    }
+
+    @RequestMapping("/get/{id}")
+    public ModelAndView getAccessToRoute(@PathVariable int id){
+        return new ModelAndView("accessToRoute","accessToRoute", super.get(id));
+    }
+
+    @GetMapping("/getAccessToRouteDate/{id}")
+    public ModelAndView getAccessToRouteDate(@PathVariable int id, Model model){
+        AccessToRoute accessToRoute = super.get(id);
+        ModelAndView modelAndView = new ModelAndView("accessToRoute");
+        modelAndView.addObject("accessToRouteData",accessToRoute);
+        model.addAttribute("atrUserVehicleData",super.getUserVehicle(accessToRoute.getIdUserVehicle().getId()));
+        model.addAttribute("atrUserStateData",super.getUserVehicle(accessToRoute.getIdUserState().getId()));
+        model.addAttribute("atrVehicleVehicleData",super.getUserVehicle(accessToRoute.getIdVehicleState().getId()));
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/checksDateTime/{startDate}/{endDate}", method = RequestMethod.GET)
+    public ModelAndView getChecksDateTime(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate){
+
+        return new ModelAndView("accessToRoutes","accessToRoutes",super.getByChecksDateTime(startDate,endDate));
+    }
+
+
+
 
 
 }

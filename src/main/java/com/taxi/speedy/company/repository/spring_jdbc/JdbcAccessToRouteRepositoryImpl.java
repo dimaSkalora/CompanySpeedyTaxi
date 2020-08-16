@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository//("jdbcAccessToRouteRepositoryImpl")
@@ -123,6 +124,16 @@ public class JdbcAccessToRouteRepositoryImpl implements AccessToRouteRepository 
 
 
         List<AccessToRoute> accessToRouteList = jdbcTemplate.query(sqlQuery,new AccessToRouteRowMapper());
+        return accessToRouteList;
+    }
+
+    @Override
+    public List<AccessToRoute> getByChecksDateTime(LocalDate startDate, LocalDate endDate){
+        String sqlChecksDateTimeBetween = sqlQuery +  " and atr.checks_date_time " +
+                " BETWEEN ? AND ? \n" +
+                "ORDER BY atr.checks_date_time DESC"; /*DESC - сортируем по убыванию*/
+
+        List<AccessToRoute> accessToRouteList = jdbcTemplate.query(sqlChecksDateTimeBetween,new AccessToRouteRowMapper(),startDate,endDate);
         return accessToRouteList;
     }
 

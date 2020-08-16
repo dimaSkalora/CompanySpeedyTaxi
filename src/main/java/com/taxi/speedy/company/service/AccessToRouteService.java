@@ -3,6 +3,7 @@ package com.taxi.speedy.company.service;
 import com.taxi.speedy.company.model.AccessToRoute;
 import com.taxi.speedy.company.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AccessToRouteService {
@@ -11,6 +12,7 @@ public interface AccessToRouteService {
     AccessToRoute get(int id) throws NotFoundException;
     boolean delete(int id) throws NotFoundException;
     List<AccessToRoute> getAll();
+    List<AccessToRoute> getByChecksDateTime(LocalDate startDate, LocalDate endDate) throws NotFoundException;
     List<AccessToRoute> getByUserVehicle(int idUserVehicle) throws NotFoundException;
     List<AccessToRoute> getByUserState(int idUserState) throws NotFoundException;
     List<AccessToRoute> getByVehicleState(int idVehicleState) throws NotFoundException;

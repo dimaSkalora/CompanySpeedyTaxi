@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public abstract class AbstractAccessToRouteController {
@@ -57,18 +58,23 @@ public abstract class AbstractAccessToRouteController {
         return accessToRouteService.getAll();
     }
 
-    public List<AccessToRoute> getATRByIdUserVehicles(int idUserVehicle){
-        log.info("getATRByIdUserVehiclse {}",idUserVehicle);
+    public List<AccessToRoute> getByChecksDateTime(LocalDate startDate, LocalDate endDate){
+        log.info("getByChecksDateTime {}, {}",startDate,endDate);
+        return accessToRouteService.getByChecksDateTime(startDate,endDate);
+    }
+
+    public List<AccessToRoute> getByIdUserVehicles(int idUserVehicle){
+        log.info("getByIdUserVehicles {}",idUserVehicle);
         return accessToRouteService.getByUserVehicle(idUserVehicle);
     }
 
-    public List<AccessToRoute> getATRByIdUserStates(int idUserState){
-        log.info("getATRByIdUserStates {}",idUserState);
+    public List<AccessToRoute> getByIdUserStates(int idUserState){
+        log.info("getByIdUserStates {}",idUserState);
         return accessToRouteService.getByUserState(idUserState);
     }
 
-    public List<AccessToRoute> getATRByIdVehicleStates(int idVehicleState){
-        log.info("getATRByIdVehicleStates {}",idVehicleState);
+    public List<AccessToRoute> getByIdVehicleStates(int idVehicleState){
+        log.info("getByIdVehicleStates {}",idVehicleState);
         return accessToRouteService.getByVehicleState(idVehicleState);
     }
 
