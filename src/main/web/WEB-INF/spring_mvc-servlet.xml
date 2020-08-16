@@ -40,4 +40,54 @@
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
 
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!--Добавляем converter для того что бы джейсон отображал руские текст-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--
+    Localization (l10n)            -  реализация в коде
+    Internationalization  (i18n)   - включение в приложение поддержки разных языков
+    -->
+    <!--ReloadableResourceBundleMessageSource - поиск в любой папке-->
+    <!--ResourceBundleMessageSource - поиск в класпасе (.classpath)-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:cacheSeconds="5"
+          p:defaultEncoding="UTF-8">
+        <!--казывается путь к app. and app_ru-->
+<!--        <property name="basenames" value="file:///#{systemEnvironment['ACCOUNTING_OF_SHOP']}/config/messages/app"/>-->
+        <property name="basename" value="/WEB-INF/locales/messages" />
+      <!--  <property name="fallbackToSystemLocale" value="false"/>-->
+    </bean>
+
+    <!--Перехватывает переключение Locale, использует localeResolver-->
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
+   <!-- <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang" />
+    </bean>-->
+
+    <!--Локаль по умолчанию-->
+    <!--Работает с локалью и хранить в обределеной области допустим Cookie-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="ru"/>
+    </bean>
+    <!--Работает с локалью и хранить в обределеной области допустим Session-->
+<!--    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="ru" />
+    </bean>-->
+
 </beans>
