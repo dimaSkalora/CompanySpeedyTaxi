@@ -134,8 +134,21 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
         return new ModelAndView("accessToRoutes","accessToRoutes",super.getByChecksDateTime(startDate,endDate));
     }
 
+    @GetMapping("/getByIdUserVehicles/{id}")
+    public ModelAndView getByIdUserVehicleList(int id){
+        return new ModelAndView("accessToRoutes","getByIdUserVehicles",super.getByIdUserVehicles(id));
+    }
 
+    @RequestMapping("/getByIdUserStates/{id}")
+    public String getByIdUserStateList(int id, Model model){
+        model.addAttribute("accessToRoutes", super.getByIdUserStates(id));
 
+        return "accessToRoutes";
+    }
 
+    @RequestMapping(value = "/getByIdVehicleStates/{id}", method = RequestMethod.GET)
+    public ModelAndView getByIdVehicleStateList(int id){
+        return new ModelAndView("accessToRoutes","accessToRoutes",super.getByIdUserVehicles(id));
+    }
 
 }
