@@ -148,7 +148,11 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
 
     @RequestMapping(value = "/getByIdVehicleStates/{id}", method = RequestMethod.GET)
     public ModelAndView getByIdVehicleStateList(int id){
-        return new ModelAndView("accessToRoutes","accessToRoutes",super.getByIdUserVehicles(id));
+        return new ModelAndView("accessToRoutes","accessToRoutes",super.getByIdVehicleStates(id));
     }
 
+    @GetMapping(value = "/getByIsAccess/{id}")
+    public ModelAndView getByIsAccessList(int isAccess){
+        return new ModelAndView("accessToRoutes","accessToRoutes",super.getByIsAccess(isAccess));
+    }
 }

@@ -78,6 +78,11 @@ public abstract class AbstractAccessToRouteController {
         return accessToRouteService.getByVehicleState(idVehicleState);
     }
 
+    public List<AccessToRoute> getByIsAccess(int isAccess){
+        log.info("getByIsAccess {}",isAccess);
+        return accessToRouteService.getByIsAccess(isAccess);
+    }
+
     public UserVehicle getUserVehicle(int idUserVehicle){
         log.info("getUserVehicle {}",idUserVehicle);
         return userVehicleService.get(idUserVehicle);
