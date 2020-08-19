@@ -21,7 +21,7 @@
                     <tr>
                         <td>
                             <form:label path="id">
-                                <spring:message text="id"/>
+                                <spring:message code="accessToRoute.id"/>
                             </form:label>
                         </td>
                         <td>
@@ -31,71 +31,87 @@
                     </tr>
                     <tr>
                         <td>
-                            <form:label path="startDate">
-                                <spring:message text="startDate"/>
+                            <form:label path="checksDateTime">
+                                <spring:message code="accessToRoute.checksDateTime"/>
                             </form:label>
                         </td>
                         <td>
-                            <form:input type="datetime-local" path="startDate" />
+                            <form:input type="datetime-local" path="checksDateTime" />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <form:label path="endDate">
-                                <spring:message text="endDate"/>
+                            <form:label path="idUserVehicle">
+                                <spring:message code="accessToRoute.idUserVehicle"/>
                             </form:label>
                         </td>
                         <td>
-                            <form:input type="datetime-local" path="endDate" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <form:label path="idUser">
-                                <spring:message text="idUser"/>
-                            </form:label>
-                        </td>
-                        <td>
-                            <form:select path="idUser">
-                                <%--  <form:option  value="${empty userVehicle.id ? getUser.id : ''}"
-                                                label="${empty userVehicle.id ? getUser.name + getUser.email : ''}"/>--%>
-                                <form:option  value="${!empty userVehicle.id ? userVehicle.idUser.id : ''}"
-                                              label="${!empty userVehicle.id ? userVehicle.idUser.name.concat('; ').concat(userVehicle.idUser.email) : ''}"/>
-                                <%--<form:option  value="${userVehicle.idUser.id}" label="${userVehicle.idUser.name }"/>--%>
+                            <form:select path="idUserVehicle">
+                                <form:option  value="${!empty accessToRoute.id ? accessToRoute.idUserVehicle.id : ''}"
+                                              label="${!empty accessToRoute.id ? accessToRoute.idUserVehicle.idUser.name.concat('; ')
+                                              .concat(accessToRoute.idUserVehicle.idVehicle.nameCar).concat(' - ')
+                                              .concat(accessToRoute.idUserVehicle.idVehicle.vehicleNumber) : ''}"/>
+                                <%--<form:option  value="${accessToRoute.idUserVehicle.id}" label="${accessToRoute.idUserVehicle.idUser.name }"/>--%>
                                 <%--<form:option  value="" label=""/>--%>
-                                <c:forEach items="${uvAllUsers}" var="user">
-                                    <jsp:useBean id="user" scope="page" type="com.taxi.speedy.company.model.User"/>
-                                    <form:option  value="${user.id}" label="${user.name}; ${user.email}"/>
+                                <c:forEach items="${atrAllUserVehicles}" var="userVehicle">
+                                    <jsp:useBean id="userVehicle" scope="page" type="com.taxi.speedy.company.model.UserVehicle"/>
+                                    <form:option  value="${userVehicle.id}" label="${userVehicle.idUser.name}; ${userVehicle.idVehicle.nameCar}
+                                                                                - ${userVehicle.idVehicle.vehicleNumber}"/>
                                 </c:forEach>
                             </form:select>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <form:label path="idVehicle">
-                                <spring:message text="idVehicle"/>
+                            <form:label path="idUserState">
+                                <spring:message code="accessToRoute.idUserState"/>
                             </form:label>
                         </td>
                         <td>
-                            <form:select path="idVehicle">
-                                <form:option  value="${!empty userVehicle.id ? userVehicle.idVehicle.id : ''}"
-                                              label="${!empty userVehicle.id ? userVehicle.idVehicle.nameCar.concat('; ').concat(userVehicle.idVehicle.vehicleNumber) : ''}"/>
+                            <form:select path="idUserState">
+                                <form:option  value="${!empty accessToRoute.id ? accessToRoute.idUserState.id : ''}"
+                                              label="${!empty accessToRoute.id ? accessToRoute.idUserState.nameUS : ''}"/>
+                                <%--<form:option  value="${accessToRoute.idUserState.id}" label="${accessToRoute.idUserState.nameUS}"/>--%>
                                 <%--<form:option  value="" label=""/>--%>
-                                <c:forEach items="${uvAllVehicles}" var="vehicle">
-                                    <jsp:useBean id="vehicle" scope="page" type="com.taxi.speedy.company.model.Vehicle"/>
-                                    <form:option  value="${vehicle.id}" label="${vehicle.nameCar}; ${vehicle.vehicleNumber}"/>
+                                <c:forEach items="${atrAllUserStates}" var="userState">
+                                    <jsp:useBean id="userState" scope="page" type="com.taxi.speedy.company.model.UserState"/>
+                                    <form:option  value="${userState.id}" label="${userState.nameUS}"/>
                                 </c:forEach>
                             </form:select>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <form:label path="isCurrentUserMachine">
-                                <spring:message text="isCurrentUserMachine"/>
+                            <form:label path="idVehicleState">
+                                <spring:message code="accessToRoute.idVehicleState"/>
                             </form:label>
                         </td>
                         <td>
-                            <form:input path="isCurrentUserMachine" />
+                            <form:select path="idVehicleState">
+                                <form:option  value="${!empty accessToRoute.id ? accessToRoute.idVehicleState.id : ''}"
+                                              label="${!empty accessToRoute.id ? accessToRoute.idVehicleState.nameVS : ''}"/>
+                                <%--<form:option  value="${accessToRoute.idVehicleState.id}" label="${accessToRoute.idVehicleState.nameVS}"/>--%>
+                                <%--<form:option  value="" label=""/>--%>
+                                <c:forEach items="${atrAllVehicleStates}" var="vehicleState">
+                                    <jsp:useBean id="vehicleState" scope="page" type="com.taxi.speedy.company.model.VehicleState"/>
+                                    <form:option  value="${vehicleState.id}" label="${vehicleState.nameVS}"/>
+                                </c:forEach>
+                            </form:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form:label path="isAccess">
+                                <spring:message code="accessToRoute.isAccess"/>
+                            </form:label>
+                        </td>
+                        <td>
+                            <form:select path="isAccess">
+                                <form:option  value="${!empty accessToRoute.id ? accessToRoute.isAccess : ''}"
+                                              label="${!empty accessToRoute.id ? accessToRoute.isAccess : ''}"/>
+                                <form:option  value="1" label="YES"/>
+                                <form:option  value="0" label="NO"/>
+                            </form:select>
                         </td>
                     </tr>
                 </table>

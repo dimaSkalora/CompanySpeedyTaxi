@@ -15,37 +15,35 @@
 <div class="jumbotron">
     <div class="container">
         <ul>
-            <li><a href="userVehicles/userVehicle">add User Vehicle</a> </li>
-            <li><a href="userVehicles/userVehicleHSR">add User VehicleHSR</a> </li>
-            <li><a href="userVehicles/userVehicleFull">add User VehicleFull</a></li>
+            <li><a href="accessToRoutes/accessToRoute">add Access To Route</a> </li>
         </ul>
     </div>
     <div>
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>
             <tr>
-                <th>Дата когда пользователь взял машину</th>
-                <th>Дата когда пользователь вернул машину</th>
-                <th>Пользователь</th>
-                <th>Машина</th>
-                <th>Машина текущего пользователя(Y/N)</th>
+                <th><spring:message code="accessToRoute.checksDateTime"/></th>
+                <th><spring:message code="accessToRoute.idUserVehicle"/></th>
+                <th><spring:message code="accessToRoute.idUserState"/></th>
+                <th><spring:message code="accessToRoute.idVehicleState"/></th>
+                <th><spring:message code="accessToRoute.isAccess"/></th>
                 <th></th>
                 <th></th>
             </tr>
             </thead>
-            <c:forEach items="${userVehicles}" var="userVehicle">
-                <jsp:useBean id="userVehicle" scope="page" type="com.taxi.speedy.company.model.UserVehicle"/>
+            <c:forEach items="${accessToRoutes}" var="accessToRoute">
+                <jsp:useBean id="accessToRoute" scope="page" type="com.taxi.speedy.company.model.AccessToRoute"/>
                 <tr>
-                        <%--  <td><a href="userVehicles/get/${userVehicle.id}"/><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>--%>
-                    <td><a href="userVehicles/getUserVehicleData/${userVehicle.id}"/><c:out value="${userVehicle.startDate.toLocalDate()} ${userVehicle.startDate.toLocalTime()}"/></td>
-                    <td><c:out value="${userVehicle.endDate.toLocalDate()} ${userVehicle.endDate.toLocalTime()}"/></td>
-                    <td><c:out value="${userVehicle.idUser.name}"/></td>
-                    <td><c:out value="${userVehicle.idVehicle.nameCar} [${userVehicle.idVehicle.vehicleNumber}]"/></td>
+                        <%--  <td><a href="accessToRoutes/get/${accessToRoute.id}"/><c:out value="${accessToRoute.checksDateTime.toLocalDate()} ${userVehicle.checksDateTime.toLocalTime()}"/></td>--%>
+                    <td><a href="accessToRoutes/getAccessToRouteDate/${accessToRoute.id}"/><c:out value="${accessToRoute.checksDateTime.toLocalDate()} ${accessToRoute.checksDateTime.toLocalTime()}"/></td>
+                    <td><c:out value="${accessToRoute.idUserVehicle()}: ${accessToRoute.idUserVehicle().idUser.name} ${accessToRoute.idUserVehicle().idVehicle.nameCar}"/></td>
+                    <td><c:out value="${accessToRoute.idUserState()} : ${accessToRoute.idUserState.nameUS}"/></td>
+                    <td><c:out value="${accessToRoute.idVehicleState()} [${accessToRoute.idVehicleState().nameVS}]"/></td>
                     <td>
-                        <c:out value="${userVehicle.isCurrentUserMachine  == 1 ? 'Yes' : 'No'}"/>
+                        <c:out value="${accessToRoute.isAccess  == 1 ? 'Yes' : 'No'}"/>
                     </td>
-                    <td><a href="userVehicles/update/${userVehicle.id}"/>update</td>
-                    <td><a href="userVehicles/delete?id=${userVehicle.id}"/>delete</td>
+                    <td><a href="accessToRoutes/update/${userVehicle.id}"/>update</td>
+                    <td><a href="accessToRoutes/delete?id=${userVehicle.id}"/>delete</td>
                 </tr>
             </c:forEach>
         </table>
