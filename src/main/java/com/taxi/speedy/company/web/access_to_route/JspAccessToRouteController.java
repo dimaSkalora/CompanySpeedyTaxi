@@ -4,14 +4,21 @@ import com.taxi.speedy.company.model.AccessToRoute;
 import com.taxi.speedy.company.model.UserState;
 import com.taxi.speedy.company.model.UserVehicle;
 import com.taxi.speedy.company.model.VehicleState;
+import com.taxi.speedy.company.model.propertyeditor.UserStatePropertyEditor;
+import com.taxi.speedy.company.model.propertyeditor.UserVehiclePropertyEditor;
+import com.taxi.speedy.company.model.propertyeditor.VehicleStatePropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("accessToRoutes")
@@ -55,7 +62,7 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
 
         super.create(accessToRoute);
 
-        return "redirect:accessToRoutes";
+        return "redirect:/accessToRoutes";
     }
 
     @PostMapping("/createOrUpdateHSR")
@@ -78,7 +85,7 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
 
         super.create(accessToRoute);
 
-        return "redirect:accessToRoutes";
+        return "redirect:/accessToRoutes";
     }
 
     @PostMapping("/createOrUpdate")
@@ -88,7 +95,7 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
         else
             super.update(accessToRoute);
 
-        return "redirect:accessToRoutes";
+        return "redirect:/accessToRoutes";
     }
 
     @GetMapping("/update/{id}")
@@ -108,7 +115,7 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
         //delete?id=
         super.delete(id);
 
-        return "redirect:accessToRoutes";
+        return "redirect:/accessToRoutes";
     }
 
     @RequestMapping("/get/{id}")
@@ -154,5 +161,29 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
     @GetMapping(value = "/getByIsAccess/{id}")
     public ModelAndView getByIsAccessList(int isAccess){
         return new ModelAndView("accessToRoutes","accessToRoutes",super.getByIsAccess(isAccess));
+    }
+
+    //Обявил глобально (GlobalBindingInitializer)
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+
+        PropertyEditor editor = new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                if (!text.trim().isEmpty())
+                    super.setValue(LocalDateTime.parse(text.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            }
+            @Override
+            public String getAsText() {
+                if (super.getValue() == null)
+                    return null;
+                LocalDateTime value = (LocalDateTime) super.getValue();
+                return value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            }
+        };
+        binder.registerCustomEditor(LocalDateTime.class, editor);
+        binder.registerCustomEditor(UserVehicle.class, new UserVehiclePropertyEditor());
+        binder.registerCustomEditor(UserState.class, new UserStatePropertyEditor());
+        binder.registerCustomEditor(VehicleState.class, new VehicleStatePropertyEditor());
     }
 }
