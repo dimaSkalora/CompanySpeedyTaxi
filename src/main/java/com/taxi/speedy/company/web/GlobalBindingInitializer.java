@@ -1,9 +1,7 @@
 package com.taxi.speedy.company.web;
 
-import com.taxi.speedy.company.model.User;
-import com.taxi.speedy.company.model.Vehicle;
-import com.taxi.speedy.company.model.propertyeditor.UserPropertyEditor;
-import com.taxi.speedy.company.model.propertyeditor.VehiclePropertyEditor;
+import com.taxi.speedy.company.model.*;
+import com.taxi.speedy.company.model.propertyeditor.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,5 +40,8 @@ public class GlobalBindingInitializer {
         binder.registerCustomEditor(LocalDateTime.class, editor);
         binder.registerCustomEditor(User.class, new UserPropertyEditor());
         binder.registerCustomEditor(Vehicle.class, new VehiclePropertyEditor());
+        binder.registerCustomEditor(UserVehicle.class, new UserVehiclePropertyEditor());
+        binder.registerCustomEditor(UserState.class, new UserStatePropertyEditor());
+        binder.registerCustomEditor(VehicleState.class, new VehicleStatePropertyEditor());
     }
 }
