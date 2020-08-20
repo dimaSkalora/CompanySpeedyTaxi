@@ -195,7 +195,7 @@ public class JspUserVehicleController extends AbstractUserVehicleController {
                     super.setValue(LocalDateTime.parse(text.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             }
             @Override
-            public String getAsTex  t() {
+            public String getAsText() {
                 if (super.getValue() == null)
                     return null;
                 LocalDateTime value = (LocalDateTime) super.getValue();
