@@ -36,14 +36,14 @@
                 <tr>
                         <%--  <td><a href="accessToRoutes/get/${accessToRoute.id}"/><c:out value="${accessToRoute.checksDateTime.toLocalDate()} ${userVehicle.checksDateTime.toLocalTime()}"/></td>--%>
                     <td><a href="accessToRoutes/getAccessToRouteDate/${accessToRoute.id}"/><c:out value="${accessToRoute.checksDateTime.toLocalDate()} ${accessToRoute.checksDateTime.toLocalTime()}"/></td>
-                    <td><c:out value="${accessToRoute.idUserVehicle()}: ${accessToRoute.idUserVehicle().idUser.name} ${accessToRoute.idUserVehicle().idVehicle.nameCar}"/></td>
-                    <td><c:out value="${accessToRoute.idUserState()} : ${accessToRoute.idUserState.nameUS}"/></td>
-                    <td><c:out value="${accessToRoute.idVehicleState()} [${accessToRoute.idVehicleState().nameVS}]"/></td>
+                    <td><c:out value="${accessToRoute.idUserVehicle.id}: ${accessToRoute.idUserVehicle.idUser.name} ${accessToRoute.idUserVehicle.idVehicle.nameCar}"/></td>
+                    <td><c:out value="${accessToRoute.idUserState.id} : ${accessToRoute.idUserState.nameUS}"/></td>
+                    <td><c:out value="${accessToRoute.idVehicleState.id} [${accessToRoute.idVehicleState.nameVS}]"/></td>
                     <td>
                         <c:out value="${accessToRoute.isAccess  == 1 ? 'Yes' : 'No'}"/>
                     </td>
-                    <td><a href="accessToRoutes/update/${userVehicle.id}"/>update</td>
-                    <td><a href="accessToRoutes/delete?id=${userVehicle.id}"/>delete</td>
+                    <td><a href="accessToRoutes/update/${accessToRoute.id}"/>update</td>
+                    <td><a href="accessToRoutes/delete?id=${accessToRoute.id}"/>delete</td>
                 </tr>
             </c:forEach>
         </table>

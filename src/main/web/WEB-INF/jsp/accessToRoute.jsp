@@ -53,7 +53,7 @@
                                               .concat(accessToRoute.idUserVehicle.idVehicle.vehicleNumber) : ''}"/>
                                 <%--<form:option  value="${accessToRoute.idUserVehicle.id}" label="${accessToRoute.idUserVehicle.idUser.name }"/>--%>
                                 <%--<form:option  value="" label=""/>--%>
-                                <c:forEach items="${atrAllUserVehicles}" var="userVehicle">
+                                <c:forEach items="${allUserVehicles}" var="userVehicle">
                                     <jsp:useBean id="userVehicle" scope="page" type="com.taxi.speedy.company.model.UserVehicle"/>
                                     <form:option  value="${userVehicle.id}" label="${userVehicle.idUser.name}; ${userVehicle.idVehicle.nameCar}
                                                                                 - ${userVehicle.idVehicle.vehicleNumber}"/>
@@ -73,7 +73,7 @@
                                               label="${!empty accessToRoute.id ? accessToRoute.idUserState.nameUS : ''}"/>
                                 <%--<form:option  value="${accessToRoute.idUserState.id}" label="${accessToRoute.idUserState.nameUS}"/>--%>
                                 <%--<form:option  value="" label=""/>--%>
-                                <c:forEach items="${atrAllUserStates}" var="userState">
+                                <c:forEach items="${allUserStates}" var="userState">
                                     <jsp:useBean id="userState" scope="page" type="com.taxi.speedy.company.model.UserState"/>
                                     <form:option  value="${userState.id}" label="${userState.nameUS}"/>
                                 </c:forEach>
@@ -92,7 +92,7 @@
                                               label="${!empty accessToRoute.id ? accessToRoute.idVehicleState.nameVS : ''}"/>
                                 <%--<form:option  value="${accessToRoute.idVehicleState.id}" label="${accessToRoute.idVehicleState.nameVS}"/>--%>
                                 <%--<form:option  value="" label=""/>--%>
-                                <c:forEach items="${atrAllVehicleStates}" var="vehicleState">
+                                <c:forEach items="${allVehicleStates}" var="vehicleState">
                                     <jsp:useBean id="vehicleState" scope="page" type="com.taxi.speedy.company.model.VehicleState"/>
                                     <form:option  value="${vehicleState.id}" label="${vehicleState.nameVS}"/>
                                 </c:forEach>
