@@ -34,9 +34,9 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
     @RequestMapping(value = "/accessToRoute", method = RequestMethod.GET)
     public String accessToRoute(Model model){
         model.addAttribute("accessToRoute", new AccessToRoute());
-        model.addAttribute("atrAllUserVehicles",super.getAllUserVehicles());
-        model.addAttribute("atrAllUserStates",super.getAllUserStates());
-        model.addAttribute("atrAllVehicleStates",super.getAllVehicleStates());
+        model.addAttribute("allUserVehicles",super.getAllUserVehicles());
+        model.addAttribute("allUserStates",super.getAllUserStates());
+        model.addAttribute("allVehicleStates",super.getAllVehicleStates());
 
         return "accessToRoute";
     }
@@ -126,11 +126,11 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
     @GetMapping("/getAccessToRouteDate/{id}")
     public ModelAndView getAccessToRouteDate(@PathVariable int id, Model model){
         AccessToRoute accessToRoute = super.get(id);
-        ModelAndView modelAndView = new ModelAndView("accessToRoute");
+        ModelAndView modelAndView = new ModelAndView("accessToRouteData");
         modelAndView.addObject("accessToRouteData",accessToRoute);
         model.addAttribute("atrUserVehicleData",super.getUserVehicle(accessToRoute.getIdUserVehicle().getId()));
-        model.addAttribute("atrUserStateData",super.getUserVehicle(accessToRoute.getIdUserState().getId()));
-        model.addAttribute("atrVehicleVehicleData",super.getUserVehicle(accessToRoute.getIdVehicleState().getId()));
+        model.addAttribute("atrUserStateData",super.getUserState(accessToRoute.getIdUserState().getId()));
+        model.addAttribute("atrVehicleStateData",super.getVehicleState(accessToRoute.getIdVehicleState().getId()));
 
         return modelAndView;
     }
@@ -164,7 +164,7 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
     }
 
     //Обявил глобально (GlobalBindingInitializer)
-    @InitBinder
+/*    @InitBinder
     private void initBinder(WebDataBinder binder) {
 
         PropertyEditor editor = new PropertyEditorSupport() {
@@ -185,5 +185,5 @@ public class JspAccessToRouteController extends AbstractAccessToRouteController{
         binder.registerCustomEditor(UserVehicle.class, new UserVehiclePropertyEditor());
         binder.registerCustomEditor(UserState.class, new UserStatePropertyEditor());
         binder.registerCustomEditor(VehicleState.class, new VehicleStatePropertyEditor());
-    }
+    }*/
 }
