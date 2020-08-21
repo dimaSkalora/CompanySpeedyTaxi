@@ -16,9 +16,19 @@ public class TaxiDispatcherRowMapper implements RowMapper<TaxiDispatcher> {
     public TaxiDispatcher mapRow(ResultSet resultSet, int i) throws SQLException {
         //Методы ResultSet.getXXX предоставляют доступ к значениям в колонках в текущей строке.
         // В пределах одной строки значения могут быть считаны в любом порядке
+        User user = new User();
+        user.setId(resultSet.getInt("u_id"));
+        user.setName(resultSet.getString("u_name"));
+        user.setEmail(resultSet.getString("u_email"));
+        user.setPassword(resultSet.getString("u_password"));
+        user.setPhone(resultSet.getString("u_phone"));
+        user.setAddress(resultSet.getString("u_address"));
+        user.setRegistered(resultSet.getTimestamp("u_registered"));
+        user.setEnabled(resultSet.getBoolean("u_enabled"));
+
         TaxiDispatcher taxiDispatcher = new TaxiDispatcher();
-        taxiDispatcher.setId(resultSet.getInt(1));                  //taxiDispatcher.setId(resultSet.getInt("id"));
-        taxiDispatcher.setIdUser((User) resultSet.getObject(2));
+        taxiDispatcher.setId(resultSet.getInt("td_id"));        //taxiDispatcher.setId(resultSet.getInt(1));
+        taxiDispatcher.setIdUser(user);
 
         return taxiDispatcher;
     }
