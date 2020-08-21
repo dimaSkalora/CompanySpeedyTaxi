@@ -14,8 +14,7 @@
     <div class="container">
         <c:url var="createOrUpdateUrl" value="/accessToRoutes/createOrUpdate" />
         <form:form method="POST" modelAttribute="accessToRoute" action="${createOrUpdateUrl}"
-                   class="box userVehicle">
-
+                   class="box accessToRoute">
             <fieldset class="boxBody">
                 <table>
                     <tr>

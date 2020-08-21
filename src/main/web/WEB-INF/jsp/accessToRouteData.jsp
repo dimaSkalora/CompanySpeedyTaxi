@@ -13,7 +13,7 @@
 <div class="jumbotron">
     <div class="container">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs box userVehicle_nav_tabs">
+        <ul class="nav nav-tabs box accessToRoute_nav_tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#accessToRoute"><spring:message code="app.accessToRoutes"/></a>
             </li>
@@ -122,10 +122,13 @@
                             </tr>
                         </table>
                     </fieldset>
+                    <footer>
+                            <a href="/CompanySpeedyTaxi/accessToRoutes" class="btnLogin"><spring:message text="OK"/></a>
+                    </footer>
                 </form:form>
             </div>
 
-            <div class="tab-pane container active" id="userVehicle">
+            <div class="tab-pane container fade" id="userVehicle">
                 <form:form method="POST" modelAttribute="atrUserVehicleData" class="box userVehicle">
                     <fieldset class="boxBody">
                         <table>
@@ -202,6 +205,9 @@
                             </tr>
                         </table>
                     </fieldset>
+                    <footer>
+                        <a href="/CompanySpeedyTaxi/accessToRoutes" class="btnLogin"><spring:message text="OK"/></a>
+                    </footer>
                 </form:form>
             </div>
 
@@ -232,6 +238,9 @@
                             </tr>
                         </table>
                     </fieldset>
+                    <footer>
+                        <a href="/CompanySpeedyTaxi/accessToRoutes" class="btnLogin"><spring:message text="OK"/></a>
+                    </footer>
                 </form:form>
             </div>
 
@@ -262,6 +271,9 @@
                             </tr>
                         </table>
                     </fieldset>
+                    <footer>
+                        <a href="/CompanySpeedyTaxi/accessToRoutes" class="btnLogin"><spring:message text="OK"/></a>
+                    </footer>
                 </form:form>
             </div>
         </div>
