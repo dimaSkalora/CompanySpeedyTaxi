@@ -8,6 +8,7 @@ import java.util.List;
 public interface TaxiDispatcherService {
     TaxiDispatcher create(TaxiDispatcher taxiDispatcher);
     TaxiDispatcher update(TaxiDispatcher taxiDispatcher) throws NotFoundException; //NotFoundException - Об'экт не обнаружен
+    boolean delete(int id) throws NotFoundException;
     TaxiDispatcher get(int id) throws NotFoundException;
     List<TaxiDispatcher> getAll();
 }

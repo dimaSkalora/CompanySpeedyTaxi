@@ -36,6 +36,12 @@ public class TaxiDispatcherServiceImpl implements TaxiDispatcherService {
     }
 
     @Override
+    public boolean delete(int id) throws NotFoundException {
+        //Проверка - не найден с идентификатором
+        return checkNotFoundWithId(Boolean.valueOf(taxiDispatcherRepository.delete(id)),id);
+    }
+
+    @Override
     public TaxiDispatcher get(int id) throws NotFoundException {
         //Проверка - не найден с идентификатором
         return checkNotFoundWithId(taxiDispatcherRepository.get(id),id);
