@@ -19,8 +19,8 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository//("jdbcTaxiDispatcherRepository")
-public class JdbcTaxiDispatcherRepository implements TaxiDispatcherRepository {
+@Repository//("jdbcTaxiDispatcherRepositoryImpl")
+public class JdbcTaxiDispatcherRepositoryImpl implements TaxiDispatcherRepository {
 
     /*
      *  JdbcTemplate - это мощный механизм для подключения к базе данных и выполнения SQL-запросов.
@@ -42,7 +42,7 @@ public class JdbcTaxiDispatcherRepository implements TaxiDispatcherRepository {
     private static BeanPropertyRowMapper<TaxiDispatcher> ROW_MAPPER_TAXI_DISPATCHER = BeanPropertyRowMapper.newInstance(TaxiDispatcher.class);
 
 
-    private final String sqlQuery ="SELECT td.id as td_id, td.id_user as td_id_user \n" +
+    private final String sqlQuery ="SELECT td.id as td_id, td.id_user as td_id_user, \n" +
             "       u.id as u_id, u.name as u_name, u.email as u_email, \n" +
             "       u.password as u_password, u.phone as u_phone, u.address as u_address, \n" +
             "       u.registered as u_registered, u.enabled as u_enabled \n" +
@@ -50,7 +50,7 @@ public class JdbcTaxiDispatcherRepository implements TaxiDispatcherRepository {
             "       left join users u on td.id_user = u.id";
 
     @Autowired
-    public JdbcTaxiDispatcherRepository(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public JdbcTaxiDispatcherRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         jdbcInsert = new SimpleJdbcInsert(dataSource)
                 //Укажите имя таблицы, которое будет использоваться для вставки.
                 .withTableName("taxi_dispatchers")
@@ -92,7 +92,7 @@ public class JdbcTaxiDispatcherRepository implements TaxiDispatcherRepository {
             );
             taxiDispatcher.setId(atomicInteger.intValue());*/
         }else {
-            if (namedParameterJdbcTemplate.update("update taxi_dispatchers set id_user " +
+            if (namedParameterJdbcTemplate.update("update taxi_dispatchers set id_user=:id_user " +
                     "   where id=:id",sqlParameterSource) == 0){
                 return taxiDispatcher;
             }
@@ -114,7 +114,7 @@ public class JdbcTaxiDispatcherRepository implements TaxiDispatcherRepository {
         String sqlQueryGet =  sqlQuery +" where td.id=:id";
         return namedParameterJdbcTemplate.queryForObject(sql, params, new TaxiDispatcherRowMapper());*/
 
-        String sqlQueryGet =  sqlQuery +" where td.id=:id";
+        String sqlQueryGet =  sqlQuery +" where td.id=?";
         List<TaxiDispatcher> taxiDispatcherList = jdbcTemplate.query(sqlQueryGet,new TaxiDispatcherRowMapper(),id);
 
         return DataAccessUtils.singleResult(taxiDispatcherList); //Возвращает один объект результата из данной коллекции.
