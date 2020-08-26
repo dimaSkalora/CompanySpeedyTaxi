@@ -100,6 +100,19 @@ public class TaxiDispatcherServiceImplTest {
     }
 
     @Test
+    public void delete(){
+        create();
+        TaxiDispatcher taxiDispatcher = taxiDispatcherService.get(idTaxiDispatcher);
+        log.info("delete {}",taxiDispatcherService.delete(taxiDispatcher.getId()));
+    }
+
+    @Test
+    public void deleteNot(){
+        log.info("delete {}",taxiDispatcherService.delete(0));
+    }
+
+
+    @Test
     public void getAll(){
         List<TaxiDispatcher> taxiDispatcherList = taxiDispatcherService.getAll();
         taxiDispatcherList.forEach(td -> log.info("getAll {}",td));

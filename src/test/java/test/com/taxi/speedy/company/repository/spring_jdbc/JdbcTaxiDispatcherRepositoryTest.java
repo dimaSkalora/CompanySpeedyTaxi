@@ -95,6 +95,18 @@ public class JdbcTaxiDispatcherRepositoryTest {
     }
 
     @Test
+    public void delete(){
+        create();
+        TaxiDispatcher taxiDispatcher = taxiDispatcherRepository.get(idTaxiDispatcher);
+        log.info("delete {}",taxiDispatcherRepository.delete(taxiDispatcher.getId()));
+    }
+
+    @Test
+    public void deleteNot(){
+        log.info("delete {}",taxiDispatcherRepository.delete(0));
+    }
+
+    @Test
     public void getNot(){
         TaxiDispatcher taxiDispatcher = taxiDispatcherRepository.get(0);
         log.info("getNot {}",taxiDispatcher);
