@@ -30,7 +30,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <form:label path="idUserVehicle">
+                            <form:label path="idUser">
                                 <spring:message code="taxiDispatcher.idUser"/>
                             </form:label>
                         </td>
