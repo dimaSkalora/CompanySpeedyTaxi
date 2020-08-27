@@ -16,6 +16,7 @@
                     <a class="dropdown-item" href="userStates"><spring:message code="app.userStates"/></a>
                     <a class="dropdown-item" href="vehicleStates"><spring:message code="app.vehicleStates"/></a>
                     <a class="dropdown-item" href="accessToRoutes"><spring:message code="app.accessToRoutes"/></a>
+                    <a class="dropdown-item" href="taxiDispatchers"><spring:message code="app.taxiDispatchers"/></a>
                 </div>
             </li>
         </ul>

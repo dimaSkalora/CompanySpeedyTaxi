@@ -17,6 +17,7 @@
             <li><a href="userStates"><spring:message code="app.userStates"/></a></li>
             <li><a href="vehicleStates"><spring:message code="app.vehicleStates"/></a></li>
             <li><a href="accessToRoutes"><spring:message code="app.accessToRoutes"/></a></li>
+            <li><a href="taxiDispatchers"><spring:message code="app.taxiDispatchers"/></a></li>
         </ul>
     </div>
 </div>
