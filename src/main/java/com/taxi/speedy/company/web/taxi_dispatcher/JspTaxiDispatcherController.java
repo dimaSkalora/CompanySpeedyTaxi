@@ -21,7 +21,7 @@ public class JspTaxiDispatcherController extends AbstractTaxiDispatcherControlle
     public ModelAndView taxiDispatcher(){
         ModelAndView modelAndView = new ModelAndView("taxiDispatcher");
         modelAndView.addObject("taxiDispatcher", new TaxiDispatcher());
-        modelAndView.addObject("tdUsers",super.getAllUser());
+        modelAndView.addObject("allUsers",super.getAllUser());
 
         return modelAndView;
     }
@@ -41,7 +41,7 @@ public class JspTaxiDispatcherController extends AbstractTaxiDispatcherControlle
         TaxiDispatcher taxiDispatcher = super.get(id);
         ModelAndView modelAndView = new ModelAndView("taxiDispatcher");
         modelAndView.addObject("taxiDispatcher",taxiDispatcher);
-        modelAndView.addObject("tdUsers",super.getAllUser());
+        modelAndView.addObject("allUsers",super.getAllUser());
 
         return modelAndView;
     }
