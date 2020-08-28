@@ -6,17 +6,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TaxiDispatcherOrderRepository {
-    TaxiDispatcherOrder save(TaxiDispatcherOrder taxiDispatcherOrder, int idTaxiDispatcher);
-    boolean delete(int id, int idTaxiDispatcher);
+    TaxiDispatcherOrder save(TaxiDispatcherOrder taxiDispatcherOrder);
     boolean delete(int id);
-    TaxiDispatcherOrder get(int id, int idTaxiDispatcher);
-    List<TaxiDispatcherOrder> getAllIdTaxiDispatcher(int idTaxiDispatcher);
+    TaxiDispatcherOrder get(int id);
     List<TaxiDispatcherOrder> getAll();
-    List<TaxiDispatcherOrder> getAllAddressDeparture(String addressDeparture);
-    List<TaxiDispatcherOrder> getAllAddressArrival(String addressArrival);
-    TaxiDispatcherOrder getUserName(String userName);
-    TaxiDispatcherOrder getPhoneUser(String phoneUser);
-    TaxiDispatcherOrder getFulfilled(int fulfilled, int idTaxiDispatcher);
-    List<TaxiDispatcherOrder> getAllFulfilled(int fulfilled);
-    List<TaxiDispatcherOrder> getBetween(LocalDate startDate, LocalDate endDate);
+    List<TaxiDispatcherOrder> getByIdTaxiDispatcher(int idTaxiDispatcher);
+    List<TaxiDispatcherOrder> getByAddressDeparture(String addressDeparture);
+    List<TaxiDispatcherOrder> getByAddressArrival(String addressArrival);
+    List<TaxiDispatcherOrder> getByUserName(String userName);
+    List<TaxiDispatcherOrder> getByPhoneUser(String phoneUser);
+    List<TaxiDispatcherOrder> getByFulfilled(int fulfilled);
+    List<TaxiDispatcherOrder> getByAllFulfilled(int fulfilled);
+    List<TaxiDispatcherOrder> getByBetween(LocalDate startDate, LocalDate endDate);
+    List<TaxiDispatcherOrder> getFilterTaxiDispatcherOrder(TaxiDispatcherOrder taxiDispatcherOrder);
 }
