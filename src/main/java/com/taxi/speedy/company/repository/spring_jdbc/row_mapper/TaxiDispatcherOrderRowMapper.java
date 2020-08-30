@@ -2,6 +2,7 @@ package com.taxi.speedy.company.repository.spring_jdbc.row_mapper;
 
 import com.taxi.speedy.company.model.TaxiDispatcher;
 import com.taxi.speedy.company.model.TaxiDispatcherOrder;
+import com.taxi.speedy.company.model.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -17,19 +18,36 @@ public class TaxiDispatcherOrderRowMapper implements RowMapper<TaxiDispatcherOrd
     public TaxiDispatcherOrder mapRow(ResultSet resultSet, int i) throws SQLException {
         //Методы ResultSet.getXXX предоставляют доступ к значениям в колонках в текущей строке.
         // В пределах одной строки значения могут быть считаны в любом порядке
+
+        User user = new User();
+        user.setId(resultSet.getInt("u_id"));
+        user.setName(resultSet.getString("u_name"));
+        user.setEmail(resultSet.getString("u_email"));
+        user.setPassword(resultSet.getString("u_password"));
+        user.setPhone(resultSet.getString("u_phone"));
+        user.setAddress(resultSet.getString("u_address"));
+        user.setRegistered(resultSet.getTimestamp("u_registered"));
+        user.setEnabled(resultSet.getBoolean("u_enabled"));
+
+        TaxiDispatcher taxiDispatcher = new TaxiDispatcher();
+        taxiDispatcher.setId(resultSet.getInt("td_id"));        //taxiDispatcher.setId(resultSet.getInt(1));
+        taxiDispatcher.setIdUser(user);
+
         TaxiDispatcherOrder taxiDispatcherOrder = new TaxiDispatcherOrder();
-        taxiDispatcherOrder.setId(resultSet.getInt(1));                         //taxiDispatcherOrder.setId(resultSet.getInt("id"));
-       //taxiDispatcherOrder.setDateTimeOrder(resultSet.getTimestamp(2).toLocalDateTime());
-        taxiDispatcherOrder.setDateTimeOrder(resultSet.getObject(2,LocalDateTime.class));
+        taxiDispatcherOrder.setId(resultSet.getInt(1));                         //taxiDispatcherOrder.setId(resultSet.getInt("tdo_id"));
+        if (resultSet.getTimestamp("dto_date_time_order") != null)
+            taxiDispatcherOrder.setDateTimeOrder(resultSet.getTimestamp("dto_date_time_order").toLocalDateTime());
         //taxiDispatcherOrder.setIdTaxiDispatcher((TaxiDispatcher) resultSet.getObject(3));
-        taxiDispatcherOrder.setIdTaxiDispatcher(resultSet.getObject(3,TaxiDispatcher.class));
-        taxiDispatcherOrder.setUserName(resultSet.getString(4));
-        taxiDispatcherOrder.setUserPhone(resultSet.getString(5));
-        taxiDispatcherOrder.setAddressDeparture(resultSet.getString(6));
-        taxiDispatcherOrder.setAddressArrival(resultSet.getString(7));
-        taxiDispatcherOrder.setStartDate(resultSet.getTimestamp(8).toLocalDateTime());
-        taxiDispatcherOrder.setEndDate(resultSet.getTimestamp(9).toLocalDateTime());
-        taxiDispatcherOrder.setFulfilled(resultSet.getInt(10));
+        taxiDispatcherOrder.setIdTaxiDispatcher(taxiDispatcher);
+        taxiDispatcherOrder.setUserName(resultSet.getString("tdo_user_name"));
+        taxiDispatcherOrder.setUserPhone(resultSet.getString("tdo_user_phone"));
+        taxiDispatcherOrder.setAddressDeparture(resultSet.getString("tdo_address_departure"));
+        taxiDispatcherOrder.setAddressArrival(resultSet.getString("tdo_address_arrival"));
+        if (resultSet.getTimestamp("tdo_start_date") != null)
+            taxiDispatcherOrder.setStartDate(resultSet.getTimestamp("tdo_start_date").toLocalDateTime());
+        if (resultSet.getTimestamp("tdo_end_date") != null)
+            taxiDispatcherOrder.setEndDate(resultSet.getTimestamp("tdo_end_date").toLocalDateTime());
+        taxiDispatcherOrder.setFulfilled(resultSet.getInt("tdo_fulfilled"));
 
         return taxiDispatcherOrder;
     }
