@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -195,21 +195,21 @@ public class JdbcTaxiDispatcherOrderRepositoryImpl implements TaxiDispatcherOrde
     }
 
     @Override
-    public List<TaxiDispatcherOrder> getByBetweenStartDate(LocalDate startDate, LocalDate endDate) {
+    public List<TaxiDispatcherOrder> getByBetweenStartDate(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         String sqlByAddressDeparture = sqlQuery+" where tdo.start_date between ? and ? \n" +
                 "ORDER BY tdo.start_date DESC"; /*DESC - сортируем по убыванию*/
         List<TaxiDispatcherOrder> taxiDispatcherOrders = jdbcTemplate.query(sqlByAddressDeparture,
-                new TaxiDispatcherOrderRowMapper(),startDate,endDate);
+                new TaxiDispatcherOrderRowMapper(),startDateTime,endDateTime);
 
         return taxiDispatcherOrders;
     }
 
     @Override
-    public List<TaxiDispatcherOrder> getByBetweenEndDate(LocalDate startDate, LocalDate endDate) {
+    public List<TaxiDispatcherOrder> getByBetweenEndDate(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
-                .addValue("startDate",startDate)
-                .addValue("endDate",endDate);
+                .addValue("startDate",startDateTime)
+                .addValue("endDate",endDateTime);
 
         String sqlByAddressDeparture = sqlQuery+" where tdo.end_date between :startDate and :endDate \n" +
                 "ORDER BY tdo.end_date DESC"; /*DESC - сортируем по убыванию*/

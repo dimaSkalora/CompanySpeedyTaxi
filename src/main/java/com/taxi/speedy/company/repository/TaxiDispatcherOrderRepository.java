@@ -2,7 +2,7 @@ package com.taxi.speedy.company.repository;
 
 import com.taxi.speedy.company.model.TaxiDispatcherOrder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TaxiDispatcherOrderRepository {
@@ -16,8 +16,8 @@ public interface TaxiDispatcherOrderRepository {
     List<TaxiDispatcherOrder> getByUserName(String userName);
     List<TaxiDispatcherOrder> getByUserPhone(String userPhone);
     List<TaxiDispatcherOrder> getByFulfilled(int fulfilled);
-    List<TaxiDispatcherOrder> getByBetweenStartDate(LocalDate startDate, LocalDate endDate);
-    List<TaxiDispatcherOrder> getByBetweenEndDate(LocalDate startDate, LocalDate endDate);
+    List<TaxiDispatcherOrder> getByBetweenStartDate(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    List<TaxiDispatcherOrder> getByBetweenEndDate(LocalDateTime startDateTime, LocalDateTime endDateTime);
     List<TaxiDispatcherOrder> getFilterTaxiDispatcherOrder(TaxiDispatcherOrder taxiDispatcherOrder);
     List<TaxiDispatcherOrder> getFilterTaxiDispatcherOrder(TaxiDispatcherOrder taxiDispatcherOrder,String sqlCondition);
 }
