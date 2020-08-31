@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -212,13 +211,13 @@ public class JdbcTaxiDispatcherOrderRepositoryImplTest {
         create();
         taxiDispatcherOrder = taxiDispatcherOrderRepository.get(taxiDispatcherOrderId);
 
-        taxiDispatcherOrderRepository.getByBetweenStartDate(taxiDispatcherOrder.getStartDate().toLocalDate(), taxiDispatcherOrder.getStartDate().toLocalDate())
+        taxiDispatcherOrderRepository.getByBetweenStartDate(LocalDateTime.MIN, taxiDispatcherOrder.getStartDate())
                 .forEach(tdo -> log.info("getByBetweenStartDate {}", tdo));
     }
 
     @Test
     public void getByBetweenStartDateNot(){
-        taxiDispatcherOrderRepository.getByBetweenStartDate(LocalDate.MIN,LocalDate.MIN).forEach(tdo -> log.info("getByBetweenStartDateNot {}", tdo));
+        taxiDispatcherOrderRepository.getByBetweenStartDate(null,null).forEach(tdo -> log.info("getByBetweenStartDateNot {}", tdo));
     }
 
     @Test
@@ -226,13 +225,13 @@ public class JdbcTaxiDispatcherOrderRepositoryImplTest {
         create();
         taxiDispatcherOrder = taxiDispatcherOrderRepository.get(taxiDispatcherOrderId);
 
-        taxiDispatcherOrderRepository.getByBetweenEndDate(taxiDispatcherOrder.getEndDate().toLocalDate(), taxiDispatcherOrder.getEndDate().toLocalDate())
+        taxiDispatcherOrderRepository.getByBetweenEndDate(taxiDispatcherOrder.getEndDate(), taxiDispatcherOrder.getEndDate())
                 .forEach(tdo -> log.info("getByBetweenEndDate {}", tdo));
     }
 
     @Test
     public void getByBetweenEndDateNot(){
-        taxiDispatcherOrderRepository.getByBetweenEndDate(LocalDate.MIN,LocalDate.MIN).forEach(tdo -> log.info("getByBetweenEndDateNot {}", tdo));
+        taxiDispatcherOrderRepository.getByBetweenEndDate(null,null).forEach(tdo -> log.info("getByBetweenEndDateNot {}", tdo));
     }
 
     @Test
