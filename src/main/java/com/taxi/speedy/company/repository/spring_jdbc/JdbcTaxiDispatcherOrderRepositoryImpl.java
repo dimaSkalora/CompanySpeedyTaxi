@@ -211,7 +211,7 @@ public class JdbcTaxiDispatcherOrderRepositoryImpl implements TaxiDispatcherOrde
                 .addValue("startDate",startDate)
                 .addValue("endDate",endDate);
 
-        String sqlByAddressDeparture = sqlQuery+" where tdo.end_date between =:startDate and =:endDate \n" +
+        String sqlByAddressDeparture = sqlQuery+" where tdo.end_date between :startDate and :endDate \n" +
                 "ORDER BY tdo.end_date DESC"; /*DESC - сортируем по убыванию*/
         List<TaxiDispatcherOrder> taxiDispatcherOrders = namedParameterJdbcTemplate.query(sqlByAddressDeparture,parameterSource,new TaxiDispatcherOrderRowMapper());
         return taxiDispatcherOrders;
