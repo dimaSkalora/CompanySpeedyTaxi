@@ -18,6 +18,7 @@
             <li><a href="vehicleStates"><spring:message code="app.vehicleStates"/></a></li>
             <li><a href="accessToRoutes"><spring:message code="app.accessToRoutes"/></a></li>
             <li><a href="taxiDispatchers"><spring:message code="app.taxiDispatchers"/></a></li>
+            <li><a href="taxiDispatcherOrders"><spring:message code="app.taxiDispatcherOrders"/></a></li>
         </ul>
     </div>
 </div>
