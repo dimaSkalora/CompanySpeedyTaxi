@@ -2,11 +2,11 @@ package com.taxi.speedy.company.web.taxi_dispatcher_order;
 
 import com.taxi.speedy.company.model.TaxiDispatcher;
 import com.taxi.speedy.company.model.TaxiDispatcherOrder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,15 +19,25 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
     public String taxiDispatcherOrders(Model model){
         model.addAttribute("taxiDispatcherOrders", super.getAll());
 
-        return "taxiDispatcherOrders/taxiDispatcherOrders";
+        return "taxiDispatcherOrders";
     }
 
     @RequestMapping(value = "/taxiDispatcherOrder",method = RequestMethod.GET)
     public String taxiDispatcherOrder(Model model){
-        model.addAttribute("taxiDispatcherOrder",new TaxiDispatcherOrder());
-        model.addAttribute("tdoTaxiDispatcher",super.getAllTaxiDispatcher());
+        TaxiDispatcherOrder taxiDispatcherOrder = new TaxiDispatcherOrder();
+        taxiDispatcherOrder.setDateTimeOrder(LocalDateTime.now());
+        model.addAttribute("taxiDispatcherOrder",taxiDispatcherOrder);
+        model.addAttribute("allTaxiDispatcher",super.getAllTaxiDispatcher());
 
-        return "taxiDispatcherOrders/taxiDispatcherOrder";
+        return "taxiDispatcherOrder";
+    }
+
+    @RequestMapping(value = "/taxiDispatcherOrderFilter",method = RequestMethod.GET)
+    public String taxiDispatcherOrderFilter(Model model){
+        model.addAttribute("taxiDispatcherOrderFilter",new TaxiDispatcherOrder());
+        model.addAttribute("allTaxiDispatcher",super.getAllTaxiDispatcher());
+
+        return "taxiDispatcherOrder";
     }
 
     @PostMapping("/createRequestParam")
@@ -62,7 +72,13 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
     }
 
     @PostMapping("/createOrUpdateHSR")
-    public String createOrUpdateHSR(HttpServletRequest request){
+    public ModelAndView createOrUpdateHSR(HttpServletRequest request){
+
+        RedirectView redirectView = new RedirectView("taxiDispatcherOrders");
+        redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setView(redirectView);
+
         TaxiDispatcher taxiDispatcher = super.getTaxiDispatcher(Integer.parseInt(request.getParameter("idTaxiDispatcher")));
 
         TaxiDispatcherOrder taxiDispatcherOrder = new TaxiDispatcherOrder();
@@ -87,7 +103,7 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
 
         super.create(taxiDispatcherOrder);
 
-        return "redirect:/taxiDispatcherOrders";
+        return modelAndView;
     }
 
     @RequestMapping(value = "/createOrUpdate",method = RequestMethod.POST)
@@ -97,14 +113,14 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
         else
             super.update(taxiDispatcherOrder);
 
-        return "redirect:/taxiDispatcherOrders";
+        return "taxiDispatcherOrders";
     }
 
     @GetMapping("/update/{id}")
     public ModelAndView update(@PathVariable int id){
         TaxiDispatcherOrder taxiDispatcherOrder = super.get(id);
 
-        ModelAndView modelAndView = new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrder");
+        ModelAndView modelAndView = new ModelAndView("taxiDispatcherOrder");
         modelAndView.addObject("taxiDispatcherOrder",taxiDispatcherOrder);
         modelAndView.addObject("allTaxiDispatcher",super.getAllTaxiDispatcher());
 
@@ -120,57 +136,68 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
         return "redirect:/taxiDispatcherOrders";
     }
 
+    @GetMapping("/get/{id}")
+    public ModelAndView getTDO(@PathVariable int id){
+        TaxiDispatcherOrder taxiDispatcherOrder = super.get(id);
+
+        ModelAndView modelAndView = new ModelAndView("taxiDispatcherOrder");
+        modelAndView.addObject("taxiDispatcherOrder",taxiDispatcherOrder);
+        //modelAndView.addObject("allTaxiDispatcher",super.getAllTaxiDispatcher());
+
+        return modelAndView;
+    }
+
     @GetMapping("/getByIdTaxiDispatcherList/(idTaxiDispatcher)")
     public ModelAndView getByIdTaxiDispatcherList(@PathVariable int getByIdTaxiDispatcher){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByIdTaxiDispatcher(getByIdTaxiDispatcher));
     }
 
     @RequestMapping(value = "/getByAddressDepartureList/(idTaxiDispatcher)",method = RequestMethod.GET)
     public ModelAndView getByAddressDepartureList(@PathVariable String addressDeparture){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByAddressDeparture(addressDeparture));
     }
 
     @RequestMapping(value = "/getByAddressArrivalList",method = RequestMethod.GET)
     public ModelAndView getByAddressArrivalList(@RequestParam String addressArrival){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByAddressArrival(addressArrival));
     }
 
     @GetMapping("/getByUserNameList/(userName)")
     public ModelAndView getByUserNameList(@PathVariable String userName){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByUserName(userName));
     }
 
     @GetMapping("/getByUserPhoneList/(userPhone)")
     public ModelAndView getByUserPhoneList(@PathVariable String userPhone){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByUserPhone(userPhone));
     }
 
     @GetMapping("/getByFulfilledList/(userPhone)")
     public ModelAndView getByFulfilledList(@PathVariable int fulfilled){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByFulfilled(fulfilled));
     }
 
     @RequestMapping("/getByBetweenStartDateList/(startDateTime)/{endDateTime}")
     public ModelAndView getByBetweenStartDateList(@PathVariable LocalDateTime startDateTime, @PathVariable LocalDateTime endDateTime){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByBetweenStartDate(startDateTime,endDateTime));
     }
 
     @RequestMapping(value = "/getByBetweenEndDateList/(startDateTime)/{endDateTime}",method = RequestMethod.GET)
     public ModelAndView getByBetweenEndDateList(@PathVariable LocalDateTime startDateTime, @PathVariable LocalDateTime endDateTime){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getByBetweenEndDate(startDateTime,endDateTime));
     }
 
     @GetMapping("/getFilterTaxiDispatcherOrder")
     public ModelAndView getFilterTaxiDispatcherOrderList(@ModelAttribute TaxiDispatcherOrder taxiDispatcherOrder){
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getFilterTaxiDispatcherOrder(taxiDispatcherOrder));
     }
 
@@ -178,7 +205,7 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
     public ModelAndView getFilterTaxiDispatcherOrderConditionList(@ModelAttribute TaxiDispatcherOrder taxiDispatcherOrder){
         String sqlCondition = "";
 
-        return new ModelAndView("taxiDispatcherOrders/taxiDispatcherOrders","taxiDispatcherOrders"
+        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getFilterTaxiDispatcherOrder(taxiDispatcherOrder,sqlCondition));
     }
 
