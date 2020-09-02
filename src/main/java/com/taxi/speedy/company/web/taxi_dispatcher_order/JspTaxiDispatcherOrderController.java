@@ -113,7 +113,7 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
         else
             super.update(taxiDispatcherOrder);
 
-        return "taxiDispatcherOrders";
+        return "redirect:/taxiDispatcherOrders";
     }
 
     @GetMapping("/update/{id}")
