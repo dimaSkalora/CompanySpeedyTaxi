@@ -298,7 +298,7 @@ public class JdbcTaxiDispatcherOrderRepositoryImpl implements TaxiDispatcherOrde
             count++;
         }
 
-        if(sqlCondition != null)
+        if((sqlCondition != null) && (!sqlCondition.equals("")))
             if(parameterSource.getParameterNames().length > 0)
                 sqlFilterTaxiDispatcherOrder += " and ( "+ sqlCondition+" ) ";
             else
