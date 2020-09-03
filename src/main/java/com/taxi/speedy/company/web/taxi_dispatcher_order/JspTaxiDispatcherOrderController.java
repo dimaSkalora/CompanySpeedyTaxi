@@ -12,6 +12,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+import static com.taxi.speedy.company.util.DateTimeUtil.parseLocalDateTime;
+
 @Controller
 @RequestMapping("taxiDispatcherOrders")
 public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrderController{
@@ -195,18 +197,77 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
                 ,super.getByBetweenEndDate(startDateTime,endDateTime));
     }
 
-    @GetMapping("/getFilterTaxiDispatcherOrder")
+    @PostMapping("/filter")
     public ModelAndView getFilterTaxiDispatcherOrderList(@ModelAttribute TaxiDispatcherOrder taxiDispatcherOrder){
         return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
                 ,super.getFilterTaxiDispatcherOrder(taxiDispatcherOrder));
     }
 
-    @GetMapping("/getFilterTaxiDispatcherOrderCondition")
-    public ModelAndView getFilterTaxiDispatcherOrderConditionList(@ModelAttribute TaxiDispatcherOrder taxiDispatcherOrder){
-        String sqlCondition = "";
+    @PostMapping("/filterCondition")
+    public String getFilterTaxiDispatcherOrderConditionList(HttpServletRequest request, Model model){
+        StringBuilder sqlCondition = new StringBuilder();
+        //filter by TaxiDispatcherOrder
+        int id = 0;
+        if(request.getParameter("id") != "")
+          id = Integer.parseInt(request.getParameter("id"));
+        LocalDateTime dateTimeOrder = parseLocalDateTime(request.getParameter("dateTimeOrder")); //Дата и время заказа
+        int idTD =  Integer.parseInt(request.getParameter("idTaxiDispatcher"));
+        TaxiDispatcher idTaxiDispatcher = null;
+        if(idTD > 0)
+            idTaxiDispatcher = super.getTaxiDispatcher(idTD);
+        String userName = request.getParameter("userName");
+        String userPhone = request.getParameter("userName");
+        String addressDeparture = request.getParameter("userName");   //Адрес отправление
+        String addressArrival = request.getParameter("userName");    //Адрес прибытие
+        LocalDateTime startDate = parseLocalDateTime(request.getParameter("startDate")); //Время отправление
+        LocalDateTime endDate = parseLocalDateTime(request.getParameter("endDate"));  //Время прибытие
+        Integer fulfilled = Integer.parseInt(request.getParameter("fulfilled"));  //Выполнен заказ: 1 - да, 0 - нет
+        //fliter by sql Condition
+        LocalDateTime dateTimeOrderFrom = parseLocalDateTime(request.getParameter("dateTimeOrderFrom"));
+        LocalDateTime dateTimeOrderTo = parseLocalDateTime(request.getParameter("dateTimeOrderTo"));
+        LocalDateTime startDateFrom = parseLocalDateTime(request.getParameter("startDateFrom"));
+        LocalDateTime startDateTo = parseLocalDateTime(request.getParameter("startDateTo"));
+        LocalDateTime endDateFrom = parseLocalDateTime(request.getParameter("endDateFrom"));
+        LocalDateTime endDateTo = parseLocalDateTime(request.getParameter("endDateTo"));
 
-        return new ModelAndView("taxiDispatcherOrders","taxiDispatcherOrders"
-                ,super.getFilterTaxiDispatcherOrder(taxiDispatcherOrder,sqlCondition));
+        TaxiDispatcherOrder taxiDispatcherOrder = new TaxiDispatcherOrder();
+        if (id > 0)
+            taxiDispatcherOrder.setId(id);
+        if (dateTimeOrder != null)
+            taxiDispatcherOrder.setDateTimeOrder(dateTimeOrder);
+        if (idTaxiDispatcher != null)
+            taxiDispatcherOrder.setIdTaxiDispatcher(idTaxiDispatcher);
+        if (userName != null)
+            taxiDispatcherOrder.setUserName(userName);
+        if (userPhone != null)
+            taxiDispatcherOrder.setUserPhone(userPhone);
+        if (addressDeparture != null)
+            taxiDispatcherOrder.setAddressDeparture(addressDeparture);
+        if (addressArrival != null)
+            taxiDispatcherOrder.setAddressArrival(addressArrival);
+        if (startDate != null)
+            taxiDispatcherOrder.setStartDate(startDate);
+        if (endDate != null)
+            taxiDispatcherOrder.setEndDate(endDate);
+        if (fulfilled != null)
+            taxiDispatcherOrder.setFulfilled(fulfilled);
+
+        if((sqlCondition.length()>0) && (dateTimeOrderFrom != null) && (dateTimeOrderTo != null))
+            sqlCondition.append(" and tdo.date_time_order between "+dateTimeOrderFrom+" and "+dateTimeOrderTo);
+        if((sqlCondition.length()<=0) && (dateTimeOrderFrom != null) && (dateTimeOrderTo != null))
+            sqlCondition.append(" tdo.date_time_order between "+dateTimeOrderFrom+" and "+dateTimeOrderTo);
+        if ((sqlCondition.length()>0) && (startDateFrom != null) && (startDateTo != null))
+            sqlCondition.append(" and tdo.start_date between "+startDateFrom+" and "+startDateTo);
+        if ((sqlCondition.length()<=0) && (startDateFrom != null) && (startDateTo != null))
+            sqlCondition.append(" tdo.start_date between "+startDateFrom+" and "+startDateTo);
+        if ((sqlCondition.length()>0) && (endDateFrom != null) && (endDateTo != null))
+            sqlCondition.append(" and tdo.end_date between "+endDateFrom+" and "+endDateTo);
+        if ((sqlCondition.length()<=0) && (endDateFrom != null) && (endDateTo != null))
+            sqlCondition.append(" tdo.end_date between "+endDateFrom+" and "+endDateTo);
+
+        model.addAttribute("taxiDispatcherOrders", super.getFilterTaxiDispatcherOrder(taxiDispatcherOrder, String.valueOf(sqlCondition)));
+
+        return "taxiDispatcherOrders";
     }
 
 
