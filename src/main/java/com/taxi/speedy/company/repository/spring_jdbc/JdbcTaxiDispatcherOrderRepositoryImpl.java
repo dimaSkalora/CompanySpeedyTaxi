@@ -92,7 +92,7 @@ public class JdbcTaxiDispatcherOrderRepositoryImpl implements TaxiDispatcherOrde
         }else if (namedParameterJdbcTemplate.update("update taxi_dispatcher_orders set date_time_order=:dateTimeOrder, " +
                 " id_taxi_dispatcher=:idTaxiDispatcher, user_name=:userName, user_phone=:userPhone, address_departure=:addressDeparture," +
                 " address_arrival=:addressArrival, start_date=:startDate, end_date=:endDate, " +
-                " fulfilled=:fulfilled",parameterSource) == 0){
+                " fulfilled=:fulfilled where id=:id",parameterSource) == 0){
             return taxiDispatcherOrder;
         }
 
