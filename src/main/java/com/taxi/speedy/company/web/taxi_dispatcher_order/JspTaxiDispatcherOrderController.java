@@ -2,15 +2,20 @@ package com.taxi.speedy.company.web.taxi_dispatcher_order;
 
 import com.taxi.speedy.company.model.TaxiDispatcher;
 import com.taxi.speedy.company.model.TaxiDispatcherOrder;
+import com.taxi.speedy.company.model.propertyeditor.TaxiDispatcherPropertyEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.taxi.speedy.company.util.DateTimeUtil.parseLocalDateTime;
 import static com.taxi.speedy.company.util.ParseUtil.parseInteger;
@@ -274,8 +279,26 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
         return "taxiDispatcherOrders";
     }
 
+    //Обявил глобально (GlobalBindingInitializer)
+/*    @InitBinder
+    private void initBinder(WebDataBinder binder) {
 
-
-
+        PropertyEditor editor = new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                if (!text.trim().isEmpty())
+                    super.setValue(LocalDateTime.parse(text.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            }
+            @Override
+            public String getAsText() {
+                if (super.getValue() == null)
+                    return null;
+                LocalDateTime value = (LocalDateTime) super.getValue();
+                return value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            }
+        };
+        binder.registerCustomEditor(LocalDateTime.class, editor);
+        binder.registerCustomEditor(TaxiDispatcher.class, new TaxiDispatcherPropertyEditor());
+    }*/
 
 }
