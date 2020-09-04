@@ -14,7 +14,7 @@
     <div class="container">
         <c:url var="createOrUpdateUrl" value="/taxiDispatcherOrders/filterCondition" />
         <form method="post" action="${createOrUpdateUrl}" >
-            <table>
+            <table border="0" cellpadding="8" cellspacing="0">
                 <tr>
                     <td><spring:message code="taxiDispatcherOrder.id"/></td>
                     <td><input type="number" name="id" value="${param.id}"></td>
@@ -25,7 +25,7 @@
                     <td><spring:message code="taxiDispatcherOrder.dateTimeOrder"/></td>
                     <td><input type="datetime-local" name="dateTimeOrder" value="${param.dateTimeOrder}"></td>
                     <td><spring:message code="taxiDispatcherOrder.idTaxiDispatcher"/></td>
-                    <td><input type="number" name="idTaxiDispatcher value="${param.idTaxiDispatcher}"></td>
+                    <td><input type="number" name="idTaxiDispatcher" value="${param.idTaxiDispatcher}"></td>
                 </tr>
                 <tr>
                     <td><spring:message code="taxiDispatcherOrder.userName"/></td>
