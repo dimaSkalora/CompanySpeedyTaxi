@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 import static com.taxi.speedy.company.util.DateTimeUtil.parseLocalDateTime;
+import static com.taxi.speedy.company.util.ParseUtil.parseInteger;
+import static com.taxi.speedy.company.util.ParseUtil.parseString;
 
 @Controller
 @RequestMapping("taxiDispatcherOrders")
@@ -211,17 +213,19 @@ public class JspTaxiDispatcherOrderController extends AbstractTaxiDispatcherOrde
         if(request.getParameter("id") != "")
           id = Integer.parseInt(request.getParameter("id"));
         LocalDateTime dateTimeOrder = parseLocalDateTime(request.getParameter("dateTimeOrder")); //Дата и время заказа
-        int idTD =  Integer.parseInt(request.getParameter("idTaxiDispatcher"));
+        int idTD = 0;
+        if(!request.getParameter("idTaxiDispatcher").equals(""))
+            idTD = Integer.parseInt(request.getParameter("idTaxiDispatcher"));
         TaxiDispatcher idTaxiDispatcher = null;
         if(idTD > 0)
             idTaxiDispatcher = super.getTaxiDispatcher(idTD);
-        String userName = request.getParameter("userName");
-        String userPhone = request.getParameter("userName");
-        String addressDeparture = request.getParameter("userName");   //Адрес отправление
-        String addressArrival = request.getParameter("userName");    //Адрес прибытие
+        String userName = parseString(request.getParameter("userName"));
+        String userPhone = parseString(request.getParameter("userPhone"));
+        String addressDeparture = parseString(request.getParameter("addressDeparture"));   //Адрес отправление
+        String addressArrival = parseString(request.getParameter("addressArrival"));    //Адрес прибытие
         LocalDateTime startDate = parseLocalDateTime(request.getParameter("startDate")); //Время отправление
         LocalDateTime endDate = parseLocalDateTime(request.getParameter("endDate"));  //Время прибытие
-        Integer fulfilled = Integer.parseInt(request.getParameter("fulfilled"));  //Выполнен заказ: 1 - да, 0 - нет
+        Integer fulfilled = parseInteger(request.getParameter("fulfilled"));  //Выполнен заказ: 1 - да, 0 - нет
         //fliter by sql Condition
         LocalDateTime dateTimeOrderFrom = parseLocalDateTime(request.getParameter("dateTimeOrderFrom"));
         LocalDateTime dateTimeOrderTo = parseLocalDateTime(request.getParameter("dateTimeOrderTo"));
