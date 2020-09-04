@@ -43,5 +43,6 @@ public class GlobalBindingInitializer {
         binder.registerCustomEditor(UserVehicle.class, new UserVehiclePropertyEditor());
         binder.registerCustomEditor(UserState.class, new UserStatePropertyEditor());
         binder.registerCustomEditor(VehicleState.class, new VehicleStatePropertyEditor());
+        binder.registerCustomEditor(TaxiDispatcher.class, new TaxiDispatcherPropertyEditor());
     }
 }
