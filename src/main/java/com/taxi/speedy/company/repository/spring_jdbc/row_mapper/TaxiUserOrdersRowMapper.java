@@ -17,16 +17,27 @@ public class TaxiUserOrdersRowMapper implements RowMapper<TaxiUserOrder> {
     public TaxiUserOrder mapRow(ResultSet resultSet, int i) throws SQLException {
         //Методы ResultSet.getXXX предоставляют доступ к значениям в колонках в текущей строке.
         // В пределах одной строки значения могут быть считаны в любом порядке
+
+        User user = new User();
+        user.setId(resultSet.getInt("u_id"));
+        user.setName(resultSet.getString("u_name"));
+        user.setEmail(resultSet.getString("u_email"));
+        user.setPassword(resultSet.getString("u_password"));
+        user.setPhone(resultSet.getString("u_phone"));
+        user.setAddress(resultSet.getString("u_address"));
+        user.setRegistered(resultSet.getTimestamp("u_registered"));
+        user.setEnabled(resultSet.getBoolean("u_enabled"));
+
         TaxiUserOrder taxiUserOrder = new TaxiUserOrder();
-        taxiUserOrder.setId(resultSet.getInt(1));                       //taxiUserOrder.setId(resultSet.getInt("id"));
-        taxiUserOrder.setDateTimeOrder(resultSet.getObject(2,LocalDateTime.class));
-        taxiUserOrder.setId((Integer) resultSet.getObject(3));
-        taxiUserOrder.setAddressDeparture(resultSet.getString(4));
-        taxiUserOrder.setAddressArrival(resultSet.getString(5));
-        taxiUserOrder.setStartDate(resultSet.getObject(6, LocalDateTime.class));
-        //taxiUserOrder.setStartDate(resultSet.getTimestamp(6).toLocalDateTime());
-        taxiUserOrder.setEndDate(resultSet.getTimestamp(7).toLocalDateTime());
-        taxiUserOrder.setFulfilled(resultSet.getInt(8));
+        taxiUserOrder.setId(resultSet.getInt("tuo_id"));                       //taxiUserOrder.setId(resultSet.getInt(1));
+        if(resultSet.getObject("tuo_date_time_order") != null)
+            taxiUserOrder.setDateTimeOrder(resultSet.getObject(2,LocalDateTime.class));
+        taxiUserOrder.setIdUser(user);
+        taxiUserOrder.setAddressDeparture(resultSet.getString("tuo_address_departure"));
+        taxiUserOrder.setAddressArrival(resultSet.getString("tuo_address_arrival"));
+        taxiUserOrder.setStartDate(resultSet.getObject("tuo_start_date", LocalDateTime.class));
+        taxiUserOrder.setEndDate(resultSet.getTimestamp("tuo_end_date").toLocalDateTime());
+        taxiUserOrder.setFulfilled(resultSet.getInt("tuo_fulfilled"));
 
         return taxiUserOrder;
     }
