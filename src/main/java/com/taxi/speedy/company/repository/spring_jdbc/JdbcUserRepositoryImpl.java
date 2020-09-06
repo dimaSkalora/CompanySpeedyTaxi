@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 import java.util.*;
 
 @Repository//("jdbcUserRepositoryImpl")
-public class JDBCUserRepositoryImpl implements UserRepository {
+public class JdbcUserRepositoryImpl implements UserRepository {
     //Статический метод фабрики для создания нового BeanPropertyRowMapper (с отображенным классом,
     // указанным только один раз).
     //private static final RowMapper<User> ROW_MAPPER_USER = BeanPropertyRowMapper.newInstance(User.class);
@@ -41,7 +41,7 @@ public class JDBCUserRepositoryImpl implements UserRepository {
     private SimpleJdbcInsert insertUser;
 
     @Autowired
-    public JDBCUserRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public JdbcUserRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.insertUser = new SimpleJdbcInsert(dataSource)
                 //Укажите имя таблицы, которое будет использоваться для вставки.
                 .withTableName("users")

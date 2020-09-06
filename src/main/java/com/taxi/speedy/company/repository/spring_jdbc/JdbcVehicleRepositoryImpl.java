@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Repository/*("jdbcVehicleRepositoryImpl")*/
-public class JDBCVehicleRepositoryImpl implements VehicleRepository {
+public class JdbcVehicleRepositoryImpl implements VehicleRepository {
     //Статический метод фабрики для создания нового BeanPropertyRowMapper (с отображенным классом,
     // указанным только один раз).
     //private static final RowMapper<Vehicle> ROW_MAPPER_VEHICLE = BeanPropertyRowMapper.newInstance(Vehicle.class);
@@ -38,7 +38,7 @@ public class JDBCVehicleRepositoryImpl implements VehicleRepository {
     private SimpleJdbcInsert jdbcInsert;
 
     @Autowired
-    public JDBCVehicleRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public JdbcVehicleRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
             //Укажите имя таблицы, которое будет использоваться для вставки.
             .withTableName("vehicles")
