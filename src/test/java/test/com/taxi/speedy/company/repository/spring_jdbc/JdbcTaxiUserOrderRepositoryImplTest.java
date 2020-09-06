@@ -5,7 +5,7 @@ import com.taxi.speedy.company.model.TaxiUserOrder;
 import com.taxi.speedy.company.model.User;
 import com.taxi.speedy.company.repository.TaxiUserOrderRepository;
 import com.taxi.speedy.company.repository.UserRepository;
-import com.taxi.speedy.company.repository.spring_jdbc.JDBCUserRepositoryImpl;
+import com.taxi.speedy.company.repository.spring_jdbc.JdbcUserRepositoryImpl;
 import com.taxi.speedy.company.repository.spring_jdbc.JdbcTaxiUserOrderRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class JdbcTaxiUserOrderRepositoryImplTest {
     public void setUp(){
         applicationContext = new ClassPathXmlApplicationContext("spring/context.xml");
         taxiUserOrderRepository = applicationContext.getBean(JdbcTaxiUserOrderRepositoryImpl.class);
-        userRepository = applicationContext.getBean(JDBCUserRepositoryImpl.class);
+        userRepository = applicationContext.getBean(JdbcUserRepositoryImpl.class);
     }
 
     @Test

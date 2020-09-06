@@ -1,7 +1,7 @@
 package test.com.taxi.speedy.company.repository.spring_jdbc;
 
 import com.taxi.speedy.company.model.Vehicle;
-import com.taxi.speedy.company.repository.spring_jdbc.JDBCVehicleRepositoryImpl;
+import com.taxi.speedy.company.repository.spring_jdbc.JdbcVehicleRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -12,11 +12,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class JDBCVehicleRepositoryImplTest {
+public class JdbcVehicleRepositoryImplTest {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     private ApplicationContext context = null;
-    private JDBCVehicleRepositoryImpl jdbcVehicleRepositoryImpl = null;
+    private JdbcVehicleRepositoryImpl jdbcVehicleRepositoryImpl = null;
 
     private int vehicleId;
     private Vehicle vehicle;
@@ -24,7 +24,7 @@ public class JDBCVehicleRepositoryImplTest {
     @Before
     public void setUp(){
         context = new ClassPathXmlApplicationContext("spring/context.xml");
-        jdbcVehicleRepositoryImpl = context.getBean(JDBCVehicleRepositoryImpl.class);
+        jdbcVehicleRepositoryImpl = context.getBean(JdbcVehicleRepositoryImpl.class);
     }
 
     @Test

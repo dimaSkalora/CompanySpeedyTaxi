@@ -2,13 +2,12 @@ package test.com.taxi.speedy.company.repository.spring_jdbc;
 
 import com.taxi.speedy.company.model.Role;
 import com.taxi.speedy.company.model.User;
-import com.taxi.speedy.company.repository.spring_jdbc.JDBCUserRepositoryImpl;
+import com.taxi.speedy.company.repository.spring_jdbc.JdbcUserRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,9 +15,9 @@ import java.util.List;
 
 import static com.taxi.speedy.company.model.Role.ROLE_USER;
 
-public class JDBCUserRepositoryImplTest {
+public class JdbcUserRepositoryImplTest {
     private ApplicationContext context = null;
-    private JDBCUserRepositoryImpl jdbcUserRepository = null;
+    private JdbcUserRepositoryImpl jdbcUserRepository = null;
 
     private int userId;
     private User user;
@@ -26,7 +25,7 @@ public class JDBCUserRepositoryImplTest {
     @Before
     public void setUp(){
         context = new ClassPathXmlApplicationContext("spring/context.xml");
-        jdbcUserRepository = (JDBCUserRepositoryImpl) context.getBean("JDBCUserRepositoryImpl");
+        jdbcUserRepository = (JdbcUserRepositoryImpl) context.getBean("JdbcUserRepositoryImpl");
     }
 
     @Test

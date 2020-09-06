@@ -4,7 +4,7 @@ import com.taxi.speedy.company.model.TaxiDispatcher;
 import com.taxi.speedy.company.model.User;
 import com.taxi.speedy.company.repository.TaxiDispatcherRepository;
 import com.taxi.speedy.company.repository.UserRepository;
-import com.taxi.speedy.company.repository.spring_jdbc.JDBCUserRepositoryImpl;
+import com.taxi.speedy.company.repository.spring_jdbc.JdbcUserRepositoryImpl;
 import com.taxi.speedy.company.repository.spring_jdbc.JdbcTaxiDispatcherRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class JdbcTaxiDispatcherRepositoryTest {
     public void setUp(){
         applicationContext = new ClassPathXmlApplicationContext("/spring/context.xml");
         taxiDispatcherRepository = (JdbcTaxiDispatcherRepositoryImpl) applicationContext.getBean("jdbcTaxiDispatcherRepositoryImpl");
-        userRepository = (JDBCUserRepositoryImpl)applicationContext.getBean("JDBCUserRepositoryImpl");
+        userRepository = (JdbcUserRepositoryImpl)applicationContext.getBean("JdbcUserRepositoryImpl");
     }
 
     @Test

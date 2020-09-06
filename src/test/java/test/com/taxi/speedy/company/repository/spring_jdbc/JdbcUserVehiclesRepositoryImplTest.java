@@ -6,8 +6,8 @@ import com.taxi.speedy.company.model.Vehicle;
 import com.taxi.speedy.company.repository.UserRepository;
 import com.taxi.speedy.company.repository.UserVehicleRepository;
 import com.taxi.speedy.company.repository.VehicleRepository;
-import com.taxi.speedy.company.repository.spring_jdbc.JDBCUserRepositoryImpl;
-import com.taxi.speedy.company.repository.spring_jdbc.JDBCVehicleRepositoryImpl;
+import com.taxi.speedy.company.repository.spring_jdbc.JdbcUserRepositoryImpl;
+import com.taxi.speedy.company.repository.spring_jdbc.JdbcVehicleRepositoryImpl;
 import com.taxi.speedy.company.repository.spring_jdbc.JdbcUserVehiclesRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +36,8 @@ public class JdbcUserVehiclesRepositoryImplTest {
     public void setUp(){
         applicationContext = new ClassPathXmlApplicationContext("spring/context.xml");
         userVehicleRepository = (UserVehicleRepository)applicationContext.getBean(JdbcUserVehiclesRepositoryImpl.class);
-        userRepository = applicationContext.getBean(JDBCUserRepositoryImpl.class);
-        vehicleRepository = applicationContext.getBean(JDBCVehicleRepositoryImpl.class);
+        userRepository = applicationContext.getBean(JdbcUserRepositoryImpl.class);
+        vehicleRepository = applicationContext.getBean(JdbcVehicleRepositoryImpl.class);
     }
 
     @Test
