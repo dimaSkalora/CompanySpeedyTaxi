@@ -50,7 +50,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <!--<compilerArgs>&#45;&#45;enable-preview</compilerArgs>-->
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
