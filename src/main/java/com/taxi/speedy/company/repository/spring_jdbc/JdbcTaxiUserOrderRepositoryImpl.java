@@ -38,17 +38,16 @@ public class JdbcTaxiUserOrderRepositoryImpl implements TaxiUserOrderRepository 
     */
     private SimpleJdbcInsert jdbcInsert;
 
-    private final String sqlQuery = """ 
-                select tuo.id as tuo_id, tuo.date_time_order as tuo_date_time_order, tuo.id_user as tuo_id_user,
-                    tuo.address_departure as tuo_address_departure, 
-                    tuo.address_arrival as tuo_address_arrival, tuo.start_date as tuo_start_date,
-                    tuo.end_date as tuo_end_date, tuo.fulfilled as tuo_fulfilled, 
-                    u.id as u_id, u.name as u_name, u.email as u_email,
-                    u.password as u_password, u.phone as u_phone, u.address as u_address,
-                    u.registered as u_registered, u.enabled as u_enabled 
-                from taxi_user_orders tuo 
-                left join users u on tuo.id_user = u.id
-                """;
+    private final String sqlQuery =
+                "select tuo.id as tuo_id, tuo.date_time_order as tuo_date_time_order, tuo.id_user as tuo_id_user,\n"+
+                "    tuo.address_departure as tuo_address_departure, \n"+
+                "    tuo.address_arrival as tuo_address_arrival, tuo.start_date as tuo_start_date,\n"+
+                "    tuo.end_date as tuo_end_date, tuo.fulfilled as tuo_fulfilled,\n"+
+                "    u.id as u_id, u.name as u_name, u.email as u_email,\n"+
+                "    u.password as u_password, u.phone as u_phone, u.address as u_address,\n"+
+                "    u.registered as u_registered, u.enabled as u_enabled\n"+
+                "from taxi_user_orders tuo\n"+
+                "left join users u on tuo.id_user = u.id\n";
 
     @Autowired
     public JdbcTaxiUserOrderRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -63,12 +62,12 @@ public class JdbcTaxiUserOrderRepositoryImpl implements TaxiUserOrderRepository 
 
     @Override
     public TaxiUserOrder save(TaxiUserOrder taxiUserOrder) {
-        final String sqlUpdate = """
-                UPDATE taxi_user_orders set date_time_order=:dateTimeOrder, id_user=:idUser,
-                        address_departure=:addressDeparture, address_arrival=:addressArrival,
-                        start_date=:startDate, end_date=:endDate, fulfilled=:fulfilled
-                where id=:id       
-                """;
+        final String sqlUpdate =
+                "UPDATE taxi_user_orders set date_time_order=:dateTimeOrder, id_user=:idUser,\n"+
+                "        address_departure=:addressDeparture, address_arrival=:addressArrival,\n"+
+                "        start_date=:startDate, end_date=:endDate, fulfilled=:fulfilled\n"+
+                " where id=:id\n";
+
         //Этот класс предназначен для передачи в простой Map значений параметров методам NamedParameterJdbcTemplate класса.
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue("id",taxiUserOrder.getId())
