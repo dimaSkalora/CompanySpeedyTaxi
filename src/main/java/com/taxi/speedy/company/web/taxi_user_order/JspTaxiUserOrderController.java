@@ -28,14 +28,13 @@ public class JspTaxiUserOrderController extends AbstractTaxiUserOrderController{
     }
 
     @RequestMapping(value = "/taxiUserOrder", method = RequestMethod.GET)
-    public ModelAndView taxiUserOrder(){
-        ModelAndView modelAndView = new ModelAndView("taxiUserOrder");
+    public String taxiUserOrder(Model model){
         TaxiUserOrder taxiUserOrder = new TaxiUserOrder();
         taxiUserOrder.setDateTimeOrder(LocalDateTime.now());
-        modelAndView.addObject("taxiUserOrder",taxiUserOrder);
-        modelAndView.addObject("allUsers", super.getAllUsers());
+        model.addAttribute("taxiUserOrder",taxiUserOrder);
+        model.addAttribute("allUsers", super.getAllUsers());
 
-        return modelAndView;
+        return "taxiUserOrder";
     }
 
     @GetMapping("/filter")
