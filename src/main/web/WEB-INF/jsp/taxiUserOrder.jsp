@@ -40,8 +40,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <form:label path="idTaxiDispatcher">
-                                <spring:message code="taxiDispatcherOrder.idTaxiDispatcher"/>
+                            <form:label path="idUser">
+                                <spring:message code="taxiUserOrder.idUser"/>
                             </form:label>
                         </td>
                         <td>
@@ -51,7 +51,7 @@
                                 <%--<form:option  value="${taxiUserOrder.id}" label="${taxiUserOrder.idUser.name }"/>--%>
                                 <%--<form:option  value="" label=""/>--%>
                                 <c:forEach items="${allUsers}" var="user">
-                                    <jsp:useBean id="useruser" scope="page" type="com.taxi.speedy.company.model.User"/>
+                                    <jsp:useBean id="user" scope="page" type="com.taxi.speedy.company.model.User"/>
                                     <form:option  value="${user.id}" label="${user.name}"/>
                                 </c:forEach>
                             </form:select>
