@@ -30,9 +30,13 @@ public class ValidationUtil {
     }
 
     public static void checkNew(HasId bean) {
-        if (!bean.isNew()) {
+        if (!bean.isNew())
             throw new IllegalArgumentException(bean + " must be new (id=null)");
-        }
+    }
+
+    public static void checkNotNew(HasId bean) {
+        if (bean.isNew())
+            throw new IllegalArgumentException(bean + " must be not new (id!=null)");
     }
 
     public static void assureIdConsistent(HasId bean, int id) {
