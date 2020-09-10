@@ -83,6 +83,7 @@ public class JdbcTaxiOrderAcceptanceRepositoryImplTest {
         TaxiDispatcherOrder taxiDispatcherOrder = taxiDispatcherOrderRepository.get(3);
         taxiOrderAcceptance.setIdTaxiDispatcherOrder(taxiDispatcherOrder);
 
+        taxiOrderAcceptanceRepository.save(taxiOrderAcceptance);
         log.info("update {}",taxiOrderAcceptance);
     }
 
