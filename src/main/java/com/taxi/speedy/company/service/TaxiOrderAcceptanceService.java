@@ -6,7 +6,7 @@ import com.taxi.speedy.company.util.exception.NotFoundException;
 import java.util.List;
 
 public interface TaxiOrderAcceptanceService {
-    TaxiOrderAcceptance save(TaxiOrderAcceptance taxiOrderAcceptance);
+    TaxiOrderAcceptance create(TaxiOrderAcceptance taxiOrderAcceptance);
     void update(TaxiOrderAcceptance taxiOrderAcceptance);
     boolean delete(int id) throws NotFoundException;//NotFoundException - Об'экт не обнаружен
     TaxiOrderAcceptance get(int id) throws NotFoundException;//NotFoundException - Об'экт не обнаружен
