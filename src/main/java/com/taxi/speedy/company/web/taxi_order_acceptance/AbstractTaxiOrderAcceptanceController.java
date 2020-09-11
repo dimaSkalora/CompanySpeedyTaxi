@@ -3,6 +3,7 @@ package com.taxi.speedy.company.web.taxi_order_acceptance;
 import com.taxi.speedy.company.model.TaxiDispatcherOrder;
 import com.taxi.speedy.company.model.TaxiOrderAcceptance;
 import com.taxi.speedy.company.model.TaxiUserOrder;
+import com.taxi.speedy.company.model.UserVehicle;
 import com.taxi.speedy.company.service.TaxiDispatcherOrderService;
 import com.taxi.speedy.company.service.TaxiOrderAcceptanceService;
 import com.taxi.speedy.company.service.TaxiUserOrderService;
@@ -67,5 +68,28 @@ public abstract class AbstractTaxiOrderAcceptanceController {
         return taxiOrderAcceptanceService.filterTaxiUserOrder(taxiOrderAcceptance,sqlCondition);
     }
 
+    public UserVehicle getUserVehicle(int idUserVehicle){
+        return userVehicleService.get(idUserVehicle);
+    }
+
+    public List<UserVehicle> getAllUserVehicles(){
+        return userVehicleService.getAll();
+    }
+
+    public TaxiDispatcherOrder getTaxiDispatcherOrder(int idTaxiDispatcherOrder){
+        return taxiDispatcherOrderService.get(idTaxiDispatcherOrder);
+    }
+
+    public List<TaxiDispatcherOrder> getAllTaxiDispatcherOrders(){
+        return taxiDispatcherOrderService.getAll();
+    }
+
+    public TaxiUserOrder getTaxiUserOrder(int idTaxiUserOrder){
+        return taxiUserOrderService.get(idTaxiUserOrder);
+    }
+
+    public List<TaxiUserOrder> getAllTaxiUserOrders(){
+        return taxiUserOrderService.getAll();
+    }
 
 }
