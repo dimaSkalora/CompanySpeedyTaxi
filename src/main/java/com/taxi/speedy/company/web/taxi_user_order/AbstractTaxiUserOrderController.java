@@ -19,14 +19,14 @@ public abstract class AbstractTaxiUserOrderController {
     private UserService userService;
 
     public TaxiUserOrder create(TaxiUserOrder taxiUserOrder){
-        if (taxiUserOrder.isNew())
+        if (!taxiUserOrder.isNew())
             throw new IllegalArgumentException(taxiUserOrder+" должен быть новым (id == null)");
         log.info("create taxiUserOrder {}",taxiUserOrder);
         return taxiUserOrderService.create(taxiUserOrder);
     }
 
     public TaxiUserOrder update(TaxiUserOrder taxiUserOrder){
-        if (!taxiUserOrder.isNew())
+        if (taxiUserOrder.isNew())
             throw new IllegalArgumentException(taxiUserOrder+" должен быть не новым (id != null)");
         log.info("update taxiUserOrder {}"+taxiUserOrder);
         return taxiUserOrderService.update(taxiUserOrder);

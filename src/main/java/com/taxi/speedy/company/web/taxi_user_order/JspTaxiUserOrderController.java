@@ -173,7 +173,9 @@ public class JspTaxiUserOrderController extends AbstractTaxiUserOrderController{
         var endDateFrom = parseLocalDateTime(request.getParameter("endDateFrom"));
         var endDateTo = parseLocalDateTime(request.getParameter("endDateTo"));
 
-        User user = super.getUser(idUser);
+        User user=null;
+        if (idUser != null)
+         user = super.getUser(idUser);
 
         TaxiUserOrder taxiUserOrder = new TaxiUserOrder();
         if (id != null)
