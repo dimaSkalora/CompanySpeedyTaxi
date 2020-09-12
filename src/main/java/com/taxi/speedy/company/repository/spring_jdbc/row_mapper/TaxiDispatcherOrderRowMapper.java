@@ -34,7 +34,7 @@ public class TaxiDispatcherOrderRowMapper implements RowMapper<TaxiDispatcherOrd
         taxiDispatcher.setIdUser(user);
 
         TaxiDispatcherOrder taxiDispatcherOrder = new TaxiDispatcherOrder();
-        taxiDispatcherOrder.setId(resultSet.getInt(1));                         //taxiDispatcherOrder.setId(resultSet.getInt("tdo_id"));
+        taxiDispatcherOrder.setId(resultSet.getInt("tdo_id"));                         //taxiDispatcherOrder.setId(resultSet.getInt(1));
         if (resultSet.getTimestamp("dto_date_time_order") != null)
             taxiDispatcherOrder.setDateTimeOrder(resultSet.getTimestamp("dto_date_time_order").toLocalDateTime());
         //taxiDispatcherOrder.setIdTaxiDispatcher((TaxiDispatcher) resultSet.getObject(3));

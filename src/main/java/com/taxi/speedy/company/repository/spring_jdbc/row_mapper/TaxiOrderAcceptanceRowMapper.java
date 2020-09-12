@@ -31,7 +31,7 @@ public class TaxiOrderAcceptanceRowMapper implements RowMapper<TaxiOrderAcceptan
 
         /*-----------------------TaxiDispatcherOrder-----------------------------*/
         TaxiDispatcherOrder taxiDispatcherOrder = new TaxiDispatcherOrder();
-        taxiDispatcherOrder.setId(resultSet.getInt(1));                         //taxiDispatcherOrder.setId(resultSet.getInt("tdo_id"));
+        taxiDispatcherOrder.setId(resultSet.getInt("tdo_id"));                         //taxiDispatcherOrder.setId(resultSet.getInt(1));
         if (resultSet.getTimestamp("dto_date_time_order") != null)
             taxiDispatcherOrder.setDateTimeOrder(resultSet.getTimestamp("dto_date_time_order").toLocalDateTime());
         taxiDispatcherOrder.setUserName(resultSet.getString("tdo_user_name"));
@@ -48,7 +48,7 @@ public class TaxiOrderAcceptanceRowMapper implements RowMapper<TaxiOrderAcceptan
         TaxiUserOrder taxiUserOrder = new TaxiUserOrder();
         taxiUserOrder.setId(resultSet.getInt("tuo_id"));                       //taxiUserOrder.setId(resultSet.getInt(1));
         if(resultSet.getObject("tuo_date_time_order") != null)
-            taxiUserOrder.setDateTimeOrder(resultSet.getObject(2, LocalDateTime.class));
+            taxiUserOrder.setDateTimeOrder(resultSet.getObject("tuo_date_time_order", LocalDateTime.class));
         taxiUserOrder.setAddressDeparture(resultSet.getString("tuo_address_departure"));
         taxiUserOrder.setAddressArrival(resultSet.getString("tuo_address_arrival"));
         taxiUserOrder.setStartDate(resultSet.getObject("tuo_start_date", LocalDateTime.class));
