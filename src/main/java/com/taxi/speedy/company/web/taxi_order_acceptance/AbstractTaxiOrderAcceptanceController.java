@@ -21,13 +21,13 @@ public abstract class AbstractTaxiOrderAcceptanceController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    TaxiOrderAcceptanceService taxiOrderAcceptanceService;
+    private TaxiOrderAcceptanceService taxiOrderAcceptanceService;
     @Autowired
-    UserVehicleService userVehicleService;
+    private UserVehicleService userVehicleService;
     @Autowired
-    TaxiDispatcherOrderService taxiDispatcherOrderService;
+    private TaxiDispatcherOrderService taxiDispatcherOrderService;
     @Autowired
-    TaxiUserOrderService taxiUserOrderService;
+    private TaxiUserOrderService taxiUserOrderService;
 
     public TaxiOrderAcceptance create(TaxiOrderAcceptance taxiOrderAcceptance){
         checkNew(taxiOrderAcceptance);
@@ -69,7 +69,11 @@ public abstract class AbstractTaxiOrderAcceptanceController {
     }
 
     public UserVehicle getUserVehicle(int idUserVehicle){
-        return userVehicleService.get(idUserVehicle);
+        UserVehicle userVehicle = null;
+        if (idUserVehicle>0)
+            userVehicle = userVehicleService.get(idUserVehicle);
+
+        return userVehicle;
     }
 
     public List<UserVehicle> getAllUserVehicles(){
@@ -77,7 +81,11 @@ public abstract class AbstractTaxiOrderAcceptanceController {
     }
 
     public TaxiDispatcherOrder getTaxiDispatcherOrder(int idTaxiDispatcherOrder){
-        return taxiDispatcherOrderService.get(idTaxiDispatcherOrder);
+        TaxiDispatcherOrder taxiDispatcherOrder = null;
+        if (idTaxiDispatcherOrder > 0)
+            taxiDispatcherOrder = taxiDispatcherOrderService.get(idTaxiDispatcherOrder);
+
+        return taxiDispatcherOrder;
     }
 
     public List<TaxiDispatcherOrder> getAllTaxiDispatcherOrders(){
@@ -85,7 +93,11 @@ public abstract class AbstractTaxiOrderAcceptanceController {
     }
 
     public TaxiUserOrder getTaxiUserOrder(int idTaxiUserOrder){
-        return taxiUserOrderService.get(idTaxiUserOrder);
+        TaxiUserOrder taxiUserOrder = null;
+        if (idTaxiUserOrder > 0)
+            taxiUserOrder = taxiUserOrderService.get(idTaxiUserOrder);
+
+        return taxiUserOrder;
     }
 
     public List<TaxiUserOrder> getAllTaxiUserOrders(){
