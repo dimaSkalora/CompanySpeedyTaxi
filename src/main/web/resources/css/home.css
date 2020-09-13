@@ -423,6 +423,15 @@ body {
 	margin: -130px 0 0 -166px;
 }
 
+.box.taxiOA {
+	height: 500px;
+	width: 400px;
+	position: absolute;
+	left: 40%;
+	top: 30%;
+	margin: -130px 0 0 -166px;
+}
+
 
 .boxBody {
 	background: #fefefe;
@@ -495,6 +504,11 @@ body {
 	left: 20%;
 }
 
+.box.taxiOrderAcceptance_nav_tabs{
+	width: 9000px;
+	position: absolute;
+	left: 20%;
+}
 
 
 .cjComboBox {
