@@ -10,6 +10,33 @@
     <!-- Enables the Spring MVC @Controller programming model (@RequestMapping, @Controller, @RequestBody, @ResponseBody)-->
     <mvc:annotation-driven/>
 
+  <!--  <bean class="com.taxi.speedy.company.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+    -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+          <!--  <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper"/>
+            </bean>-->
+            <!--Добавляем converter для того что бы джейсон отображал руские текст-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+  <!--  <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>-->
+    
+
     <!--объявляет поддержку общих аннотаций , таких как @Resource, @Required, @Autowired, @PostConstruct и так далее.-->
     <context:annotation-config />
 
@@ -39,21 +66,6 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
-
-
-    <mvc:annotation-driven>
-        <mvc:message-converters>
-            <!--Добавляем converter для того что бы джейсон отображал руские текст-->
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/plain;charset=UTF-8</value>
-                        <value>text/html;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
 
     <!--
     Localization (l10n)            -  реализация в коде
