@@ -31,6 +31,9 @@
         <postgresql.version>42.2.2</postgresql.version>
         <org.aspectj-version>1.9.5</org.aspectj-version>
 
+        <!--Json-->
+        <jackson-json.version>2.10.5</jackson-json.version>
+
         <!-- Test -->
         <junit.version>4.13</junit.version>
 
@@ -196,12 +199,39 @@
             <version>1.2</version>
         </dependency>
 
-        <!--Jackson-->
+        <!--JSON-->
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+<!--        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+
+        <!--Jackson-->
+  <!--      <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.13</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
