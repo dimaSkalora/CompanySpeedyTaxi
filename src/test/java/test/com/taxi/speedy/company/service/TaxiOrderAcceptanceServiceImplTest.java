@@ -130,6 +130,12 @@ public class TaxiOrderAcceptanceServiceImplTest {
     }
 
     @Test
+    public void getAll(){
+        log.info("getAll");
+        taxiOrderAcceptanceService.getAll();
+    }
+
+    @Test
     public void filterTaxiUserOrder(){
         taxiOrderAcceptance = new TaxiOrderAcceptance();
         taxiOrderAcceptance.setAdoptionStatus(0);

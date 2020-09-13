@@ -135,6 +135,14 @@ public class JdbcTaxiOrderAcceptanceRepositoryImplTest {
     }
 
     @Test
+    public void getAll(){
+        List<TaxiOrderAcceptance> list = taxiOrderAcceptanceRepository.getAll();
+
+        list.forEach(t ->log.info("getAll {}",t));
+
+    }
+
+    @Test
     public void filterTaxiUserOrder(){
         taxiOrderAcceptance = new TaxiOrderAcceptance();
         taxiOrderAcceptance.setAdoptionStatus(0);
