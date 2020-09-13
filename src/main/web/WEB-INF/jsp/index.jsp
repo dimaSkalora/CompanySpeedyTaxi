@@ -20,6 +20,7 @@
             <li><a href="taxiDispatchers"><spring:message code="app.taxiDispatchers"/></a></li>
             <li><a href="taxiDispatcherOrders"><spring:message code="app.taxiDispatcherOrders"/></a></li>
             <li><a href="taxiUserOrders"><spring:message code="app.taxiUserOrders"/></a></li>
+            <li><a href="taxiOrderAcceptances"><spring:message code="app.taxiOrderAcceptances"/></a></li>
         </ul>
     </div>
 </div>

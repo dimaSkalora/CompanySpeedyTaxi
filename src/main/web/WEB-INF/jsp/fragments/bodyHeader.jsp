@@ -19,6 +19,7 @@
                     <a class="dropdown-item" href="taxiDispatchers"><spring:message code="app.taxiDispatchers"/></a>
                     <a class="dropdown-item" href="taxiDispatcherOrders"><spring:message code="app.taxiDispatcherOrders"/></a>
                     <a class="dropdown-item" href="taxiUserOrders"><spring:message code="app.taxiUserOrders"/></a>
+                    <a class="dropdown-item" href="taxiOrderAcceptances"><spring:message code="app.taxiOrderAcceptances"/></a>
                 </div>
             </li>
         </ul>
