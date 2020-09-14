@@ -6,13 +6,6 @@ public abstract class AbstractBaseEntity implements HasId {
 
     protected Integer id;
 
-    public AbstractBaseEntity() {
-    }
-
-    public AbstractBaseEntity(Integer id) {
-        this.id = id;
-    }
-
     @Override
     public Integer getId() {
         return id;
