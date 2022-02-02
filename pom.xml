@@ -28,7 +28,7 @@
         <hibernate.version>5.4.14.Final</hibernate.version>
 
         <!--DB-->
-        <postgresql.version>42.2.2</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
         <org.aspectj-version>1.9.5</org.aspectj-version>
 
         <!--Json-->
