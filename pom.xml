@@ -32,7 +32,7 @@
         <org.aspectj-version>1.9.5</org.aspectj-version>
 
         <!--Json-->
-        <jackson-json.version>2.10.5</jackson-json.version>
+        <jackson-json.version>2.12.6.1</jackson-json.version>
 
         <!-- Test -->
         <junit.version>4.13</junit.version>
